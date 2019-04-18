@@ -1,0 +1,823 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <!--Основной контейнер-->
+<div class="container" id="main_content">
+
+    <!--Breadcrumbs-->
+    <div class="row">
+       <div class="col-sm-12">
+           <ul class="breadcrumb">
+               <li><a href="#" class="hover_line">Бестселлеры</a></li>
+               <li><a href="#" class="hover_line">Комедии</a></li>
+               <li>{{ name }}</li>
+           </ul>
+       </div>
+   </div>
+    <!--Конец-->
+
+    <!--О фильме-->
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h1 class="movie_title">{{ name }}</h1>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-4">
+            <img src="img/poster_1.png" alt="poster" class="img-responsive poster_movie_page">
+        </div>
+
+        <div class="col-sm-8">
+
+            <div class="metadata">
+                <p>
+                    <strong><span>{{ year }}</span> {% for country in countries.all %}<span>{{ country.name }}</span></strong>
+                    {% endfor %}
+                    <span data-toggle="tooltip" data-placement="top" title="Продолжительность"><i class="fa fa-clock-o"></i>1 ч. 38 мин.</span>
+                    <span data-toggle="tooltip" data-placement="top" title="Количество посмотревших"><i class="fa fa-eye"></i>15 657</span>
+                </p>
+                <p>
+                    {% for genre in genres.all %}
+                        <span>{{ genre.name }}</span>
+                    {% endfor %}
+                </p>
+                <p>
+                    <span data-toggle="tooltip" data-placement="top" title="Рейтинг oc.kg">oc.kg:  8,8</span>
+                    <span data-toggle="tooltip" data-placement="top" title="Рейтинг КиноПоиск">КиноПоиск:  8,6</span>
+                    <span data-toggle="tooltip" data-placement="top" title="Рейтинг IMDb">IMDb:  8,6</span>
+                </p>
+            </div>
+
+            <!--Голосовалка-->
+            <div class="my_rate">
+                <div class="pull-left">
+                    <span class="my_rate_span">Моя оценка: </span>
+                </div>
+                <div class="pull-left">
+                    <div class="rate" data-rate-value=6></div>
+                </div>
+
+                <!--Если уже проголосовал, то показываем этот блок тоже-->
+                <!--<div class="pull-left remove_rating">-->
+                    <!--<button class="btn_blank"  data-toggle="tooltip" data-placement="top" title="Убрать мой рейтинг"><i class="fa fa-times"></i></button>-->
+                <!--</div>-->
+                <!--Конец-->
+
+            </div>
+            <!--Конец-->
+
+            <div class="button_block">
+                <div class="wrapper"><a href="#" class="custom_btn_border big">Смотреть</a></div>
+                <div class="wrapper"><a href="#" class="custom_btn_border">Скачать</a></div>
+                <div class="wrapper"><a href="#" class="custom_btn_border small_padding">В избранное <i class="fa fa-star-o"></i></a></div>
+                <!--<div class="wrapper"><a href="#" class="custom_btn_border">Добавлено <i class="fa fa-star"></i></a></div>-->
+            </div>
+
+            <div class="metadata">
+                <p><span>Режиссер: </span>Дэвид Керр</p>
+                <p><span>В ролях: </span>Роуэн Эткинсон, Ольга Куриленко, Джейк Лэси</p>
+            </div>
+
+            <div class="description">
+                <p>{{ description }}</p>
+            </div>
+
+        </div>
+
+    </div>
+    <!--Конец-->
+
+    <!--Кадры из фильма-->
+    <div class="frames">
+        <div class="row">
+
+            <div class="col-sm-4">
+                <a href="#" class="banner">
+                    <img src="img/banner_200х400.png" alt="banner" class="img-responsive hidden-xs">
+                    <img src="img/mobile_banner.jpg" alt="banner" class="img-responsive visible-xs">
+                </a>
+            </div>
+
+            <div class="col-sm-8">
+
+                <h3 class="h3_with_fa"><i class="fa fa-film"></i>Кадры из фильма</h3>
+
+
+
+                <div id="frames_wrapper">
+                    <div class="row">
+
+                        <!--Для каждого кадра добавляем: -->
+                        <!--для wrapper - data-src="ссылка на полноразмерное из-ие"-->
+                        <!--Для ссылки - style="background-image:url(ссылка на превью)"-->
+
+                        <div class="col-xs-6">
+                            <div class="wrapper" data-src="img/frame_big_1.jpg">
+                                <a href="#" class="s_frame" style="background-image: url(img/frame_1.png)"></a>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-6">
+                            <div class="wrapper" data-src="img/frame_big_2.jpg">
+                                <a href="#" class="s_frame" style="background-image: url(img/frame_2.png)"></a>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-6">
+                            <div class="wrapper" data-src="img/frame_big_1.jpg">
+                                <a href="#" class="s_frame" style="background-image: url(img/frame_3.png)"></a>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-6">
+                            <div class="wrapper" data-src="img/frame_big_4.jpg">
+                                <a href="#" class="s_frame" style="background-image: url(img/frame_4.png)"></a>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Конец-->
+
+    <!--Горизонтальный баннер-->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="banner_hor">
+                <a href="#">
+                    <img src="img/banner_910x90.png" alt="banner" class="img-responsive hidden-xs">
+                    <img src="img/mobile_banner.jpg" alt="banner" class="img-responsive visible-xs">
+                </a>
+            </div>
+        </div>
+    </div>
+    <!--Конец-->
+
+    <!--Отзывы о фильме-->
+    <div class="comments comments_movie_page">
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+                <h3 class="h3_with_fa"><i class="fa fa-comments-o"></i>Отзывы о фильме</h3>
+
+                <!--Комментарий-->
+                <div class="s_comment">
+                    <div class="user_letter">R</div>
+                    <div class="top">
+                        <span><strong>Николай</strong></span>
+                        <span class="date">1 ноября 2088</span>
+                        <span class="comment_rate">
+                            <a href="#" class="comment_up"><i class="fa fa-caret-up"></i></a>
+                            <strong>1</strong>
+                            <a href="#" class="comment_down"><i class="fa fa-caret-down"></i></a>
+                        </span>
+                    </div>
+                    <div class="text">
+                        <p>господи...тупее и бессмысленнее фильма давно не видел</p>
+                    </div>
+                </div>
+                <!--Конец-->
+
+                <!--Комментарий-->
+                <div class="s_comment">
+                    <div class="user_letter">R</div>
+                    <div class="top">
+                        <span><strong>Николай</strong></span>
+                        <span class="date">1 ноября 2088</span>
+                        <span class="comment_rate">
+                            <a href="#" class="comment_up"><i class="fa fa-caret-up"></i></a>
+                            <strong>1</strong>
+                            <a href="#" class="comment_down"><i class="fa fa-caret-down"></i></a>
+                        </span>
+                    </div>
+                    <div class="text">
+                        <p>господи...тупее и бессмысленнее фильма давно не видел</p>
+                    </div>
+                </div>
+                <!--Конец-->
+
+                <!--Комментарий-->
+                <div class="s_comment">
+                    <div class="user_letter">R</div>
+                    <div class="top">
+                        <span><strong>Николай</strong></span>
+                        <span class="date">1 ноября 2088</span>
+                        <span class="comment_rate">
+                            <a href="#" class="comment_up"><i class="fa fa-caret-up"></i></a>
+                            <strong>1</strong>
+                            <a href="#" class="comment_down"><i class="fa fa-caret-down"></i></a>
+                        </span>
+                    </div>
+                    <div class="text">
+                        <p>господи...тупее и бессмысленнее фильма давно не видел</p>
+                    </div>
+                </div>
+                <!--Конец-->
+
+                <!--Комментарий-->
+                <div class="s_comment">
+                    <div class="user_letter">R</div>
+                    <div class="top">
+                        <span><strong>Николай</strong></span>
+                        <span class="date">1 ноября 2088</span>
+                        <span class="comment_rate">
+                            <a href="#" class="comment_up"><i class="fa fa-caret-up"></i></a>
+                            <strong>1</strong>
+                            <a href="#" class="comment_down"><i class="fa fa-caret-down"></i></a>
+                        </span>
+                    </div>
+                    <div class="text">
+                        <p>господи...тупее и бессмысленнее фильма давно не видел</p>
+                    </div>
+                </div>
+                <!--Конец-->
+
+                <div class="hidden_comments">
+
+                    <!--Комментарий-->
+                    <div class="s_comment">
+                        <div class="user_letter">R</div>
+                        <div class="top">
+                            <span><strong>Николай</strong></span>
+                            <span class="date">1 ноября 2088</span>
+                            <span class="comment_rate">
+                            <a href="#" class="comment_up"><i class="fa fa-caret-up"></i></a>
+                            <strong>1</strong>
+                            <a href="#" class="comment_down"><i class="fa fa-caret-down"></i></a>
+                        </span>
+                        </div>
+                        <div class="text">
+                            <p>господи...тупее и бессмысленнее фильма давно не видел</p>
+                        </div>
+                    </div>
+                    <!--Конец-->
+
+                    <!--Комментарий-->
+                    <div class="s_comment">
+                        <div class="user_letter">R</div>
+                        <div class="top">
+                            <span><strong>Николай</strong></span>
+                            <span class="date">1 ноября 2088</span>
+                            <span class="comment_rate">
+                            <a href="#" class="comment_up"><i class="fa fa-caret-up"></i></a>
+                            <strong>1</strong>
+                            <a href="#" class="comment_down"><i class="fa fa-caret-down"></i></a>
+                        </span>
+                        </div>
+                        <div class="text">
+                            <p>господи...тупее и бессмысленнее фильма давно не видел</p>
+                        </div>
+                    </div>
+                    <!--Конец-->
+
+                    <!--Комментарий-->
+                    <div class="s_comment">
+                        <div class="user_letter">R</div>
+                        <div class="top">
+                            <span><strong>Николай</strong></span>
+                            <span class="date">1 ноября 2088</span>
+                            <span class="comment_rate">
+                            <a href="#" class="comment_up"><i class="fa fa-caret-up"></i></a>
+                            <strong>1</strong>
+                            <a href="#" class="comment_down"><i class="fa fa-caret-down"></i></a>
+                        </span>
+                        </div>
+                        <div class="text">
+                            <p>господи...тупее и бессмысленнее фильма давно не видел</p>
+                        </div>
+                    </div>
+                    <!--Конец-->
+
+                </div>
+
+                <div class="show_all_comments">
+                    <button class="btn_blank hover_line" id="show_all_comments_btn">Смотреть все отзывы (7)</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--Конец-->
+
+    <!--Похожие фильмы-->
+    <div class="s_bestseller_slider_row">
+
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+                <h3><i class="fa fa-check"></i>Похожие фильмы</h3>
+            </div>
+        </div>
+
+        <div class="s_bestseller_slider">
+
+            <div class="row">
+
+                <!--Стрелка влево-->
+                <div class="col-sm-1 hidden-xs">
+                    <button class='btn btn-default leftRs' data-slider="bestseller_slider_1"><i
+                            class="fa fa-angle-left"></i></button>
+                </div>
+                <!--Конец-->
+
+                <!--Слайдер-->
+                <div class="col-sm-10">
+
+
+                    <div class="resCarousel" data-items="2,3,4,4" data-slide="1" id="bestseller_slider_1">
+
+                        <div class="resCarousel-inner">
+
+                            <!--Один фильм-->
+                            <div class="item">
+
+                                <!-- Для ссылки внутри каждого фильма в цикле прописываем айдишник вида bestseller_slider_[номер слайдера]_film_[номер фильма]-->
+                                <a href="#" id="bestseller_slider_1_film_1">
+                                    <span class="poster" style="background-image: url(img/f1.png)">
+                                        <span class="helper"><i class="fa fa-play-circle-o"></i></span>
+                                    </span>
+                                    <span class="title">Аксель</span>
+                                </a>
+
+                                <!--Всплывающее описание. Айдишник вида popover_[айди ссылки на фильм]-->
+                                <div id="popover_bestseller_slider_1_film_1" class="popover_custom"
+                                     style="display: none">
+
+                                    <div class="top">
+                                        <button class="btn_blank" title="В избранное"><i class="fa fa-star-o"></i>
+                                        </button>
+                                        <!--<button class="btn_blank in_fav" title="Удалить из избранного"><i class="fa fa-star"></i></button>-->
+                                        <a href="#" class="hover_line info_link">Описание</a>
+                                        <span class="time"><i class="fa fa-clock-o"></i>1 ч. 28 мин.</span>
+                                        <span class="view"><i class="fa fa-eye"></i>15 619</span>
+                                    </div>
+
+                                    <div class="genre">
+                                        <span>Комедия</span>
+                                        <span>Боевик</span>
+                                        <span>Приключения</span>
+                                    </div>
+
+                                    <div class="year">
+                                        <span>2018</span>
+                                        <span>Франция</span>
+                                        <span>Великобритания</span>
+                                        <span>США</span>
+                                    </div>
+
+                                    <div class="info">
+                                        <p>
+                                            <span>Рейтинги:</span>
+                                            <span>oc.kg: 8,8</span>
+                                            <span>КиноПоиск: 8,6</span>
+                                            <span>IMDb: 8,6</span>
+                                        </p>
+                                        <p>
+                                            <span>Режиссер:</span>
+                                            <span>Оливер Дэйли</span>
+                                        </p>
+                                        <p>
+                                            <span>В ролях:</span>
+                                            <span>Роуэн Эткинсон, Ольга Куриленко, Джейк Лэси</span>
+                                        </p>
+                                    </div>
+
+                                    <div class="excerpt">
+                                        <p>Когда все агенты секретной службы Её Величества внезапно
+                                            выходят из строя, в игру вступает запасной вариант. Образец
+                                            английского стиля и любимец роковых красоток; король
+                                            безвыходных ситуаций и хранитель аналоговых традиций
+                                            в цифровом мире, агент Джонни Инглиш.</p>
+                                    </div>
+
+
+                                </div>
+                                <!--Конец-->
+
+                            </div>
+                            <!--Конец-->
+
+                            <!--Один фильм-->
+                            <div class="item">
+
+                                <a href="#" data-film_number_in_slider="2" id="bestseller_slider_1_film_2">
+                                    <span class="poster" style="background-image: url(img/f2.png)">
+                                        <span class="helper"><i class="fa fa-play-circle-o"></i></span>
+                                    </span>
+                                    <span class="title">Веном</span>
+                                </a>
+
+                                <!--Всплывающее описание. Айдишник вида popover_[айди ссылки на фильм]-->
+                                <div id="popover_bestseller_slider_1_film_2" class="popover_custom"
+                                     style="display: none">
+
+                                    <div class="top">
+                                        <button class="btn_blank" title="В избранное"><i class="fa fa-star-o"></i>
+                                        </button>
+                                        <!--<button class="btn_blank in_fav" title="Удалить из избранного"><i class="fa fa-star"></i></button>-->
+                                        <a href="#" class="hover_line info_link">Описание</a>
+                                        <span class="time"><i class="fa fa-clock-o"></i>1 ч. 28 мин.</span>
+                                        <span class="view"><i class="fa fa-eye"></i>15 619</span>
+                                    </div>
+
+                                    <div class="genre">
+                                        <span>Комедия</span>
+                                        <span>Боевик</span>
+                                        <span>Приключения</span>
+                                    </div>
+
+                                    <div class="year">
+                                        <span>2018</span>
+                                        <span>Франция</span>
+                                        <span>Великобритания</span>
+                                        <span>США</span>
+                                    </div>
+
+                                    <div class="info">
+                                        <p>
+                                            <span>Рейтинги:</span>
+                                            <span>oc.kg: 8,8</span>
+                                            <span>КиноПоиск: 8,6</span>
+                                            <span>IMDb: 8,6</span>
+                                        </p>
+                                        <p>
+                                            <span>Режиссер:</span>
+                                            <span>Оливер Дэйли</span>
+                                        </p>
+                                        <p>
+                                            <span>В ролях:</span>
+                                            <span>Роуэн Эткинсон, Ольга Куриленко, Джейк Лэси</span>
+                                        </p>
+                                    </div>
+
+                                    <div class="excerpt">
+                                        <p>Когда все агенты секретной службы Её Величества внезапно
+                                            выходят из строя, в игру вступает запасной вариант. Образец
+                                            английского стиля и любимец роковых красоток; король
+                                            безвыходных ситуаций и хранитель аналоговых традиций
+                                            в цифровом мире, агент Джонни Инглиш.</p>
+                                    </div>
+
+
+                                </div>
+                                <!--Конец-->
+
+                            </div>
+                            <!--Конец-->
+
+                            <!--Один фильм-->
+                            <div class="item">
+                                <a href="#" data-film_number_in_slider="3" id="bestseller_slider_1_film_3">
+                                    <span class="poster" style="background-image: url(img/f3.png)">
+                                        <span class="helper"><i class="fa fa-play-circle-o"></i></span>
+                                    </span>
+                                    <span class="title">Птичий короб</span>
+                                </a>
+
+                                <!--Всплывающее описание. Айдишник вида popover_[айди ссылки на фильм]-->
+                                <div id="popover_bestseller_slider_1_film_3" class="popover_custom"
+                                     style="display: none">
+
+                                    <div class="top">
+                                        <button class="btn_blank" title="В избранное"><i class="fa fa-star-o"></i>
+                                        </button>
+                                        <!--<button class="btn_blank in_fav" title="Удалить из избранного"><i class="fa fa-star"></i></button>-->
+                                        <a href="#" class="hover_line info_link">Описание</a>
+                                        <span class="time"><i class="fa fa-clock-o"></i>1 ч. 28 мин.</span>
+                                        <span class="view"><i class="fa fa-eye"></i>15 619</span>
+                                    </div>
+
+                                    <div class="genre">
+                                        <span>Комедия</span>
+                                        <span>Боевик</span>
+                                        <span>Приключения</span>
+                                    </div>
+
+                                    <div class="year">
+                                        <span>2018</span>
+                                        <span>Франция</span>
+                                        <span>Великобритания</span>
+                                        <span>США</span>
+                                    </div>
+
+                                    <div class="info">
+                                        <p>
+                                            <span>Рейтинги:</span>
+                                            <span>oc.kg: 8,8</span>
+                                            <span>КиноПоиск: 8,6</span>
+                                            <span>IMDb: 8,6</span>
+                                        </p>
+                                        <p>
+                                            <span>Режиссер:</span>
+                                            <span>Оливер Дэйли</span>
+                                        </p>
+                                        <p>
+                                            <span>В ролях:</span>
+                                            <span>Роуэн Эткинсон, Ольга Куриленко, Джейк Лэси</span>
+                                        </p>
+                                    </div>
+
+                                    <div class="excerpt">
+                                        <p>Когда все агенты секретной службы Её Величества внезапно
+                                            выходят из строя, в игру вступает запасной вариант. Образец
+                                            английского стиля и любимец роковых красоток; король
+                                            безвыходных ситуаций и хранитель аналоговых традиций
+                                            в цифровом мире, агент Джонни Инглиш.</p>
+                                    </div>
+
+
+                                </div>
+                                <!--Конец-->
+
+                            </div>
+                            <!--Конец-->
+
+                            <!--Один фильм-->
+                            <div class="item">
+                                <a href="#" data-film_number_in_slider="4" id="bestseller_slider_1_film_4">
+                                    <span class="poster" style="background-image: url(img/f4.png)">
+                                        <span class="helper"><i class="fa fa-play-circle-o"></i></span>
+                                    </span>
+                                    <span class="title">Мстители 3: Война бесконечности</span>
+                                </a>
+
+                                <!--Всплывающее описание. Айдишник вида popover_[айди ссылки на фильм]-->
+                                <div id="popover_bestseller_slider_1_film_4" class="popover_custom"
+                                     style="display: none">
+
+                                    <div class="top">
+                                        <button class="btn_blank" title="В избранное"><i class="fa fa-star-o"></i>
+                                        </button>
+                                        <!--<button class="btn_blank in_fav" title="Удалить из избранного"><i class="fa fa-star"></i></button>-->
+                                        <a href="#" class="hover_line info_link">Описание</a>
+                                        <span class="time"><i class="fa fa-clock-o"></i>1 ч. 28 мин.</span>
+                                        <span class="view"><i class="fa fa-eye"></i>15 619</span>
+                                    </div>
+
+                                    <div class="genre">
+                                        <span>Комедия</span>
+                                        <span>Боевик</span>
+                                        <span>Приключения</span>
+                                    </div>
+
+                                    <div class="year">
+                                        <span>2018</span>
+                                        <span>Франция</span>
+                                        <span>Великобритания</span>
+                                        <span>США</span>
+                                    </div>
+
+                                    <div class="info">
+                                        <p>
+                                            <span>Рейтинги:</span>
+                                            <span>oc.kg: 8,8</span>
+                                            <span>КиноПоиск: 8,6</span>
+                                            <span>IMDb: 8,6</span>
+                                        </p>
+                                        <p>
+                                            <span>Режиссер:</span>
+                                            <span>Оливер Дэйли</span>
+                                        </p>
+                                        <p>
+                                            <span>В ролях:</span>
+                                            <span>Роуэн Эткинсон, Ольга Куриленко, Джейк Лэси</span>
+                                        </p>
+                                    </div>
+
+                                    <div class="excerpt">
+                                        <p>Когда все агенты секретной службы Её Величества внезапно
+                                            выходят из строя, в игру вступает запасной вариант. Образец
+                                            английского стиля и любимец роковых красоток; король
+                                            безвыходных ситуаций и хранитель аналоговых традиций
+                                            в цифровом мире, агент Джонни Инглиш.</p>
+                                    </div>
+
+
+                                </div>
+                                <!--Конец-->
+
+                            </div>
+                            <!--Конец-->
+
+                            <!--Один фильм-->
+                            <div class="item">
+                                <a href="#" data-film_number_in_slider="5" id="bestseller_slider_1_film_5">
+                                    <span class="poster" style="background-image: url(img/f5.png)">
+                                        <span class="helper"><i class="fa fa-play-circle-o"></i></span>
+                                    </span>
+                                    <span class="title">Агент Джонни Инглиш 3.0</span>
+                                </a>
+
+                                <!--Всплывающее описание. Айдишник вида popover_[айди ссылки на фильм]-->
+                                <div id="popover_bestseller_slider_1_film_5" class="popover_custom"
+                                     style="display: none">
+
+                                    <div class="top">
+                                        <button class="btn_blank" title="В избранное"><i class="fa fa-star-o"></i>
+                                        </button>
+                                        <!--<button class="btn_blank in_fav" title="Удалить из избранного"><i class="fa fa-star"></i></button>-->
+                                        <a href="#" class="hover_line info_link">Описание</a>
+                                        <span class="time"><i class="fa fa-clock-o"></i>1 ч. 28 мин.</span>
+                                        <span class="view"><i class="fa fa-eye"></i>15 619</span>
+                                    </div>
+
+                                    <div class="genre">
+                                        <span>Комедия</span>
+                                        <span>Боевик</span>
+                                        <span>Приключения</span>
+                                    </div>
+
+                                    <div class="year">
+                                        <span>2018</span>
+                                        <span>Франция</span>
+                                        <span>Великобритания</span>
+                                        <span>США</span>
+                                    </div>
+
+                                    <div class="info">
+                                        <p>
+                                            <span>Рейтинги:</span>
+                                            <span>oc.kg: 8,8</span>
+                                            <span>КиноПоиск: 8,6</span>
+                                            <span>IMDb: 8,6</span>
+                                        </p>
+                                        <p>
+                                            <span>Режиссер:</span>
+                                            <span>Оливер Дэйли</span>
+                                        </p>
+                                        <p>
+                                            <span>В ролях:</span>
+                                            <span>Роуэн Эткинсон, Ольга Куриленко, Джейк Лэси</span>
+                                        </p>
+                                    </div>
+
+                                    <div class="excerpt">
+                                        <p>Когда все агенты секретной службы Её Величества внезапно
+                                            выходят из строя, в игру вступает запасной вариант. Образец
+                                            английского стиля и любимец роковых красоток; король
+                                            безвыходных ситуаций и хранитель аналоговых традиций
+                                            в цифровом мире, агент Джонни Инглиш.</p>
+                                    </div>
+
+
+                                </div>
+                                <!--Конец-->
+
+                            </div>
+                            <!--Конец-->
+
+                            <!--Один фильм-->
+                            <div class="item">
+                                <a href="#" data-film_number_in_slider="6" id="bestseller_slider_1_film_6">
+                                    <span class="poster" style="background-image: url(img/f6.png)">
+                                        <span class="helper"><i class="fa fa-play-circle-o"></i></span>
+                                    </span>
+                                    <span class="title">Всё или ничего</span>
+                                </a>
+
+                                <!--Всплывающее описание. Айдишник вида popover_[айди ссылки на фильм]-->
+                                <div id="popover_bestseller_slider_1_film_6" class="popover_custom"
+                                     style="display: none">
+
+                                    <div class="top">
+                                        <button class="btn_blank" title="В избранное"><i class="fa fa-star-o"></i>
+                                        </button>
+                                        <!--<button class="btn_blank in_fav" title="Удалить из избранного"><i class="fa fa-star"></i></button>-->
+                                        <a href="#" class="hover_line info_link">Описание</a>
+                                        <span class="time"><i class="fa fa-clock-o"></i>1 ч. 28 мин.</span>
+                                        <span class="view"><i class="fa fa-eye"></i>15 619</span>
+                                    </div>
+
+                                    <div class="genre">
+                                        <span>Комедия</span>
+                                        <span>Боевик</span>
+                                        <span>Приключения</span>
+                                    </div>
+
+                                    <div class="year">
+                                        <span>2018</span>
+                                        <span>Франция</span>
+                                        <span>Великобритания</span>
+                                        <span>США</span>
+                                    </div>
+
+                                    <div class="info">
+                                        <p>
+                                            <span>Рейтинги:</span>
+                                            <span>oc.kg: 8,8</span>
+                                            <span>КиноПоиск: 8,6</span>
+                                            <span>IMDb: 8,6</span>
+                                        </p>
+                                        <p>
+                                            <span>Режиссер:</span>
+                                            <span>Оливер Дэйли</span>
+                                        </p>
+                                        <p>
+                                            <span>В ролях:</span>
+                                            <span>Роуэн Эткинсон, Ольга Куриленко, Джейк Лэси</span>
+                                        </p>
+                                    </div>
+
+                                    <div class="excerpt">
+                                        <p>Когда все агенты секретной службы Её Величества внезапно
+                                            выходят из строя, в игру вступает запасной вариант. Образец
+                                            английского стиля и любимец роковых красоток; король
+                                            безвыходных ситуаций и хранитель аналоговых традиций
+                                            в цифровом мире, агент Джонни Инглиш.</p>
+                                    </div>
+
+
+                                </div>
+                                <!--Конец-->
+
+                            </div>
+                            <!--Конец-->
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <!--Конец-->
+
+                <!--Стрелка вправо-->
+                <div class="col-sm-1 hidden-xs">
+                    <button class='btn btn-default rightRs' data-slider="bestseller_slider_1"><i
+                            class="fa fa-angle-right"></i></button>
+                </div>
+                <!--Конец-->
+
+            </div>
+
+        </div>
+
+
+    </div>
+    <!--Конец-->
+
+</div>
+<!--Конец-->
+!--Подключаем слайдер с фильмами-->
+<script src="js/resCarousel.min.js"></script>
+<!--Конец-->
+
+<!--Скрипт для popover-->
+<script src="js/tippy.all.min.js"></script>
+<script>
+
+    function initialize_popper(obj) {
+        var element = '#' + $(obj).attr('id');
+        var template = document.getElementById('popover_' + $(obj).attr('id'));
+
+        try {
+            tippy(
+                element,
+                {
+                    content: template.innerHTML,
+                    placement: "right-end",
+                    flipBehavior: ["right", "left"],
+                    interactive: true,
+                    animateFill: false,
+
+                    // boundary: $('#catalog_film_3'),
+                    theme: 'praktikanto',
+                    onMount({reference}) {
+                        reference.setAttribute('aria-expanded', 'true');
+                        $(element).find('.helper').toggle('fade', {direction: "right"}, 100);
+                    },
+                    onHide({reference}) {
+                        reference.setAttribute('aria-expanded', 'false');
+                        $(element).find('.helper').toggle('fade', {direction: "right"}, 100);
+                    },
+                },
+            )
+
+        } catch (err) {
+
+            console.log(err)
+
+        }
+    }
+
+    $(document).ready(function () {
+        $('a[id^=bestseller_slider]').each(function () {
+
+            initialize_popper($(this));
+
+        });
+
+        $('a[id^=catalog_film_]').each(function () {
+
+            initialize_popper($(this));
+
+        });
+    });
+</script>
+<!--Конец-->
+
+{% endblock %}
