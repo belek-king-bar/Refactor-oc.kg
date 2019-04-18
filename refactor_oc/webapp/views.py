@@ -4,6 +4,8 @@ from webapp.models import Person
 
 class MovieDetailView(DetailView):
     template_name = 'movie_detail.html'
+from django.shortcuts import render, get_object_or_404, redirect
+from webapp.models import Movies #TODO нужны модели
 
     def get(self, request, *args, **kwargs):
         context = {
@@ -20,3 +22,9 @@ class MovieDetailView(DetailView):
 class ActorDetailView(DetailView):
     model = Person
     template_name = 'actor.html'
+
+def Favorites_view(request):
+    movie = Movies.objects.all()
+    return render(request, 'favorite_view.html', context={
+        'movies':movie
+    })
