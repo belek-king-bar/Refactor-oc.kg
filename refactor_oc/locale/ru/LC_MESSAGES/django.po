@@ -22,121 +22,121 @@ msgstr ""
 
 #: webapp/templates/base.html:37 webapp/templates/base.html:175
 msgid "Bestsellers"
-msgstr ""
+msgstr "Бестселлеры"
 
 #: webapp/templates/base.html:38 webapp/templates/base.html:176
 msgid "Catalog"
-msgstr ""
+msgstr "Каталог"
 
 #: webapp/templates/base.html:39 webapp/templates/base.html:177
 #: webapp/templates/base.html:178 webapp/templates/base.html:273
 msgid "Collections"
-msgstr ""
+msgstr "Подборки"
 
 #: webapp/templates/base.html:40
 msgid "Orders"
-msgstr ""
+msgstr "Заказы"
 
 #: webapp/templates/base.html:41
 msgid "TV series"
-msgstr ""
+msgstr "Сериалы"
 
 #: webapp/templates/base.html:59 webapp/templates/base.html:230
 msgid "Action"
-msgstr ""
+msgstr "Действие"
 
 #: webapp/templates/base.html:60 webapp/templates/base.html:231
 msgid "Other Action"
-msgstr ""
+msgstr "Другое действие"
 
 #: webapp/templates/base.html:61 webapp/templates/base.html:232
 msgid "Something Else"
-msgstr ""
+msgstr "Что-то еще"
 
 #: webapp/templates/base.html:62 webapp/templates/base.html:233
 msgid "Separate link"
-msgstr ""
+msgstr "Отдельная ссылка"
 
 #: webapp/templates/base.html:90 webapp/templates/base.html:217
 msgid "Recent views"
-msgstr ""
+msgstr "Недавние просмотры"
 
 #: webapp/templates/base.html:93 webapp/templates/base.html:220
 msgid "My favorites"
-msgstr ""
+msgstr "Мое избранное"
 
 #: webapp/templates/base.html:96 webapp/templates/base.html:223
 msgid "Logout"
-msgstr ""
+msgstr "Выход"
 
 #: webapp/templates/base.html:131
 msgid "All results for"
-msgstr ""
+msgstr "Все результаты для"
 
 #: webapp/templates/base.html:179 webapp/templates/base.html:286
 msgid "TV serials"
-msgstr ""
+msgstr "Сериалы"
 
 #: webapp/templates/base.html:265
 msgid "Sections"
-msgstr ""
+msgstr "Разделы"
 
 #: webapp/templates/base.html:274
 msgid "Fantasy"
-msgstr ""
+msgstr "Фантастика"
 
 #: webapp/templates/base.html:275
 msgid "Comedy"
-msgstr ""
+msgstr "Комедия"
 
 #: webapp/templates/base.html:276
 msgid "Drama / Romance"
-msgstr ""
+msgstr "Драма / Мелодрама"
 
 #: webapp/templates/base.html:277 webapp/templates/base.html:288
 msgid "Cartoons"
-msgstr ""
+msgstr "Мультфильмы"
 
 #: webapp/templates/base.html:278
 msgid "Action movies"
-msgstr ""
+msgstr "Боевики"
 
 #: webapp/templates/base.html:284
 msgid "Horrors"
-msgstr ""
+msgstr "Ужасы"
 
 #: webapp/templates/base.html:285
 msgid "Detectives / Thrillers"
-msgstr ""
+msgstr "Детективы / триллеры"
 
 #: webapp/templates/base.html:287
 msgid "Anime"
-msgstr ""
+msgstr "Аниме"
 
 #: webapp/templates/base.html:289
 msgid "Documentary"
-msgstr ""
+msgstr "Документальные"
 
 #: webapp/templates/base.html:298
 msgid "Copyright Holders"
-msgstr ""
+msgstr "Правообладателям"
 
 #: webapp/templates/base.html:299
 msgid "Advertising on the website"
-msgstr ""
+msgstr "Реклама на сайте"
 
 #: webapp/templates/base.html:300
 msgid "Settings"
-msgstr ""
+msgstr "Настройки"
 
 #: webapp/templates/base.html:301
 msgid "Statistics"
-msgstr ""
+msgstr "Статистика"
 
 #: webapp/templates/base.html:302
 msgid "Order table"
-msgstr ""
+msgstr "Стол заказов"
 
 #: webapp/templates/base.html:303
 msgid "Forum"
-msgstr ""
+msgstr "Форум"
