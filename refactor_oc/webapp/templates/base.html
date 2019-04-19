@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +17,7 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
 </head>
-<body style="background: url(../static/img/bg.jpg);">
+<body style="background: url({{ banner.photo.url }});">
     <!--Десктопное меню-->
     <div id="desktop_menu" class="hidden-xs">
         <div class="container">
@@ -25,7 +26,7 @@
                 <!--Логотип-->
                 <div class="col-sm-2">
                     <a href="#">
-                        <img src="../static/img/logo.svg" alt="logo" class="img-responsive" id="top_logo">
+                        <img src="{{ logo.photo.url }}" alt="logo" class="img-responsive" id="top_logo">
                     </a>
                 </div>
                 <!--Конец-->
@@ -33,11 +34,11 @@
                 <!--Основное меню-->
                 <div class="col-sm-7 col-md-8">
                     <ul class="list-unstyled list-inline main_menu" id="main_menu">
-                        <li class="active"><a href="#" class="hover_line">Бестселеры</a></li>
-                        <li><a href="#" class="hover_line">Каталог</a></li>
-                        <li><a href="#" class="hover_line">Подборки</a></li>
-                        <li><a href="#" class="hover_line">Заказы</a></li>
-                        <li><a href="#" class="hover_line">Сериалы</a></li>
+                        <li class="active"><a href="#" class="hover_line">{% trans "Bestsellers" %}</a></li>
+                        <li><a href="#" class="hover_line">{% trans "Catalog" %}</a></li>
+                        <li><a href="#" class="hover_line">{% trans "Collections" %}</a></li>
+                        <li><a href="#" class="hover_line">{% trans "Orders" %}</a></li>
+                        <li><a href="#" class="hover_line">{% trans "TV series" %}</a></li>
                     </ul>
                 </div>
                 <!--Конец-->
@@ -55,10 +56,10 @@
                             </a>
 
                             <ul class="dropdown-menu">
-                                <li><a href="#" class="hover_line_span"><span>Действие</span></a></li>
-                                <li><a href="#" class="hover_line_span"><span>Другое действие</span></a></li>
-                                <li><a href="#" class="hover_line_span"><span>Что-то еще</span></a></li>
-                                <li><a href="#" class="hover_line_span"><span>Отдельная ссылка</span></a></li>
+                                <li><a href="#" class="hover_line_span"><span>{% trans "Action" %}</span></a></li>
+                                <li><a href="#" class="hover_line_span"><span>{% trans "Other Action" %}</span></a></li>
+                                <li><a href="#" class="hover_line_span"><span>{% trans "Something Else" %}</span></a></li>
+                                <li><a href="#" class="hover_line_span"><span>{% trans "Separate link" %}</span></a></li>
                             </ul>
 
                         </li>
@@ -86,13 +87,13 @@
                                 </li>
 
                                 <li>
-                                    <a href="#" class="hover_line_span"><i class="fa fa-eye"></i><span>Недавние просмотры</span></a>
+                                    <a href="#" class="hover_line_span"><i class="fa fa-eye"></i><span>{% trans "Recent views" %}</span></a>
                                 </li>
                                 <li>
-                                    <a href="#" class="hover_line_span"><i class="fa fa-star-o"></i><span>Мое избранное</span></a>
+                                    <a href="#" class="hover_line_span"><i class="fa fa-star-o"></i><span>{% trans "My favorites" %}</span></a>
                                 </li>
                                 <li>
-                                    <a href="#" class="hover_line_span"><i class="fa fa-sign-out"></i><span>Выход</span></a>
+                                    <a href="#" class="hover_line_span"><i class="fa fa-sign-out"></i><span>{% trans "Logout" %}</span></a>
                                 </li>
                             </ul>
                             <!--Конец-->
@@ -127,7 +128,7 @@
                                     </span>
                                     </a>
 
-                                    <div><a href="#" class="all_res">Все результаты для <i>бла-бла-бла</i> <i
+                                    <div><a href="#" class="all_res">{% trans "All results for" %} <i>бла-бла-бла</i> <i
                                             class="fa fa-long-arrow-right"></i></a></div>
 
                                 </div>
@@ -171,11 +172,11 @@
 
             <div id="mobile_menu_main" class="s_mobile_menu">
                 <ul class="list-unstyled">
-                    <li class="active"><a href="#">Бестселеры</a></li>
-                    <li><a href="#">Каталог</a></li>
-                    <li><a href="#">Подборки</a></li>
-                    <li><a href="#">Заказы</a></li>
-                    <li><a href="#">Сериалы</a></li>
+                    <li class="active"><a href="#">{% trans "Bestsellers" %}</a></li>
+                    <li><a href="#">{% trans "Catalog" %}</a></li>
+                    <li><a href="#">{% trans "Collections" %}</a></li>
+                    <li><a href="#">{% trans "Collections" %}</a></li>
+                    <li><a href="#">{% trans "TV serials" %}</a></li>
                 </ul>
             </div>
 
@@ -213,23 +214,23 @@
                         </div>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-eye"></i><span>Недавние просмотры</span></a>
+                        <a href="#"><i class="fa fa-eye"></i><span>{% trans "Recent views" %}</span></a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-star-o"></i><span>Мое избранное</span></a>
+                        <a href="#"><i class="fa fa-star-o"></i><span>{% trans "My favorites" %}</span></a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-sign-out"></i><span>Выход</span></a>
+                        <a href="#"><i class="fa fa-sign-out"></i><span>{% trans "Logout" %}</span></a>
                     </li>
                 </ul>
             </div>
 
             <div id="mobile_menu_info" class="s_mobile_menu">
                 <ul class="list-unstyled">
-                    <li><a href="#">Действие</a></li>
-                    <li><a href="#">Другое действие</a></li>
-                    <li><a href="#">Что-то еще</a></li>
-                    <li><a href="#">Отдельная ссылка</a></li>
+                    <li><a href="#">{% trans "Action" %}</a></li>
+                    <li><a href="#">{% trans "Other Action" %}</a></li>
+                    <li><a href="#">{% trans "Something Else" %}</a></li>
+                    <li><a href="#">{% trans "Separate link" %}</a></li>
                 </ul>
             </div>
 
@@ -249,7 +250,7 @@
 
     <!--Мобильное брендирование-->
     <div class="visible-xs" id="mobile_brand">
-        <a href="#"><img src="../static/img/mobile_bg.png" alt="ads" class="img-responsive"></a>
+        <a href="#"><img src="{{ mobile_bg.url }}" alt="ads" class="img-responsive"></a>
     </div>
     <!--Конец-->
 
@@ -261,7 +262,7 @@
             <div class="col-sm-6 col-sm-offset-1">
                 <div class="row">
                     <div class="col-sm-12">
-                        <h3><a href="#" class="hover_line">Разделы</a></h3>
+                        <h3><a href="#" class="hover_line">{% trans "Sections" %}</a></h3>
                     </div>
                 </div>
 
@@ -269,23 +270,23 @@
 
                     <div class="col-sm-6">
                         <ul class="list-unstyled">
-                            <li><a href="#" class="hover_line">Подборки</a></li>
-                            <li><a href="#" class="hover_line">Фантастика/фэнтези</a></li>
-                            <li><a href="#" class="hover_line">Комедии</a></li>
-                            <li><a href="#" class="hover_line">Драмы/мелодрамы</a></li>
-                            <li><a href="#" class="hover_line">Мультфильмы</a></li>
-                            <li><a href="#" class="hover_line">Боевики</a></li>
+                            <li><a href="#" class="hover_line">{% trans "Collections" %}</a></li>
+                            <li><a href="#" class="hover_line">{% trans "Fantasy" %}</a></li>
+                            <li><a href="#" class="hover_line">{% trans "Comedy" %}</a></li>
+                            <li><a href="#" class="hover_line">{% trans "Drama / Romance" %}</a></li>
+                            <li><a href="#" class="hover_line">{% trans "Cartoons" %}</a></li>
+                            <li><a href="#" class="hover_line">{% trans "Action movies" %}</a></li>
                         </ul>
                     </div>
 
                     <div class="col-sm-6">
                         <ul class="list-unstyled">
-                            <li><a href="#" class="hover_line">Ужасы</a></li>
-                            <li><a href="#" class="hover_line">Детективы/триллеры</a></li>
-                            <li><a href="#" class="hover_line">Сериалы</a></li>
-                            <li><a href="#" class="hover_line">Аниме</a></li>
-                            <li><a href="#" class="hover_line">Мультфильмы</a></li>
-                            <li><a href="#" class="hover_line">Документальные</a></li>
+                            <li><a href="#" class="hover_line">{% trans "Horrors" %}</a></li>
+                            <li><a href="#" class="hover_line">{% trans "Detectives / Thrillers" %}</a></li>
+                            <li><a href="#" class="hover_line">{% trans "TV serials" %}</a></li>
+                            <li><a href="#" class="hover_line">{% trans "Anime" %}</a></li>
+                            <li><a href="#" class="hover_line">{% trans "Cartoons" %}</a></li>
+                            <li><a href="#" class="hover_line">{% trans "Documentary" %}</a></li>
                         </ul>
                     </div>
 
@@ -294,12 +295,12 @@
 
             <div class="col-sm-3 col-sm-offset-1">
                 <ul class="list-unstyled menu_other">
-                    <li><a href="#" class="hover_line">Правообладателям</a></li>
-                    <li><a href="#" class="hover_line">Реклама на сайте</a></li>
-                    <li><a href="#" class="hover_line">Настройки</a></li>
-                    <li><a href="#" class="hover_line">Статистика</a></li>
-                    <li><a href="#" class="hover_line">Стол заказов</a></li>
-                    <li><a href="#" class="hover_line">Форум</a></li>
+                    <li><a href="#" class="hover_line">{% trans "Copyright Holders" %}</a></li>
+                    <li><a href="#" class="hover_line">{% trans "Advertising on the website" %}</a></li>
+                    <li><a href="#" class="hover_line">{% trans "Settings" %}</a></li>
+                    <li><a href="#" class="hover_line">{% trans "Statistics" %}</a></li>
+                    <li><a href="#" class="hover_line">{% trans "Order table" %}</a></li>
+                    <li><a href="#" class="hover_line">{% trans "Forum" %}</a></li>
                 </ul>
             </div>
 
@@ -308,7 +309,7 @@
         <div class="row copyright">
 
             <div class="col-sm-3 col-sm-offset-1 hidden-xs">
-                <a href="#"><img src="../static/img/logo.svg" alt="logo" class="img-responsive" id="bottom_logo"></a>
+                <a href="#"><img src={{ logo.photo.url }} alt="logo" class="img-responsive" id="bottom_logo"></a>
             </div>
 
             <div class="col-sm-4 text-center hidden-xs">
