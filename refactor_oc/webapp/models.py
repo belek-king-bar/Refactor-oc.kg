@@ -23,16 +23,6 @@ class OCUser(models.Model):
         db_table = 'users'
 
 
-class Bestseller(models.Model):
-    category_id = models.IntegerField(primary_key=True)
-    name = models.CharField(max_length=255)
-    movies = models.TextField()
-    rank = models.IntegerField()
-
-    class Meta:
-        db_table = 'bestsellers'
-
-
 class Check(models.Model):
     user_id = models.IntegerField(primary_key=True)
     code = models.CharField(max_length=70)
@@ -44,7 +34,7 @@ class Check(models.Model):
 
 class Comment(models.Model):
     comment_id = models.IntegerField(primary_key=True)
-    users = models.ForeignKey(OCUser, on_delete=models.PROTECT, related_name='comments')
+    user = models.ForeignKey(OCUser, on_delete=models.PROTECT, related_name='comments')
     to_user = models.OneToOneField(OCUser, on_delete=models.PROTECT, related_name='comment', null=True, blank=True)
     text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -55,7 +45,7 @@ class Comment(models.Model):
 
 
 class CommentsRating(models.Model):
-    comment = models.OneToOneField(Comment, on_delete=models.CASCADE, related_name='comments_ratings')
+    comment = models.OneToOneField(Comment, on_delete=models.CASCADE, related_name='comments_ratings', primary_key=True)
     vote = models.IntegerField(blank=True, null=True)
 
     class Meta:
@@ -63,8 +53,8 @@ class CommentsRating(models.Model):
 
 
 class CommentsVote(models.Model):
-    comments = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='comments_votes')
-    users = models.ForeignKey(OCUser, on_delete=models.PROTECT, related_name='comments_votes')
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='comments_votes', primary_key=True)
+    user = models.ForeignKey(OCUser, on_delete=models.PROTECT, related_name='comments_votes')
     votes = models.IntegerField(blank=True, null=True)
 
     class Meta:
@@ -223,10 +213,20 @@ class Movie(models.Model):
         db_table = 'movies'
 
 
+class Bestseller(models.Model):
+    category_id = models.IntegerField(primary_key=True)
+    name = models.CharField(max_length=255)
+    movies = models.TextField()
+    rank = models.IntegerField()
+
+    class Meta:
+        db_table = 'bestsellers'
+
+
 class Bookmark(models.Model):
     bookmark_id = models.AutoField(primary_key=True)
     user = models.OneToOneField(OCUser, on_delete=models.PROTECT, related_name='bookmarks')
-    movies = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='bookmarks')
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='bookmarks')
 
     class Meta:
         db_table = 'bookmarks'
@@ -234,8 +234,8 @@ class Bookmark(models.Model):
 
 class Hit(models.Model):
     hit_id = models.AutoField(primary_key=True)
-    movies = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='hits')
-    users = models.ForeignKey(OCUser, on_delete=models.CASCADE, related_name='hits')
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='hits')
+    user = models.ForeignKey(OCUser, on_delete=models.CASCADE, related_name='hits')
     ip = models.CharField(max_length=15, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -245,8 +245,8 @@ class Hit(models.Model):
 
 class MovieUserRating(models.Model):
     movie_user_rating_id = models.AutoField(primary_key=True)
-    movies = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='user_ratings')
-    users = models.ForeignKey(OCUser, on_delete=models.CASCADE, related_name='user_ratings')
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='user_ratings')
+    user = models.ForeignKey(OCUser, on_delete=models.CASCADE, related_name='user_ratings')
     rating = models.SmallIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -271,7 +271,7 @@ class Person(models.Model):
 
 class Rating(models.Model):
     rating_id = models.AutoField(primary_key=True)
-    movies = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='ratings')
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='ratings')
     system = models.CharField(max_length=9)
     system_uid = models.IntegerField(blank=True, null=True)
     count = models.IntegerField(blank=True, null=True)
@@ -303,10 +303,10 @@ class Role(models.Model):
 
 class Participant(models.Model):
     participant_id = models.AutoField(primary_key=True)
-    movies = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='participants')
-    roles = models.ForeignKey(Role, on_delete=models.CASCADE, related_name='participants')
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='participants')
+    role = models.ForeignKey(Role, on_delete=models.CASCADE, related_name='participants')
     character = models.CharField(max_length=100, blank=True, null=True)
-    persons = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='participants')
+    person = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='participants')
 
     class Meta:
         db_table = 'participants'
@@ -336,13 +336,4 @@ class SuggestionCache(models.Model):
 
     class Meta:
         db_table = 'suggestion_cache'
-
-
-class Test(models.Model):
-    descr = models.TextField(blank=True, null=True)
-    descr_var = models.CharField(max_length=256, blank=True, null=True)
-
-    class Meta:
-        db_table = 'test'
-
 
