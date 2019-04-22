@@ -68,7 +68,7 @@
 
                             <!--Если юзер залогинен показываем эту кнопку-->
                             <a href="#" class="dropdown-toggle user_pic_link" data-toggle="dropdown">
-                                <span class="letter">R</span>
+                                <span class="letter">{{ request.user.name.0 }}</span>
                             </a>
 
                             <ul class="dropdown-menu">
@@ -199,7 +199,7 @@
                     </span>
                     </a>
 
-                    <div><a class="all_res" href="#">Все результаты для <i>бла-бла-бла</i> <i class="fa fa-long-arrow-right"></i></a></div>
+                    <div><a class="all_res" href="#">{% trans "All results for" %} <i>бла-бла-бла</i> <i class="fa fa-long-arrow-right"></i></a></div>
 
                 </div>
                 <!--Конец-->
