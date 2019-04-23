@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import DetailView
+from webapp.models import Person
 
 class MovieDetailView(DetailView):
     template_name = 'movie_detail.html'
@@ -14,3 +15,8 @@ class MovieDetailView(DetailView):
 
         }
         return render(request, 'movie_detail.html', context)
+
+
+class ActorDetailView(DetailView):
+    model = Person
+    template_name = 'actor.html'
