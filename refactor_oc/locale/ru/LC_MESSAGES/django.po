@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-22 13:33+0000\n"
+"POT-Creation-Date: 2019-04-23 13:51+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,6 +19,46 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: webapp/templates/actor.html:4
+msgid "Actor"
+msgstr "Актер"
+
+#: webapp/templates/actor.html:13
+msgid "Home"
+msgstr "Главная"
+
+#: webapp/templates/actor.html:14
+msgid "Actors"
+msgstr "Актеры"
+
+#: webapp/templates/actor.html:49
+msgid "The main films of the actor"
+msgstr "Главные фильмы актера"
+
+#: webapp/templates/actor.html:91
+#, fuzzy
+#| msgid "Sections"
+msgid "Description"
+msgstr "Разделы"
+
+#: webapp/templates/actor.html:113
+#, fuzzy
+#| msgid "Settings"
+msgid "Ratings"
+msgstr "Настройки"
+
+#: webapp/templates/actor.html:119
+msgid "Director"
+msgstr "Режиссер"
+
+#: webapp/templates/actor.html:127
+msgid "Cast"
+msgstr "В ролях"
+
+#: webapp/templates/actor.html:184
+msgid "Whole filmography"
+msgstr "Вся фильмография"
 
 #: webapp/templates/base.html:37 webapp/templates/base.html:175
 msgid "Bestsellers"

@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-{% block title %}Актер{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Actor" %}{% endblock %}
 <!--Основной контейнер-->
 {% block content %}
 <div class="container" id="main_content">
@@ -9,8 +10,8 @@
     <div class="row">
         <div class="col-sm-12">
             <ul class="breadcrumb">
-                <li><a href="#" class="hover_line">Главная</a></li>
-                <li><a href="#" class="hover_line">Актеры</a></li>
+                <li><a href="#" class="hover_line">{% trans "Home" %}</a></li>
+                <li><a href="#" class="hover_line">{% trans "Actors" %}</a></li>
                 <li>{{ person.name }}</li>
             </ul>
         </div>
@@ -45,7 +46,7 @@
 
         <div class="row">
             <div class="col-sm-10 col-sm-offset-1">
-                <h3><i class="fa fa-heart"></i>Главные фильмы актера {{ person.name }}а</h3>
+                <h3><i class="fa fa-heart"></i>{% trans "The main films of the actor" %} {{ person.name }}а</h3>
             </div>
         </div>
 
@@ -87,7 +88,7 @@
                                                 <button class="btn_blank" title="В избранное"><i class="fa fa-star-o"></i>
                                                 </button>
                                                 <!--<button class="btn_blank in_fav" title="Удалить из избранного"><i class="fa fa-star"></i></button>-->
-                                                <a href="#" class="hover_line info_link">Описание</a>
+                                                <a href="#" class="hover_line info_link">{% trans "Description" %}</a>
                                                 <span class="time"><i class="fa fa-clock-o"></i>1 ч. 28 мин.</span>
                                                 <span class="view"><i class="fa fa-eye"></i>{{ person_movie.movie.hit }}</span>
                                             </div>
@@ -109,13 +110,13 @@
 
                                             <div class="info">
                                                 <p>
-                                                    <span>Рейтинги:</span>
+                                                    <span>{% trans "Ratings" %}:</span>
                                                     {% for ratings in person_movie.movie.ratings.all %}
                                                         <span>{{ ratings.system }} : {{ ratings.value }}</span>
                                                     {% endfor %}
                                                 </p>
                                                 <p>
-                                                    <span>Режиссер:</span>
+                                                    <span>{% trans "Director" %}:</span>
                                                     {% for participants in person_movie.movie.participants.all %}
                                                     {% if participants.role.role_id == 1 %}
                                                         <span>{{ participants.person.name }}</span>
@@ -123,7 +124,7 @@
                                                     {% endfor %}
                                                 </p>
                                                 <p>
-                                                    <span>В ролях:</span>
+                                                    <span>{% trans "Cast" %}:</span>
                                                     {% for participants in person_movie.movie.participants.all %}
                                                     {% if participants.role.role_id == 3 %}
                                                         <span>{{ participants.person.name }}</span>
@@ -180,7 +181,7 @@
     <!--Фильмография-->
     <div class="row actor_films">
         <div class="col-sm-10 col-sm-offset-1">
-            <h3 class="h3_with_fa"><i class="fa fa-film"></i>Вся фильмография</h3>
+            <h3 class="h3_with_fa"><i class="fa fa-film"></i>{% trans "Whole filmography" %}</h3>
             <ul class="list-unstyled">
             {% for person_movie in person.participants.all %}
                 <li><a href="{% url 'webapp:movie_detail' person_movie.movie.movie_id %}" class="hover_line hover_red">{{ person_movie.movie.name }} ({{ person_movie.movie.year }})</a></li>
