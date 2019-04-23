@@ -220,11 +220,11 @@
                     theme: 'praktikanto',
                     onMount({reference}) {
                         reference.setAttribute('aria-expanded', 'true');
-                        $(element).find('helper').toggle('fade', {direction: "right"}, 100);
+                        $(element).find('.helper').toggle('fade', {direction: "right"}, 100);
                     },
                     onHide({reference}) {
                         reference.setAttribute('aria-expanded', 'false');
-                        $(element).find('helper').toggle('fade', {direction: "right"}, 100);
+                        $(element).find('.helper').toggle('fade', {direction: "right"}, 100);
                     },
                 },
             )
