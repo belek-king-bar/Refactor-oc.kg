@@ -25,7 +25,7 @@
                 <div class="row">
 
                     <div class="col-sm-2">
-                        <img src={{ person.photos.url }} alt="actor" class="img-responsive person_img">
+                        <img src={{ person.photos }} alt="actor" class="img-responsive person_img">
                     </div>
 
                     <div class="col-sm-10">
@@ -74,7 +74,7 @@
 
                                         <!-- Для ссылки внутри каждого фильма в цикле прописываем айдишник вида bestseller_slider_[номер слайдера]_film_[номер фильма]-->
                                         <a href="{% url 'webapp:movie_detail' person_movie.movie.movie_id %}" id="bestseller_slider_1_film_{{ person_movie.movie.movie_id }}">
-                                            <span class="poster" style="background-image: url({{ banner.photo }})">
+                                            <span class="poster" style="background-image: url({{ person_movie.movie.covers }})">
                                                 <span class="helper"><i class="fa fa-play-circle-o"></i></span>
                                             </span>
                                             <span class="title">{{ person_movie.movie.name }}</span>
