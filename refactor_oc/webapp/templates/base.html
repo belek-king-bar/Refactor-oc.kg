@@ -324,7 +324,6 @@
 
     </div>
     <!--Конец-->
-    {% block script %}{% endblock %}
 
     <script src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
     <script src="{% static 'js/jquery-ui.min.js' %}"></script>
@@ -332,6 +331,8 @@
     <script src="{% static 'js/lg.min.js' %}"></script>
     <script src="{% static 'js/rater.min.js' %}"></script>
     <script src="{% static 'js/frontend.js' %}"></script>
+
+{% block script %}{% endblock %}
 
 </body>
 </html>
