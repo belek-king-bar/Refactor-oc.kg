@@ -1,45 +1,49 @@
-**Edit a file, create a new file, and clone from Bitbucket in under 2 minutes**
-
-When you're done, you can delete the content in this README and update the file with details for others getting started with your repository.
-
-*We recommend that you open this README in another tab as you perform the tasks below. You can [watch our video](https://youtu.be/0ocf7u76WSo) for a full demo of all the steps in this tutorial. Open the video in a new tab to avoid leaving Bitbucket.*
+**Проект OC.KG**
 
 ---
 
-## Edit a file
+## Клонирование проекта
+1. В разделе Project > Details в верхнем правом углу нажмите на кнопку 'clone'. 
+Скопируйте url.
+2. В терминале запустите команду **git clone** + скопированный url.
 
-You’ll start by editing this README file to learn how to edit a file in Bitbucket.
+## Виртуальное окружение
 
-1. Click **Source** on the left side.
-2. Click the README.md link from the list of files.
-3. Click the **Edit** button.
-4. Delete the following text: *Delete this line to make a change to the README from Bitbucket.*
-5. After making your change, click **Commit** and then **Commit** again in the dialog. The commit page will open and you’ll see the change you just made.
-6. Go back to the **Source** page.
+1. В терминале в папке проекта запустите команду python **-m virtualenv -p python3 venv**
+2. И активируйте его командой **. venv/bin/activate**
 
----
+## Зависимости
 
-## Create a file
+1. Глобально установите клиент mysql, запустив в терминале команду 
+**sudo apt-get install python3-dev libmysqlclient-dev**. Для этого вам понадобятся 
+права администратора (пароль пользователя root).
+2. Установите зависимости проекта, запустив в терминале команду 
+**pip install -r requirements.txt**
 
-Next, you’ll add a new file to this repository.
+## База данных и миграции
 
-1. Click the **New file** button at the top of the **Source** page.
-2. Give the file a filename of **contributors.txt**.
-3. Enter your name in the empty file space.
-4. Click **Commit** and then **Commit** again in the dialog.
-5. Go back to the **Source** page.
+1. Для подключения базы данных вы можете воспользоваться 
+следующей [инструкцией](https://gitlab.com/sultanchoponov/newoc/wikis/%D0%98%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D1%8F-%D0%BD%D0%B0%D1%82%D1%8F%D0%B3%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%B1%D0%B4)
+. Примечание: необходимо, чтобы у вас был установлен mysql, подробнее можно почитать [здесь](https://www.digitalocean.com/community/tutorials/mysql-ubuntu-18-04-ru).
 
-Before you move on, go ahead and explore the repository. You've already seen the **Source** page, but check out the **Commits**, **Branches**, and **Settings** pages.
+## Локальные настройки
 
----
+1. Откройте проект в Pycharm. Создайте в папке проекта refactor_oc файл local_settings.py (в той же папке, где находятся основные настройки проекта settings.py)
+2. Пропишите в файле local_settings.py локальные настройки базы данных. Пример:
 
-## Clone a repository
 
-Use these steps to clone from SourceTree, our client for using the repository command-line free. Cloning allows you to work on your files locally. If you don't yet have SourceTree, [download and install first](https://www.sourcetreeapp.com/). If you prefer to clone from the command line, see [Clone a repository](https://confluence.atlassian.com/x/4whODQ).
+    DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'cinema2',
+        'USER': '[ваш юзер]',
+        'PASSWORD': '[ваш пароль от базы данных]',
+        'HOST': 'localhost',
+        'PORT': '3306'
+    }
+}
 
-1. You’ll see the clone button under the **Source** heading. Click that button.
-2. Now click **Check out in SourceTree**. You may need to create a SourceTree account or log in.
-3. When you see the **Clone New** dialog in SourceTree, update the destination path and name if you’d like to and then click **Clone**.
-4. Open the directory you just created to see your repository’s files.
 
-Now that you're more familiar with your Bitbucket repository, go ahead and add a new file locally. You can [push your change back to Bitbucket with SourceTree](https://confluence.atlassian.com/x/iqyBMg), or you can [add, commit,](https://confluence.atlassian.com/x/8QhODQ) and [push from the command line](https://confluence.atlassian.com/x/NQ0zDQ).
+## Коммиты
+
+1. Про то, как правильно делать коммиты, можно почитать [здесь](https://gitlab.com/sultanchoponov/newoc/wikis/Git:-%D0%BF%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9-%D0%BA%D0%BE%D0%BC%D0%BC%D0%B8%D1%82).
