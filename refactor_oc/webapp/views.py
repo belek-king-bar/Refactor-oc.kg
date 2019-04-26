@@ -1,22 +1,41 @@
 from django.shortcuts import render
+from django.views.generic import DetailView
+from webapp.models import Person, Movie, Rating, Participant, Genre
 from django.views.generic import DetailView, ListView
 from webapp.models import Bestseller, Movie, Person, Bookmark
 import json
 
 
 class MovieDetailView(DetailView):
+    model = Movie
     template_name = 'movie_detail.html'
 
-    def get(self, request, *args, **kwargs):
-        context = {
-            'pk': '1',
-            'name': 'Name',
-            'description': 'Description',
-            'year': 'Year',
-            'genres': ['genre1', 'genre2', 'genre3']
+    def get_context_data(self, **kwargs):
+        context = super(MovieDetailView, self).get_context_data(**kwargs)
+        context['oc_kg'] = Rating.objects.get(movie=self.object, system='local')
+        context['imdb'] = Rating.objects.get(movie=self.object, system='imdb')
+        context['kinopoisk'] = Rating.objects.get(movie=self.object, system='kinopoisk')
+        context['producers'] = Participant.objects.filter(movie=self.object, role_id=1)
+        context['actors'] = Participant.objects.filter(movie=self.object, role_id=3)
+        if self.object.group:
+            context['compilation'] = Movie.objects.filter(group=self.object.group)
+        else:
+            context['compilation'] = self.get_compilation_by_genres(Genre.objects.filter(movies__in=[self.object.movie_id]))
+        return context
 
-        }
-        return render(request, 'movie_detail.html', context)
+    @staticmethod
+    def get_compilation_by_genres(genres):
+        res = []
+        for i in genres:
+            res.append(i.genre_id)
+        if len(res) > 2:
+            return Movie.objects.filter(genres__in=res[:3])[:5]
+        else:
+            return Movie.objects.filter(genres__in=res)[:5]
+
+
+
+
 
 
 class ActorDetailView(DetailView):
