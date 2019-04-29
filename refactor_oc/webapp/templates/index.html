@@ -1,0 +1,243 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container" id="main_content">
+        <!--Слайдер ТОП-->
+        <div class="row">
+            <div id="top_slider" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <!--В цикле выводим слайды, для первого задаем класс active-->
+                    <div class="item active" style="background-image: url(img/slide_1.png)">
+                        <div class="carousel-caption">
+                            <div class="col-sm-10 col-sm-offset-1">
+                                <button class="custom_btn">Смотреть</button>
+                                <button class="custom_btn yellow">В избранное</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Конец-->
+                </div>
+                <!--Показываем стрелки только при количестве слайдов > 1-->
+                <a class="left carousel-control" href="#top_slider" data-slide="prev">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                <a class="right carousel-control" href="#top_slider" data-slide="next">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                <!--Конец-->
+            </div>
+        </div>
+        <!--Конец-->
+
+        <!--Сейчас смотрят-->
+        <div class="row">
+            <div id="watching">
+
+                <div class="col-sm-3 col-sm-offset-1">
+                    <h2>Сейчас смотрят <br><span>674 фильма</span></h2>
+                </div>
+
+                <div class="col-sm-7 col-sm-offset-1">
+
+                    <div class="s_watching">
+                        <a href="#" class="hover_line">«Аксель» <span class="year">2018</span> </a>
+                        <div class="nowrap">
+                            <i class="fa fa-eye"></i>
+                            <span>42</span>
+                            <button class="btn_fav" title="Добавить в избранное"><i class="fa fa-star-o"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="s_watching">
+                        <a href="#" class="hover_line">«Птичий короб» <span class="year">2018</span> </a>
+                        <div class="nowrap">
+                            <i class="fa fa-eye"></i>
+                            <span>42</span>
+                            <button class="btn_fav active" title="Удалить из избранного"><i class="fa fa-star"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="s_watching">
+                        <a href="#" class="hover_line">«Ничего хорошего в отеле Эль Рояль» <span
+                                class="year">2018</span></a>
+                        <div class="nowrap">
+                            <i class="fa fa-eye"></i>
+                            <span>42</span>
+                            <button class="btn_fav" title="Добавить в избранное"><i class="fa fa-star-o"></i></button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <!--Конец-->
+
+        <!--Слайдер категории-->
+        <div class="s_bestseller_slider_row">
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-1">
+                    <h3><i class="fa fa-bookmark"></i>Подборки</h3>
+                </div>
+            </div>
+
+            {% for bestseller in movie_all %}
+                <div class="row">
+                    <div class="col-sm-10 col-sm-offset-1">
+                        <h3><i class="fa {{ bestseller.classname }}"></i>{{ bestseller.category }}</h3>
+                    </div>
+                </div>
+
+                <!-- В цикле генерируем слайдеры с раличными айдишниками - они прописываются как аттрибут data-slider для стрелок влево\вправо-->
+                <div class="s_bestseller_slider">
+                    <div class="row">
+                        <!--Стрелка влево-->
+                        <div class="col-sm-1 hidden-xs">
+                            <button class='btn btn-default leftRs'
+                                    data-slider="bestseller_slider_{{ forloop.counter }}"><i
+                                    class="fa fa-angle-left"></i></button>
+                        </div>
+                        <!--Конец-->
+                        <!--Слайдер-->
+                        <div class="col-sm-10">
+                            <div class="resCarousel" data-items="2,3,4,4" data-slide="{{ forloop.counter }}"
+                                 id="bestseller_slider_{{ forloop.counter }}">
+
+                                <div class="resCarousel-inner">
+
+                                    {% for movie in bestseller.movies %}
+                                        <!--Один фильм-->
+                                        <div class="item">
+                                            <!-- Для ссылки внутри каждого фильма в цикле прописываем айдишник вида bestseller_slider_[номер слайдера]_film_[номер фильма]-->
+                                            <a href="#"
+                                               id="bestseller_slider_{{ movie.pk }}_film_{{ movie.movie_id }}">
+                                    <span class="poster" style="background-image: url({{ movie.covers }})">
+                                        <span class="helper"><i class="fa fa-play-circle-o"></i></span>
+                                    </span>
+                                                <span class="title">{{ movie.name }}</span>
+                                            </a>
+
+                                            <!--Всплывающее описание. Айдишник вида popover_[айди ссылки на фильм]-->
+                                            <div id="popover_bestseller_slider_{{ movie.pk }}_film_{{ movie.movie_id }}"
+                                                 class="popover_custom"
+                                                 style="display: none">
+
+                                                <div class="top">
+                                                    <button class="btn_blank" title="В избранное"><i
+                                                            class="fa fa-star-o"></i>
+                                                    </button>
+                                                    <!--<button class="btn_blank in_fav" title="Удалить из избранного"><i class="fa fa-star"></i></button>-->
+                                                    <a href="#" class="hover_line info_link">Описание</a>
+                                                    <span class="time"><i
+                                                            class="fa fa-clock-o"></i>1 ч. 28 мин.</span>
+                                                    <span class="view"><i class="fa fa-eye"></i>15 619</span>
+                                                </div>
+
+                                                <div class="genre">
+                                                    {% for genre in movie.genres.all %}
+                                                        <span>{{ genre.name }}</span>
+                                                    {% endfor %}
+                                                </div>
+
+                                                <div class="year">
+                                                    <span>{{ movie.year }}</span>
+                                                    {% for countries in movie.countries.all %}
+                                                        <span>{{ countries.name }}</span>
+                                                    {% endfor %}
+                                                </div>
+
+                                                <div class="info">
+                                                    <p>
+                                                        <span>Рейтинги:</span>
+                                                        {% for ratings in movie.ratings.all %}
+                                                            <span>{{ ratings.system }} : {{ ratings.value }}</span>
+                                                        {% endfor %}
+                                                    </p>
+                                                    <p>
+                                                        <span>Режиссер:</span>
+                                                        {% for participant in movie.participants.all %}
+                                                            {% if participant.role.role_id == 1 %}
+                                                                <span>{{ participant.person.name }}</span>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </p>
+                                                    <p>
+                                                        <span>В ролях:</span>
+                                                        {% for participant in movie.participants.all %}
+                                                            {% if participant.role.role_id == 3 %}
+                                                                <span>{{ participant.person.name }}</span>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </p>
+                                                </div>
+
+                                                <div class="excerpt">
+                                                    <p>{{ movie.description }}</p>
+                                                </div>
+                                            </div>
+                                            <!--Конец-->
+                                        </div>
+                                        <!--Конец-->
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <!--Конец-->
+                        <!--Стрелка вправо-->
+                        <div class="col-sm-1 hidden-xs">
+                            <button class='btn btn-default rightRs'
+                                    data-slider="bestseller_slider_{{ forloop.counter }}"><i
+                                    class="fa fa-angle-right"></i></button>
+                        </div>
+                        <!--Конец-->
+                    </div>
+                </div>
+                <!--Конец одного слайдера-->
+            {% endfor %}
+        </div>
+        <!--Конец-->
+    </div>
+    <!--Конец-->
+{% endblock %}
+
+{% block script %}
+    <!--Подключаем слайдер с фильмами-->
+    <script src="../static/js/resCarousel.min.js"></script>
+    <!--Конец-->
+
+    <!--Скрипт для popover-->
+    <script src="../static/js/tippy.all.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('a[id^=bestseller_slider]').each(function () {
+                var element = '#' + $(this).attr('id');
+                var template = document.getElementById('popover_' + $(this).attr('id'));
+
+                try {
+                    tippy(
+                        element,
+                        {
+                            content: template.innerHTML,
+                            placement: "right-end",
+                            flipBehavior: ["right", "left"],
+                            interactive: true,
+                            animateFill: false,
+                            theme: 'praktikanto',
+                            onMount({reference}) {
+                                reference.setAttribute('aria-expanded', 'true');
+                                $(element).find('.helper').toggle('fade', {direction: "right"}, 100);
+                            },
+                            onHide({reference}) {
+                                reference.setAttribute('aria-expanded', 'false');
+                                $(element).find('.helper').toggle('fade', {direction: "right"}, 100);
+                            },
+                        },
+                    )
+                } catch (err) {
+                    console.log(err)
+                }
+            });
+        });
+    </script>
+{% endblock %}
