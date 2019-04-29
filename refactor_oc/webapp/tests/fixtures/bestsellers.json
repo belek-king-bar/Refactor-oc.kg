@@ -1,0 +1,102 @@
+[
+  {
+    "model": "webapp.bestseller",
+    "pk": 1,
+    "fields": {
+      "category_id": 1,
+      "name": "Сериалы",
+      "movies": "[11, 12, 13, 14, 15]",
+      "rank": 156
+    }
+  },
+    {
+    "model": "webapp.bestseller",
+    "pk": 2,
+    "fields": {
+      "category_id": 2,
+      "name": "Комедии",
+      "movies": "[16, 17, 18, 19, 20]",
+      "rank": 1988
+    }
+  },
+    {
+    "model": "webapp.bestseller",
+    "pk": 3,
+    "fields": {
+      "category_id": 3,
+      "name": "Боевики",
+      "movies": "[11, 12, 13, 14, 15]",
+      "rank": 857
+    }
+  },
+    {
+    "model": "webapp.bestseller",
+    "pk": 4,
+    "fields": {
+      "category_id": 4,
+      "name": "Документальные",
+      "movies": "[16, 17, 18, 19, 20]",
+      "rank": 190
+    }
+  },
+    {
+    "model": "webapp.bestseller",
+    "pk": 5,
+    "fields": {
+      "category_id": 5,
+      "name": "Аниме",
+      "movies": "[11, 12, 13, 14, 15]",
+      "rank": 171
+    }
+  },
+    {
+    "model": "webapp.bestseller",
+    "pk": 6,
+    "fields": {
+      "category_id": 6,
+      "name": "Мультфильмы",
+      "movies": "[16, 17, 18, 19, 20]",
+      "rank": 2907
+    }
+  },
+    {
+    "model": "webapp.bestseller",
+    "pk": 7,
+    "fields": {
+      "category_id": 7,
+      "name": "Ужасы",
+      "movies": "[11, 12, 13, 14, 15]",
+      "rank": 462
+    }
+  },
+    {
+    "model": "webapp.bestseller",
+    "pk": 8,
+    "fields": {
+      "category_id": 8,
+      "name": "Фантастика/фэнтези",
+      "movies": "[16, 17, 18, 19, 20]",
+      "rank": 1639
+    }
+  },
+    {
+    "model": "webapp.bestseller",
+    "pk": 9,
+    "fields": {
+      "category_id": 9,
+      "name": "Драма/мелодрама",
+      "movies": "[11, 12, 13, 14, 15]",
+      "rank": 3039
+    }
+  },
+    {
+    "model": "webapp.bestseller",
+    "pk": 10,
+    "fields": {
+      "category_id": 10,
+      "name": "Детектив",
+      "movies": "[16, 17, 18, 19, 20]",
+      "rank": 629
+    }
+  }
+]
