@@ -9,6 +9,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-23 13:51+0000\n"
+"POT-Creation-Date: 2019-04-19 12:41+0000\n"
+"POT-Creation-Date: 2019-04-19 12:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -180,3 +182,14 @@ msgstr "Стол заказов"
 #: webapp/templates/base.html:303
 msgid "Forum"
 msgstr "Форум"
+#: webapp/templates/favorite_view.html:7
+msgid "Favorites"
+msgstr "Избранное"
+
+#: webapp/templates/favorite_view.html:36
+msgid "Watch"
+msgstr "Смотреть"
+
+#: webapp/templates/favorite_view.html:37
+msgid "Add to favorites"
+msgstr "Добавить в избранное"

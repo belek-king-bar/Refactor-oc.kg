@@ -1,3 +1,5 @@
 from django.contrib import admin
+from webapp.models import Bookmark, OCUser
 
-# Register your models here.
+admin.site.register(Bookmark)
+admin.site.register(OCUser)

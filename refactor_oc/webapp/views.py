@@ -1,11 +1,11 @@
-from django.shortcuts import render
-from django.views.generic import DetailView
-from webapp.models import Person
+from webapp.models import Person, Bookmark
+from django.views.generic import DetailView, ListView
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib import auth
 
 class MovieDetailView(DetailView):
     template_name = 'movie_detail.html'
-from django.shortcuts import render, get_object_or_404, redirect
-from webapp.models import Movies #TODO нужны модели
+
 
     def get(self, request, *args, **kwargs):
         context = {
@@ -23,8 +23,14 @@ class ActorDetailView(DetailView):
     model = Person
     template_name = 'actor.html'
 
-def Favorites_view(request):
-    movie = Movies.objects.all()
-    return render(request, 'favorite_view.html', context={
-        'movies':movie
-    })
+
+class FavoritesListView(ListView):
+    model = Bookmark
+    template_name = 'favorite_view.html'
+
+    def post(self, request):
+        if request.user.is_authenticated():
+            return self.model.objects.get().order_by('-created_at')
+        else:
+            return
+        pass #todo сделать редирект(?) на главную/логинку
