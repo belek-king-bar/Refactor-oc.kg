@@ -16,10 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import url
 from django.urls import path, include
+from django.conf.urls.i18n import i18n_patterns
 
-
+i18n_urls = (
+    url(r'^i18n/', include('django.conf.urls.i18n')),
+)
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^i18n/', include('django.conf.urls.i18n')),
     path('', include('webapp.urls', namespace='webapp')),
 ]
+
+urlpatterns.extend(i18n_patterns(*i18n_urls, prefix_default_language=False))

@@ -39,16 +39,14 @@ msgid "The main films of the actor"
 msgstr "Главные фильмы актера"
 
 #: webapp/templates/actor.html:91
-#, fuzzy
 #| msgid "Sections"
 msgid "Description"
-msgstr "Разделы"
+msgstr "Описание"
 
 #: webapp/templates/actor.html:113
-#, fuzzy
 #| msgid "Settings"
 msgid "Ratings"
-msgstr "Настройки"
+msgstr "Рейтинги"
 
 #: webapp/templates/actor.html:119
 msgid "Director"
