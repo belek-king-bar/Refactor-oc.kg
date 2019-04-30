@@ -1,8 +1,6 @@
 from django.shortcuts import render
-from django.views.generic import DetailView
-from webapp.models import Person, Movie, Rating, Participant, Genre
+from webapp.models import Person, Movie, Rating, Participant, Genre, Comment, Bestseller, Bookmark
 from django.views.generic import DetailView, ListView
-from webapp.models import Bestseller, Movie, Person, Bookmark
 import json
 
 
@@ -17,10 +15,13 @@ class MovieDetailView(DetailView):
         context['kinopoisk'] = Rating.objects.get(movie=self.object, system='kinopoisk')
         context['producers'] = Participant.objects.filter(movie=self.object, role_id=1)
         context['actors'] = Participant.objects.filter(movie=self.object, role_id=3)
+        comments = Comment.objects.filter(movies=self.object)
+        context['comments_len'] = len(comments) - 4
         if self.object.group:
             context['compilation'] = Movie.objects.filter(group=self.object.group)
         else:
-            context['compilation'] = self.get_compilation_by_genres(Genre.objects.filter(movies__in=[self.object.movie_id]))
+            context['compilation'] = self.get_compilation_by_genres(
+                Genre.objects.filter(movies__in=[self.object.movie_id]))
         return context
 
     @staticmethod
@@ -29,13 +30,9 @@ class MovieDetailView(DetailView):
         for i in genres:
             res.append(i.genre_id)
         if len(res) > 2:
-            return Movie.objects.filter(genres__in=res[:3])[:5]
+            return Movie.objects.filter(genres__in=res[:3]).order_by("?")[:5]
         else:
-            return Movie.objects.filter(genres__in=res)[:5]
-
-
-
-
+            return Movie.objects.filter(genres__in=res).order_by("?")[:5]
 
 
 class ActorDetailView(DetailView):

@@ -189,6 +189,7 @@
                 <h3 class="h3_with_fa"><i class="fa fa-comments-o"></i>Отзывы о фильме</h3>
                 <!--Комментарий-->
                 {% for comment in movie.comments.all %}
+                {% if forloop.counter < 5 %}
                 <div class="s_comment">
                     <div class="user_letter">R</div>
                     <div class="top">
@@ -204,6 +205,7 @@
                         <p>{{ comment.text }}</p>
                     </div>
                 </div>
+                {% else %}
 
                 <!--Конец-->
 
@@ -226,15 +228,16 @@
                         </div>
                     </div>
                     <!--Конец-->
+                    {% endif %}
                 {% endfor %}
 
-
                 </div>
 
-                <div class="show_all_comments">
-                    <button class="btn_blank hover_line" id="show_all_comments_btn">Смотреть все отзывы (7)</button>
-                </div>
-
+                {% if comments_len > 0 %}
+                    <div class="show_all_comments">
+                        <button class="btn_blank hover_line" id="show_all_comments_btn">Смотреть все отзывы ({{comments_len}})</button>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -264,7 +267,8 @@
                 <div class="col-sm-10">
 
 
-                    <div class="resCarousel" data-items="2,3,4,4" data-slide="1" id="bestseller_slider_1">
+                    <div class="resCarousel" data-items="2,3,4,4" data-slide="1"
+                         id="bestseller_slider_1">
 
                         <div class="resCarousel-inner">
                             {% for film in compilation.all %}
@@ -273,7 +277,7 @@
 
                                 <!-- Для ссылки внутри каждого фильма в цикле прописываем айдишник вида bestseller_slider_[номер слайдера]_film_[номер фильма]-->
 
-                                <a href="{% url 'webapp:movie_detail' film.movie_id %}" id="bestseller_slider_{{ forloop.counter }}_film_{{ film.movie_id }}">
+                                <a href="{% url 'webapp:movie_detail' film.movie_id %}" id="bestseller_slider_1_film_{{ film.pk }}">
                                     <span class="poster" style="background-image: url({{ film.covers }})">
                                         <span class="helper"><i class="fa fa-play-circle-o"></i></span>
                                     </span>
@@ -281,7 +285,7 @@
                                 </a>
 
                                 <!--Всплывающее описание. Айдишник вида popover_[айди ссылки на фильм]-->
-                                <div id="bestseller_slider_{{ forloop.counter }}_film_{{ film.movie_id }}" class="popover_custom"
+                                <div id="popover_bestseller_slider_1_film_{{ film.pk }}" class="popover_custom"
                                      style="display: none">
 
                                     <div class="top">
@@ -365,13 +369,13 @@
 {% endblock %}
 {% block script %}
     <!--Подключаем слайдер с фильмами-->
-<script src={% static 'js/resCarousel.min.js' %}></script>
-<!--Конец-->
+    <script src="../static/js/resCarousel.min.js"></script>
+    <!--Конец-->
 
-<!--Скрипт для popover-->
-<script src={% static 'js/tippy.all.min.js' %}></script>
+    <!--Скрипт для popover-->
+    <script src="../static/js/tippy.all.min.js"></script>
+
 <script>
-
     function initialize_popper(obj) {
         var element = '#' + $(obj).attr('id');
         var template = document.getElementById('popover_' + $(obj).attr('id'));
