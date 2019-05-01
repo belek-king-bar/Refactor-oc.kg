@@ -1,9 +1,7 @@
 {% extends 'base.html' %}
-{% load staticfiles %}
-{% load i18n %}
-{% block title %}{% trans "Movie" %}{% endblock %}
 {% block content %}
-    <!--Основной контейнер-->
+
+<!--Основной контейнер-->
 <div class="container" id="main_content">
 
     <!--Breadcrumbs-->
@@ -47,9 +45,9 @@
                     {% endfor %}
                 </p>
                 <p>
-                    <span data-toggle="tooltip" data-placement="top" title="Рейтинг КиноПоиск">Кинопоиск: {{ratings.kinopoisk.value}}</span>
-                    <span data-toggle="tooltip" data-placement="top" title="Рейтинг КиноПоиск">OC.KG: {{oc_kg.value}}</span>
-                    <span data-toggle="tooltip" data-placement="top" title="Рейтинг КиноПоиск">IMDB: {{imdb.value}}</span>
+                    <span data-toggle="tooltip" data-placement="top" title="Рейтинг КиноПоиск">Кинопоиск: {{kinopoisk.value|floatformat}}</span>
+                    <span data-toggle="tooltip" data-placement="top" title="Рейтинг КиноПоиск">OC.KG: {{oc_kg.value|floatformat}}</span>
+                    <span data-toggle="tooltip" data-placement="top" title="Рейтинг КиноПоиск">IMDB: {{imdb.value|floatformat}}</span>
                 </p>
             </div>
 
@@ -98,9 +96,6 @@
                         {% endif %}
                     {% endfor %}
                 </p>
-
-
-
             </div>
 
             <div class="description">
@@ -187,17 +182,20 @@
         <div class="row">
             <div class="col-sm-10 col-sm-offset-1">
                 <h3 class="h3_with_fa"><i class="fa fa-comments-o"></i>Отзывы о фильме</h3>
+
                 <!--Комментарий-->
                 {% for comment in movie.comments.all %}
                 {% if forloop.counter < 5 %}
                 <div class="s_comment">
                     <div class="user_letter">R</div>
                     <div class="top">
-                        <span><strong>{{ comment.user.name }}</strong></span>
+                        <span><strong>Николай</strong></span>
                         <span class="date">{{ comment.created_at }}</span>
                         <span class="comment_rate">
                             <a href="#" class="comment_up"><i class="fa fa-caret-up"></i></a>
-                            <strong>1</strong>
+                            {% for rating in comment.comments_rating.all %}
+                                <strong>{{ rating.vote }}</strong>
+                            {% endfor %}
                             <a href="#" class="comment_down"><i class="fa fa-caret-down"></i></a>
                         </span>
                     </div>
@@ -205,17 +203,15 @@
                         <p>{{ comment.text }}</p>
                     </div>
                 </div>
-                {% else %}
-
                 <!--Конец-->
-
+                 {% else %}
                 <div class="hidden_comments">
 
                     <!--Комментарий-->
                     <div class="s_comment">
                         <div class="user_letter">R</div>
                         <div class="top">
-                            <span><strong>{{ comment.user.name }}</strong></span>
+                            <span><strong>Николай</strong></span>
                             <span class="date">{{ comment.created_at }}</span>
                             <span class="comment_rate">
                             <a href="#" class="comment_up"><i class="fa fa-caret-up"></i></a>
@@ -227,17 +223,19 @@
                             <p>{{ comment.text }}</p>
                         </div>
                     </div>
-                    <!--Конец-->
-                    {% endif %}
-                {% endfor %}
 
+                    <!--Конец-->
                 </div>
+                {% endif %}
+
+                    {% endfor %}
 
                 {% if comments_len > 0 %}
                     <div class="show_all_comments">
                         <button class="btn_blank hover_line" id="show_all_comments_btn">Смотреть все отзывы ({{comments_len}})</button>
                     </div>
                 {% endif %}
+
             </div>
         </div>
     </div>
@@ -285,7 +283,7 @@
                                 </a>
 
                                 <!--Всплывающее описание. Айдишник вида popover_[айди ссылки на фильм]-->
-                                <div id="popover_bestseller_slider_1_film_{{ film.pk }}" class="popover_custom"
+                                <div id="popover_bestseller_slider_1_film_{{ film.movie_id }}" class="popover_custom"
                                      style="display: none">
 
                                     <div class="top">
@@ -294,45 +292,48 @@
                                         <!--<button class="btn_blank in_fav" title="Удалить из избранного"><i class="fa fa-star"></i></button>-->
                                         <a href="#" class="hover_line info_link">Описание</a>
                                         <span class="time"><i class="fa fa-clock-o"></i>1 ч. 28 мин.</span>
-                                        <span class="view"><i class="fa fa-eye"></i>15 619</span>
+                                        <span class="view"><i class="fa fa-eye"></i>{{ film.hit }}</span>
                                     </div>
 
                                     <div class="genre">
-                                        <span>Комедия</span>
-                                        <span>Боевик</span>
-                                        <span>Приключения</span>
+                                        {% for genre in film.genres.all %}
+                                            <span>{{ genre.name }}</span>
+                                        {% endfor %}
                                     </div>
 
                                     <div class="year">
-                                        <span>2018</span>
-                                        <span>Франция</span>
-                                        <span>Великобритания</span>
-                                        <span>США</span>
+                                        <span>{{ film.year }}</span>
+                                        {% for countries in movie.countries.all %}
+                                            <span>{{ countries.name }}</span>
+                                        {% endfor %}
                                     </div>
 
                                     <div class="info">
                                         <p>
-                                            <span>Рейтинги:</span>
-                                            <span>oc.kg: 8,8</span>
-                                            <span>КиноПоиск: 8,6</span>
-                                            <span>IMDb: 8,6</span>
+                                            {% for ratings in movie.ratings.all %}
+                                            <span>{{ ratings.system }} : {{ ratings.value|floatformat }}</span>
+                                            {% endfor %}
                                         </p>
                                         <p>
                                             <span>Режиссер:</span>
-                                            <span>Оливер Дэйли</span>
+                                            {% for participants in movie.participants.all %}
+                                            {% if participants.role.role_id == 1 %}
+                                                <span>{{ participants.person.name }}</span>
+                                            {% endif %}
+                                            {% endfor %}
                                         </p>
                                         <p>
                                             <span>В ролях:</span>
-                                            <span>Роуэн Эткинсон, Ольга Куриленко, Джейк Лэси</span>
+                                            {% for participants in movie.participants.all %}
+                                            {% if participants.role.role_id == 3 or participants.role.role_id == 4 %}
+                                                <span>{{ participants.person.name }}</span>
+                                            {% endif %}
+                                            {% endfor %}
                                         </p>
                                     </div>
 
                                     <div class="excerpt">
-                                        <p>Когда все агенты секретной службы Её Величества внезапно
-                                            выходят из строя, в игру вступает запасной вариант. Образец
-                                            английского стиля и любимец роковых красоток; король
-                                            безвыходных ситуаций и хранитель аналоговых традиций
-                                            в цифровом мире, агент Джонни Инглиш.</p>
+                                        <p>{{film.description}}</p>
                                     </div>
 
                                 </div>
@@ -366,16 +367,18 @@
 
 </div>
 <!--Конец-->
+
 {% endblock %}
 {% block script %}
-    <!--Подключаем слайдер с фильмами-->
-    <script src="../static/js/resCarousel.min.js"></script>
-    <!--Конец-->
 
-    <!--Скрипт для popover-->
-    <script src="../static/js/tippy.all.min.js"></script>
+<!--Подключаем слайдер с фильмами-->
+<script src="../static/js/resCarousel.min.js"></script>
+<!--Конец-->
 
+<!--Скрипт для popover-->
+<script src="../static/js/tippy.all.min.js"></script>
 <script>
+
     function initialize_popper(obj) {
         var element = '#' + $(obj).attr('id');
         var template = document.getElementById('popover_' + $(obj).attr('id'));
@@ -426,5 +429,3 @@
 </script>
 <!--Конец-->
 {% endblock %}
-
-
