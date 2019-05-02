@@ -84,6 +84,7 @@ class BestsellerListView(ListView):
             for i in movie_list:
                 q['movies'].append(Movie.objects.get(movie_id=i))
             context['movie_all'].append(q)
+            return context
 
 
 class CatalogueListView(ListView):
