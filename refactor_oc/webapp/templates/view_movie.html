@@ -1,0 +1,359 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}{{ movie.name }}{% endblock %}
+<!--Основной контейнер-->
+{% block content %}
+<div class="container" id="main_content">
+
+    <!--Breadcrumbs-->
+    <div class="row">
+       <div class="col-sm-12">
+           <ul class="breadcrumb">
+               <li><a href="#" class="hover_line">Главная</a></li>
+               <li><a href="#" class="hover_line">Каталог</a></li>
+               <li>{{ movie.name }}</li>
+           </ul>
+       </div>
+   </div>
+    <!--Конец-->
+
+    <!--Заголовок-->
+    <div class="row">
+        <div class="col-sm-12">
+            <h1 class="movie_title">{{ movie.name }}</h1>
+            <h2 class="movie_title_h2">{{ movie.international_name }}</h2>
+        </div>
+    </div>
+    <!--Конец-->
+
+    <!--Просмотр-->
+    <div class="row player_block">
+        <div class="col-sm-9">
+
+            <video id='my-video' class='video-js vjs-default-skin' controls preload='none'
+                   data-setup='{ "aspectRatio":"675:400" }'>
+                <source src={{ movie.files.path }}>
+                <p class='vjs-no-js'>
+                    To view this video please enable JavaScript, and consider upgrading to a web browser that
+                    <a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
+                </p>
+            </video>
+
+            <script src='https://vjs.zencdn.net/7.5.4/video.js'></script>
+        </div>
+        <div class="col-sm-3">
+            <a href="#" class="banner"><img src="../static/img/banner_200х400.png" alt="banner" class="img-responsive"></a>
+        </div>
+    </div>
+    <!--Конец-->
+
+    <!--Горизонтальный баннер-->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="banner_hor">
+                <a href="#"><img src="../static/img/banner_910x90.png" alt="banner" class="img-responsive"></a>
+            </div>
+        </div>
+    </div>
+    <!--Конец-->
+
+    <!--Голосовалка и скачать-->
+    <div class="row button_block_and_my_rate">
+
+        <div class="col-sm-6">
+            <div class="button_block">
+                <div class="wrapper"><a href="#" class="custom_btn_border red">Скачать</a></div>
+                <div class="wrapper"><a href="#" class="custom_btn_border small_padding">В избранное <i class="fa fa-star-o"></i></a></div>
+                <!--<div class="wrapper"><a href="#" class="custom_btn_border">Добавлено <i class="fa fa-star"></i></a></div>-->
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="my_rate">
+                <div class="pull-left">
+                    <span class="my_rate_span">Моя оценка: </span>
+                </div>
+                <div class="pull-left">
+                    <div class="rate" data-rate-value=6></div>
+                </div>
+
+                <!--Если уже проголосовал, то показываем этот блок тоже-->
+                <!--<div class="pull-left remove_rating">-->
+                <!--<button class="btn_blank"  data-toggle="tooltip" data-placement="top" title="Убрать мой рейтинг"><i class="fa fa-times"></i></button>-->
+                <!--</div>-->
+                <!--Конец-->
+
+            </div>
+        </div>
+
+    </div>
+    <!--Конец-->
+
+    <!--Отзывы о фильме-->
+    <div class="comments comments_movie_page">
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+                <h3 class="h3_with_fa"><i class="fa fa-comments-o"></i>Отзывы о фильме</h3>
+
+            {% for comment in movie.comments.all %}
+                {% if forloop.counter < 5 %}
+                    <!--Комментарий-->
+                    <div class="s_comment">
+                        <div class="user_letter">{{ comment.user.username.0 }}</div>
+                        <div class="top">
+                            <span><strong>{{ comment.user.name }}</strong></span>
+                            <span class="date">{{ comment.created_at }}</span>
+                            <span class="comment_rate">
+                                <a href="#" class="comment_up"><i class="fa fa-caret-up"></i></a>
+                                <strong>1</strong>
+                                <a href="#" class="comment_down"><i class="fa fa-caret-down"></i></a>
+                            </span>
+                        </div>
+                        <div class="text">
+                            <p>{{ comment.text }}</p>
+                        </div>
+                    </div>
+                    <!--Конец-->
+                {% else %}
+                    <div class="hidden_comments">
+                        <!--Комментарий-->
+                        <div class="s_comment">
+                            <div class="user_letter">{{ comment.user.username.0 }}</div>
+                            <div class="top">
+                                <span><strong>{{ comment.user.name }}</strong></span>
+                                <span class="date">{{ comment.created_at }}</span>
+                                <span class="comment_rate">
+                                <a href="#" class="comment_up"><i class="fa fa-caret-up"></i></a>
+                                <strong>1</strong>
+                                <a href="#" class="comment_down"><i class="fa fa-caret-down"></i></a>
+                            </span>
+                            </div>
+                            <div class="text">
+                                <p>{{ comment.text }}</p>
+                            </div>
+                        </div>
+                        <!--Конец-->
+                    </div>
+                {% endif %}
+            {% endfor %}
+                {% if comments_len > 0 %}
+                    <div class="show_all_comments">
+                        <button class="btn_blank hover_line" id="show_all_comments_btn">Смотреть все отзывы ({{ comments_len }})</button>
+                    </div>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+    <!--Конец-->
+
+    <!--Добавить отзыв-->
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-1">
+            <div id="add_comment">
+
+                <h3 class="h3_with_fa"><i class="fa fa-edit"></i>Добавить отзыв </h3>
+
+                <div class="row">
+                    <div class="col-sm-8">
+                        <form action="#">
+                            <textarea name="text" id="add_comment_id" rows="7"></textarea>
+                            <button class="custom_btn_border red">Добавить</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--Конец-->
+
+
+    <!--Похожие фильмы-->
+    <div class="s_bestseller_slider_row">
+
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+                <h3><i class="fa fa-check"></i>Похожие фильмы</h3>
+            </div>
+        </div>
+
+        <div class="s_bestseller_slider">
+
+            <div class="row">
+
+                <!--Стрелка влево-->
+                <div class="col-sm-1 hidden-xs">
+                    <button class='btn btn-default leftRs' data-slider="bestseller_slider_1"><i
+                            class="fa fa-angle-left"></i></button>
+                </div>
+                <!--Конец-->
+
+                <!--Слайдер-->
+                <div class="col-sm-10">
+
+
+                    <div class="resCarousel" data-items="2,3,4,4" data-slide="1" id="bestseller_slider_1">
+
+                        <div class="resCarousel-inner">
+
+                            {% for movie in compilation.all %}
+                                    <div class="item">
+
+                                        <!-- Для ссылки внутри каждого фильма в цикле прописываем айдишник вида bestseller_slider_[номер слайдера]_film_[номер фильма]-->
+                                        <a href="{% url 'webapp:movie_detail' movie.movie_id %}" id="bestseller_slider_1_film_{{ movie.movie_id }}">
+                                            <span class="poster" style="background-image: url({{ movie.covers }})">
+                                                <span class="helper"><i class="fa fa-play-circle-o"></i></span>
+                                            </span>
+                                            <span class="title">{{ movie.name }}</span>
+                                        </a>
+
+                                        <!--Всплывающее описание. Айдишник вида popover_[айди ссылки на фильм]-->
+                                        <div id="popover_bestseller_slider_1_film_{{ movie.movie_id }}" class="popover_custom"
+                                             style="display: none">
+
+                                            <div class="top">
+                                                <button class="btn_blank" title="В избранное"><i class="fa fa-star-o"></i>
+                                                </button>
+                                                <!--<button class="btn_blank in_fav" title="Удалить из избранного"><i class="fa fa-star"></i></button>-->
+                                                <a href="#" class="hover_line info_link">Описание</a>
+                                                <span class="time"><i class="fa fa-clock-o"></i>{{ movie.files.seconds }}</span>
+                                                <span class="view"><i class="fa fa-eye"></i> {{ movie.hit }}</span>
+                                            </div>
+
+
+                                            <div class="genre">
+                                                {% for genre in movie.genres.all %}
+                                                    <span>{{ genre.name }}</span>
+                                                {% endfor %}
+                                            </div>
+
+
+                                            <div class="year">
+                                                <span>{{ movie.year }}</span>
+                                                {% for countries in movie.countries.all %}
+                                                    <span>{{ countries.name }}</span>
+                                                {% endfor %}
+                                            </div>
+
+                                            <div class="info">
+                                                <p>
+                                                    <span>Рейтинги:</span>
+                                                    {% for ratings in movie.ratings.all %}
+                                                        <span>{{ ratings.system }} : {{ ratings.value|floatformat }}</span>
+                                                    {% endfor %}
+                                                </p>
+                                                <p>
+                                                    <span>Режиссер:</span>
+                                                    {% for participants in movie.participants.all %}
+                                                    {% if participants.role.role_id == 1 %}
+                                                        <span>{{ participants.person.name }}</span>
+                                                    {% endif %}
+                                                    {% endfor %}
+                                                </p>
+                                                <p>
+                                                    <span>В ролях:</span>
+                                                    {% for participants in movie.participants.all %}
+                                                    {% if participants.role.role_id == 3 or participants.role.role_id == 4 %}
+                                                        <span>{{ participants.person.name }}</span>
+                                                    {% endif %}
+                                                    {% endfor %}
+                                                </p>
+                                            </div>
+
+                                            <div class="excerpt">
+                                                <p>{{ movie.description }}</p>
+                                            </div>
+
+
+                                        </div>
+                                        <!--Конец-->
+
+                                    </div>
+                            {% endfor %}
+                                    <!--Конец-->
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <!--Конец-->
+
+                <!--Стрелка вправо-->
+                <div class="col-sm-1 hidden-xs">
+                    <button class='btn btn-default rightRs' data-slider="bestseller_slider_1"><i
+                            class="fa fa-angle-right"></i></button>
+                </div>
+                <!--Конец-->
+
+            </div>
+
+        </div>
+
+
+    </div>
+    <!--Конец-->
+
+</div>
+<!--Конец-->
+{% endblock %}
+{% block script %}
+<!--Подключаем слайдер с фильмами-->
+<script src={% static 'js/resCarousel.min.js' %}></script>
+<!--Конец--
+
+<!--Скрипт для popover-->
+<script src={% static 'js/tippy.all.min.js' %}></script>
+<script>
+
+    function initialize_popper(obj) {
+        var element = '#' + $(obj).attr('id');
+        var template = document.getElementById('popover_' + $(obj).attr('id'));
+
+        try {
+            tippy(
+                element,
+                {
+                    content: template.innerHTML,
+                    placement: "right-end",
+                    flipBehavior: ["right", "left"],
+                    interactive: true,
+                    animateFill: false,
+
+                    // boundary: $('#catalog_film_3'),
+                    theme: 'praktikanto',
+                    onMount({reference}) {
+                        reference.setAttribute('aria-expanded', 'true');
+                        $(element).find('.helper').toggle('fade', {direction: "right"}, 100);
+                    },
+                    onHide({reference}) {
+                        reference.setAttribute('aria-expanded', 'false');
+                        $(element).find('.helper').toggle('fade', {direction: "right"}, 100);
+                    },
+                },
+            )
+
+        } catch (err) {
+
+            console.log(err)
+
+        }
+    }
+
+    $(document).ready(function () {
+        $('a[id^=bestseller_slider]').each(function () {
+
+            initialize_popper($(this));
+
+        });
+
+        $('a[id^=catalog_film_]').each(function () {
+
+            initialize_popper($(this));
+
+        });
+    });
+</script>
+<!--Конец-->
+{% endblock %}

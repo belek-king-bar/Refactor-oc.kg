@@ -209,6 +209,9 @@ class Movie(models.Model):
     files = models.ManyToManyField(File, related_name='movies')
     countries = models.ManyToManyField(Country, related_name='movies')
 
+    def __str__(self):
+        return "Movie"
+
     class Meta:
         db_table = 'movies'
 

@@ -3,7 +3,7 @@
     "model": "webapp.movie",
     "pk": 1,
     "fields": {
-      "movie_id": 11,
+      "movie_id": 1,
       "name": "Тачки",
       "international_name": "Cars 2",
       "description": "Молния МакКуин и его друг Мэтр отправляются в международное путешествие — когда МакКуин...",
@@ -22,14 +22,16 @@
       "created_by": 1,
       "present_by": "",
       "group": "",
-      "rank": 21.02
+      "rank": 21.02,
+      "comments": [1, 2, 3, 4, 5, 6, 7, 8, 9],
+      "genres": [1, 4]
     }
   },
     {
     "model": "webapp.movie",
     "pk": 2,
     "fields": {
-      "movie_id": 12,
+      "movie_id": 2,
       "name": "Тачки",
       "international_name": "Cars 2",
       "description": "Молния МакКуин и его друг Мэтр отправляются в международное путешествие — когда МакКуин...",
@@ -48,14 +50,16 @@
       "created_by": 1,
       "present_by": "",
       "group": "",
-      "rank": 21.02
+      "rank": 21.02,
+      "comments": [1, 2, 3],
+      "genres": [1, 4]
     }
   },
     {
     "model": "webapp.movie",
     "pk": 3,
     "fields": {
-      "movie_id": 13,
+      "movie_id": 3,
       "name": "Тачки",
       "international_name": "Cars 2",
       "description": "Молния МакКуин и его друг Мэтр отправляются в международное путешествие — когда МакКуин...",
@@ -74,14 +78,16 @@
       "created_by": 1,
       "present_by": "",
       "group": "",
-      "rank": 21.02
+      "rank": 21.02,
+      "comments": [7, 8, 9, 10],
+      "genres": [1, 4]
     }
   },
     {
     "model": "webapp.movie",
     "pk": 4,
     "fields": {
-      "movie_id": 14,
+      "movie_id": 4,
       "name": "Тачки",
       "international_name": "Cars 2",
       "description": "Молния МакКуин и его друг Мэтр отправляются в международное путешествие — когда МакКуин...",
@@ -100,14 +106,16 @@
       "created_by": 1,
       "present_by": "",
       "group": "",
-      "rank": 21.02
+      "rank": 21.02,
+      "comments": [4, 5, 6],
+      "genres": [1, 4]
     }
   },
     {
     "model": "webapp.movie",
     "pk": 5,
     "fields": {
-      "movie_id": 15,
+      "movie_id": 5,
       "name": "Тачки",
       "international_name": "Cars 2",
       "description": "Молния МакКуин и его друг Мэтр отправляются в международное путешествие — когда МакКуин...",
@@ -126,14 +134,16 @@
       "created_by": 1,
       "present_by": "",
       "group": "",
-      "rank": 21.02
+      "rank": 21.02,
+      "comments": [4, 5, 6],
+      "genres": [1, 4]
     }
   },
     {
     "model": "webapp.movie",
     "pk": 6,
     "fields": {
-      "movie_id": 16,
+      "movie_id": 6,
       "name": "Тачки",
       "international_name": "Cars 2",
       "description": "Молния МакКуин и его друг Мэтр отправляются в международное путешествие — когда МакКуин...",
@@ -152,14 +162,16 @@
       "created_by": 1,
       "present_by": "",
       "group": "",
-      "rank": 21.02
+      "rank": 21.02,
+      "comments": [1, 2, 3],
+      "genres": [1, 4]
     }
   },
     {
     "model": "webapp.movie",
     "pk": 7,
     "fields": {
-      "movie_id": 17,
+      "movie_id": 7,
       "name": "Тачки",
       "international_name": "Cars 2",
       "description": "Молния МакКуин и его друг Мэтр отправляются в международное путешествие — когда МакКуин...",
@@ -178,14 +190,16 @@
       "created_by": 1,
       "present_by": "",
       "group": "",
-      "rank": 21.02
+      "rank": 21.02,
+      "comments": [7, 8, 9, 10],
+      "genres": [2, 5]
     }
   },
     {
     "model": "webapp.movie",
     "pk": 8,
     "fields": {
-      "movie_id": 18,
+      "movie_id": 8,
       "name": "Тачки",
       "international_name": "Cars 2",
       "description": "Молния МакКуин и его друг Мэтр отправляются в международное путешествие — когда МакКуин...",
@@ -204,14 +218,16 @@
       "created_by": 1,
       "present_by": "",
       "group": "",
-      "rank": 21.02
+      "rank": 21.02,
+      "comments": [7, 8, 9, 10],
+      "genres": [2, 5]
     }
   },
     {
     "model": "webapp.movie",
     "pk": 9,
     "fields": {
-      "movie_id": 19,
+      "movie_id": 9,
       "name": "Тачки",
       "international_name": "Cars 2",
       "description": "Молния МакКуин и его друг Мэтр отправляются в международное путешествие — когда МакКуин...",
@@ -230,14 +246,16 @@
       "created_by": 1,
       "present_by": "",
       "group": "",
-      "rank": 21.02
+      "rank": 21.02,
+      "comments": [1, 2, 3],
+      "genres": [2, 5]
     }
   },
     {
     "model": "webapp.movie",
     "pk": 10,
     "fields": {
-      "movie_id": 20,
+      "movie_id": 10,
       "name": "Тачки",
       "international_name": "Cars 2",
       "description": "Молния МакКуин и его друг Мэтр отправляются в международное путешествие — когда МакКуин...",
@@ -256,7 +274,9 @@
       "created_by": 1,
       "present_by": "",
       "group": "",
-      "rank": 21.02
+      "rank": 21.02,
+      "comments": [4, 5, 6],
+      "genres": [2, 5]
     }
   }
 ]

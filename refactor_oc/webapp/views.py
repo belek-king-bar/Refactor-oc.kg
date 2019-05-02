@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from webapp.models import Person, Movie, Rating, Participant, Genre, Comment, Bestseller, Bookmark
 from django.views.generic import DetailView, ListView
+from webapp.models import Bestseller, Movie, Person, Bookmark, Comment, Genre
 import json
-
 
 class MovieDetailView(DetailView):
     model = Movie
@@ -72,8 +72,11 @@ class BestsellerListView(ListView):
             10: 'fa-user-secret'
         }
         for bestseller in Bestseller.objects.all():
+            print(bestseller)
             movies_str = bestseller.movies
+            print(movies_str)
             movie_list = json.loads(movies_str)
+            print(movie_list)
             q = {
                 'category': bestseller.name,
                 'movies': [],
@@ -82,4 +85,32 @@ class BestsellerListView(ListView):
             for i in movie_list:
                 q['movies'].append(Movie.objects.get(movie_id=i))
             context['movie_all'].append(q)
+            print(context['movie_all'])
         return context
+
+
+class MovieView(DetailView):
+    model = Movie
+    template_name = 'view_movie.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(MovieView, self).get_context_data(**kwargs)
+        comments = Comment.objects.filter(movies=self.object)
+        if len(comments) > 4:
+            context['comments_len'] = len(comments) - 4
+        if self.object.group:
+            context['compilation'] = Movie.objects.filter(group=self.object.group)
+        else:
+            context['compilation'] = self.get_compilation_by_genres(Genre.objects.filter(movies__in=[self.object.movie_id]))
+        print(context)
+        return context
+
+    @staticmethod
+    def get_compilation_by_genres(genres):
+        res = []
+        for i in genres:
+            res.append(i.genre_id)
+        if len(res) > 2:
+            return Movie.objects.filter(genres__in=res[:3]).order_by("?")[:5]
+        else:
+            return Movie.objects.filter(genres__in=res).order_by("?")[:5]

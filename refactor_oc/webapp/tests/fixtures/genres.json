@@ -1,0 +1,46 @@
+[
+  {
+    "model": "webapp.genre",
+    "pk": 1,
+    "fields": {
+      "genre_id": 1,
+      "name": "Детектив"
+    }
+  },
+
+  {
+    "model": "webapp.genre",
+    "pk": 2,
+    "fields": {
+      "genre_id": 2,
+      "name": "Комедия"
+    }
+  },
+
+  {
+    "model": "webapp.genre",
+    "pk": 3,
+    "fields": {
+      "genre_id": 3,
+      "name": "Драма"
+    }
+  },
+
+  {
+    "model": "webapp.genre",
+    "pk": 4,
+    "fields": {
+      "genre_id": 4,
+      "name": "Триллер"
+    }
+  },
+
+  {
+    "model": "webapp.genre",
+    "pk": 5,
+    "fields": {
+      "genre_id": 5,
+      "name": "Ужасы"
+    }
+  }
+]
