@@ -31,7 +31,7 @@
 1. Откройте проект в Pycharm. Создайте в папке проекта refactor_oc файл local_settings.py (в той же папке, где находятся основные настройки проекта settings.py)
 2. Пропишите в файле local_settings.py локальные настройки базы данных. Пример:
 
-
+```
     DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -42,7 +42,7 @@
         'PORT': '3306'
     }
 }
-
+```
 
 ## Коммиты
 

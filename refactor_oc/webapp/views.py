@@ -1,8 +1,10 @@
 from django.shortcuts import render
-from webapp.models import Person, Movie, Rating, Participant, Genre, Comment, Bestseller, Bookmark
+from webapp.models import Rating, Participant
 from django.views.generic import DetailView, ListView
 from webapp.models import Bestseller, Movie, Person, Bookmark, Comment, Genre
 import json
+from django.core.paginator import Paginator
+
 
 class MovieDetailView(DetailView):
     model = Movie
@@ -72,11 +74,8 @@ class BestsellerListView(ListView):
             10: 'fa-user-secret'
         }
         for bestseller in Bestseller.objects.all():
-            print(bestseller)
             movies_str = bestseller.movies
-            print(movies_str)
             movie_list = json.loads(movies_str)
-            print(movie_list)
             q = {
                 'category': bestseller.name,
                 'movies': [],
@@ -85,7 +84,19 @@ class BestsellerListView(ListView):
             for i in movie_list:
                 q['movies'].append(Movie.objects.get(movie_id=i))
             context['movie_all'].append(q)
-            print(context['movie_all'])
+
+
+class CatalogueListView(ListView):
+    model = Movie
+    template_name = 'catalogue.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(CatalogueListView, self).get_context_data(**kwargs)
+        context['comments'] = Comment.objects.all().order_by('-created_at')[:5]
+        all_movies = Movie.objects.all().order_by('-created_at')
+        context['paginator'] = Paginator(all_movies, 4)
+        context['page'] = self.request.GET.get('page')
+        context['movies'] = context['paginator'].get_page(context['page'])
         return context
 
 
