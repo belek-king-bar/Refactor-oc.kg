@@ -9,8 +9,8 @@
     <div class="row">
        <div class="col-sm-12">
            <ul class="breadcrumb">
-               <li><a href="#" class="hover_line">Главная</a></li>
-               <li><a href="#" class="hover_line">Каталог</a></li>
+               <li><a href="{% url 'webapp:bestseller_list' %}" class="hover_line">Главная</a></li>
+               <li><a href="{% url 'webapp:catalogue_list' %}" class="hover_line">Каталог</a></li>
                <li>{{ movie.name }}</li>
            </ul>
        </div>
