@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load i18n %}
 {% block title %}{{ movie.name }}{% endblock %}
 <!--Основной контейнер-->
 {% block content %}
@@ -9,8 +10,8 @@
     <div class="row">
        <div class="col-sm-12">
            <ul class="breadcrumb">
-               <li><a href="{% url 'webapp:bestseller_list' %}" class="hover_line">Главная</a></li>
-               <li><a href="{% url 'webapp:catalogue_list' %}" class="hover_line">Каталог</a></li>
+               <li><a href="{% url 'webapp:bestseller_list' %}" class="hover_line">{% trans "Home" %}</a></li>
+               <li><a href="{% url 'webapp:catalogue_list' %}" class="hover_line">{% trans "Catalog" %}</a></li>
                <li>{{ movie.name }}</li>
            </ul>
        </div>
@@ -62,8 +63,8 @@
 
         <div class="col-sm-6">
             <div class="button_block">
-                <div class="wrapper"><a href="#" class="custom_btn_border red">Скачать</a></div>
-                <div class="wrapper"><a href="#" class="custom_btn_border small_padding">В избранное <i class="fa fa-star-o"></i></a></div>
+                <div class="wrapper"><a href="#" class="custom_btn_border red">{% trans "Download" %}</a></div>
+                <div class="wrapper"><a href="#" class="custom_btn_border small_padding">{% trans "To favorites" %}<i class="fa fa-star-o"></i></a></div>
                 <!--<div class="wrapper"><a href="#" class="custom_btn_border">Добавлено <i class="fa fa-star"></i></a></div>-->
             </div>
         </div>
@@ -71,7 +72,7 @@
         <div class="col-sm-6">
             <div class="my_rate">
                 <div class="pull-left">
-                    <span class="my_rate_span">Моя оценка: </span>
+                    <span class="my_rate_span">{% trans "My mark" %}: </span>
                 </div>
                 <div class="pull-left">
                     <div class="rate" data-rate-value=6></div>
@@ -93,7 +94,7 @@
     <div class="comments comments_movie_page">
         <div class="row">
             <div class="col-sm-10 col-sm-offset-1">
-                <h3 class="h3_with_fa"><i class="fa fa-comments-o"></i>Отзывы о фильме</h3>
+                <h3 class="h3_with_fa"><i class="fa fa-comments-o"></i>{% trans "Movie Reviews" %}</h3>
 
             {% for comment in movie.comments.all %}
                 {% if forloop.counter < 5 %}
@@ -138,7 +139,7 @@
             {% endfor %}
                 {% if comments_len > 0 %}
                     <div class="show_all_comments">
-                        <button class="btn_blank hover_line" id="show_all_comments_btn">Смотреть все отзывы ({{ comments_len }})</button>
+                        <button class="btn_blank hover_line" id="show_all_comments_btn">{% trans "See all reviews" %} ({{ comments_len }})</button>
                     </div>
                 {% endif %}
 
@@ -152,13 +153,13 @@
         <div class="col-sm-10 col-sm-offset-1">
             <div id="add_comment">
 
-                <h3 class="h3_with_fa"><i class="fa fa-edit"></i>Добавить отзыв </h3>
+                <h3 class="h3_with_fa"><i class="fa fa-edit"></i>{% trans "Add a review" %} </h3>
 
                 <div class="row">
                     <div class="col-sm-8">
                         <form action="#">
                             <textarea name="text" id="add_comment_id" rows="7"></textarea>
-                            <button class="custom_btn_border red">Добавить</button>
+                            <button class="custom_btn_border red">{% trans "Add" %}</button>
                         </form>
                     </div>
                 </div>
@@ -174,7 +175,7 @@
 
         <div class="row">
             <div class="col-sm-10 col-sm-offset-1">
-                <h3><i class="fa fa-check"></i>Похожие фильмы</h3>
+                <h3><i class="fa fa-check"></i>{% trans "Similar movies" %}</h3>
             </div>
         </div>
 
@@ -216,7 +217,7 @@
                                                 <button class="btn_blank" title="В избранное"><i class="fa fa-star-o"></i>
                                                 </button>
                                                 <!--<button class="btn_blank in_fav" title="Удалить из избранного"><i class="fa fa-star"></i></button>-->
-                                                <a href="#" class="hover_line info_link">Описание</a>
+                                                <a href="#" class="hover_line info_link">{% trans "Description" %}</a>
                                                 <span class="time"><i class="fa fa-clock-o"></i>{{ movie.files.seconds }}</span>
                                                 <span class="view"><i class="fa fa-eye"></i> {{ movie.hit }}</span>
                                             </div>
@@ -238,13 +239,13 @@
 
                                             <div class="info">
                                                 <p>
-                                                    <span>Рейтинги:</span>
+                                                    <span>{% trans "Ratings" %}:</span>
                                                     {% for ratings in movie.ratings.all %}
                                                         <span>{{ ratings.system }} : {{ ratings.value|floatformat }}</span>
                                                     {% endfor %}
                                                 </p>
                                                 <p>
-                                                    <span>Режиссер:</span>
+                                                    <span>{% trans "Director" %}:</span>
                                                     {% for participants in movie.participants.all %}
                                                     {% if participants.role.role_id == 1 %}
                                                         <span>{{ participants.person.name }}</span>
@@ -252,7 +253,7 @@
                                                     {% endfor %}
                                                 </p>
                                                 <p>
-                                                    <span>В ролях:</span>
+                                                    <span>{% trans "Cast" %}:</span>
                                                     {% for participants in movie.participants.all %}
                                                     {% if participants.role.role_id == 3 or participants.role.role_id == 4 %}
                                                         <span>{{ participants.person.name }}</span>
