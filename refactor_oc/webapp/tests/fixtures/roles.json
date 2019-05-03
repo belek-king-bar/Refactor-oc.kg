@@ -1,0 +1,22 @@
+[
+  {
+    "model": "webapp.role",
+    "pk": 1,
+    "fields": {
+      "role_id": 1,
+      "name": "режиссер",
+      "name_hyphenated": "name",
+      "sort": 8
+    }
+  },
+  {
+    "model": "webapp.role",
+    "pk": 3,
+    "fields": {
+      "role_id": 3,
+      "name": "актер",
+      "name_hyphenated": "name",
+      "sort": 6
+    }
+  }
+]

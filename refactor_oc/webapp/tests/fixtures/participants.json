@@ -1,0 +1,57 @@
+[
+  {
+    "model": "webapp.participant",
+    "pk": 1,
+    "fields": {
+      "participant_id": 1,
+      "movie": 2,
+      "role": 3,
+      "character": "",
+      "person": 2
+    }
+  },
+  {
+    "model": "webapp.participant",
+    "pk": 2,
+    "fields": {
+      "participant_id": 2,
+      "movie": 2,
+      "role": 3,
+      "character": "",
+      "person": 1
+    }
+  },
+  {
+    "model": "webapp.participant",
+    "pk": 3,
+    "fields": {
+      "participant_id": 3,
+      "movie": 2,
+      "role": 1,
+      "character": "",
+      "person": 2
+    }
+  },
+  {
+    "model": "webapp.participant",
+    "pk": 4,
+    "fields": {
+      "participant_id": 4,
+      "movie": 2,
+      "role": 1,
+      "character": "",
+      "person": 3
+    }
+  },
+  {
+    "model": "webapp.participant",
+    "pk": 5,
+    "fields": {
+      "participant_id": 5,
+      "movie": 2,
+      "role": 3,
+      "character": "",
+      "person": 1
+    }
+  }
+]

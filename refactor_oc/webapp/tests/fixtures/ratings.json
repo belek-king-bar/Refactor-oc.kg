@@ -1,0 +1,129 @@
+[
+  {
+    "model": "webapp.rating",
+    "pk": 1,
+    "fields": {
+      "rating_id": 1,
+      "movie": 2,
+      "system": "local",
+      "system_uid": null,
+      "count": "17149",
+      "value": "7.082",
+      "details": null,
+      "updated_at": "2012-07-12 09:29:41"
+    }
+  },
+  {
+    "model": "webapp.rating",
+    "pk": 2,
+    "fields": {
+      "rating_id": 2,
+      "movie": 2,
+      "system": "imdb",
+      "system_uid": null,
+      "count": "17149",
+      "value": "7.082",
+      "details": null,
+      "updated_at": "2012-07-12 09:29:41"
+    }
+  },
+  {
+    "model": "webapp.rating",
+    "pk": 3,
+    "fields": {
+      "rating_id": 3,
+      "movie": 2,
+      "system": "kinopoisk",
+      "system_uid": null,
+      "count": "17149",
+      "value": "7.082",
+      "details": null,
+      "updated_at": "2012-07-12 09:29:41"
+    }
+  },
+  {
+    "model": "webapp.rating",
+    "pk": 4,
+    "fields": {
+      "rating_id": 4,
+      "movie": 3,
+      "system": "local",
+      "system_uid": null,
+      "count": "17149",
+      "value": "7.082",
+      "details": null,
+      "updated_at": "2012-07-12 09:29:41"
+    }
+  },
+  {
+    "model": "webapp.rating",
+    "pk": 5,
+    "fields": {
+      "rating_id": 5,
+      "movie": 3,
+      "system": "imdb",
+      "system_uid": null,
+      "count": "17149",
+      "value": "7.082",
+      "details": null,
+      "updated_at": "2012-07-12 09:29:41"
+    }
+  },
+  {
+    "model": "webapp.rating",
+    "pk": 6,
+    "fields": {
+      "rating_id": 6,
+      "movie": 3,
+      "system": "kinopoisk",
+      "system_uid": null,
+      "count": "17149",
+      "value": "7.082",
+      "details": null,
+      "updated_at": "2012-07-12 09:29:41"
+    }
+  },
+  {
+    "model": "webapp.rating",
+    "pk": 7,
+    "fields": {
+      "rating_id": 7,
+      "movie": 4,
+      "system": "local",
+      "system_uid": null,
+      "count": "17149",
+      "value": "7.082",
+      "details": null,
+      "updated_at": "2012-07-12 09:29:41"
+    }
+  },
+  {
+    "model": "webapp.rating",
+    "pk": 8,
+    "fields": {
+      "rating_id": 8,
+      "movie": 4,
+      "system": "imdb",
+      "system_uid": null,
+      "count": "17149",
+      "value": "7.082",
+      "details": null,
+      "updated_at": "2012-07-12 09:29:41"
+    }
+  },
+  {
+    "model": "webapp.rating",
+    "pk": 9,
+    "fields": {
+      "rating_id": 9,
+      "movie": 4,
+      "system": "kinopoisk",
+      "system_uid": null,
+      "count": "17149",
+      "value": "7.082",
+      "details": null,
+      "updated_at": "2012-07-12 09:29:41"
+    }
+  }
+
+]

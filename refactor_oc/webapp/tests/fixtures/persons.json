@@ -1,0 +1,47 @@
+[
+  {
+    "model": "webapp.person",
+    "pk": 1,
+    "fields": {
+      "person_id": 1,
+      "name": "Вин Дизель",
+      "international_name": "Vin Diesel",
+      "info": "известный актер",
+      "photos": "",
+      "url": "www.cinematica.kg",
+      "rank": 9,
+      "updated_at": "2012-07-12 09:29:41",
+      "tries": 9
+    }
+  },
+  {
+    "model": "webapp.person",
+    "pk": 2,
+    "fields": {
+      "person_id": 2,
+      "name": "Вин Дизель",
+      "international_name": "Vin Diesel",
+      "info": "известный актер",
+      "photos": "",
+      "url": "www.cinematica.kg",
+      "rank": 9,
+      "updated_at": "2012-07-12 09:29:41",
+      "tries": 9
+    }
+  },
+  {
+    "model": "webapp.person",
+    "pk": 3,
+    "fields": {
+      "person_id": 3,
+      "name": "Вин Дизель",
+      "international_name": "Vin Diesel",
+      "info": "известный актер",
+      "photos": "",
+      "url": "www.cinematica.kg",
+      "rank": 9,
+      "updated_at": "2012-07-12 09:29:41",
+      "tries": 9
+    }
+  }
+]
