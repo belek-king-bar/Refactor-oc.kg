@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-02 19:31+0000\n"
+"POT-Creation-Date: 2019-05-07 06:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -62,11 +62,6 @@ msgstr "Вся фильмография"
 #: webapp/templates/movie_detail.html:14
 msgid "Bestsellers"
 msgstr "Бестселлеры"
-
-#: webapp/templates/base.html:46 webapp/templates/base.html:183
-#: webapp/templates/view_movie.html:14
-msgid "Catalog"
-msgstr "Каталог"
 
 #: webapp/templates/base.html:47 webapp/templates/base.html:184
 #: webapp/templates/base.html:185 webapp/templates/base.html:280
@@ -178,10 +173,24 @@ msgid "Forum"
 msgstr "Форум"
 
 #: webapp/templates/catalogue.html:4
-#, fuzzy
-#| msgid "Catalog"
 msgid "Catalogue"
 msgstr "Каталог"
+
+#: webapp/templates/catalogue.html:228
+msgid "Most viewed movies"
+msgstr "В центре внимания"
+
+#: webapp/templates/catalogue.html:301
+msgid "Kinopoisk"
+msgstr "Кинопоиск"
+
+#: webapp/templates/catalogue.html:357
+msgid "New movies"
+msgstr "Последние фильмы"
+
+#: webapp/templates/catalogue.html:479
+msgid "Recent comments"
+msgstr "Последние комментарии"
 
 #: webapp/templates/favorite_view.html:7
 msgid "Favorites"

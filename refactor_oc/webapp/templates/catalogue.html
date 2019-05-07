@@ -225,7 +225,7 @@
 
             <div class="row">
                 <div class="col-sm-10 col-sm-offset-1">
-                    <h3><i class="fa fa-diamond"></i>В центре внимания</h3>
+                    <h3><i class="fa fa-diamond"></i>{% trans "Most viewed movies" %}</h3>
                 </div>
             </div>
 
@@ -298,7 +298,7 @@
                                                             <span>oc.kg: {{ rating.value|floatformat }}</span>
                                                         {% endif %}
                                                         {% if rating.system == "kinopoisk" %}
-                                                            <span>КиноПоиск: {{ rating.value|floatformat }}</span>
+                                                            <span>{% trans "Kinopoisk" %}: {{ rating.value|floatformat }}</span>
                                                         {% endif %}
                                                         {% if rating.system == "imdb" %}
                                                             <span>IMDb: {{ rating.value|floatformat }}</span>{% endif %}
@@ -354,7 +354,7 @@
         <div class="row" id="movie_list">
             <div class="col-sm-10 col-sm-offset-1">
 
-                <h3 class="h3_with_fa"><i class="fa fa-star-o"></i>Последние фильмы</h3>
+                <h3 class="h3_with_fa"><i class="fa fa-star-o"></i>{% trans "New movies" %}</h3>
 
                 <div class="row" style="overflow-x: hidden;">
                     <!--В цикле выводим фильмы-->
@@ -476,7 +476,7 @@
         <div class="comments">
             <div class="row">
                 <div class="col-sm-10 col-sm-offset-1">
-                    <h3 class="h3_with_fa"><i class="fa fa-pencil-square-o"></i>Последние комментарии</h3>
+                    <h3 class="h3_with_fa"><i class="fa fa-pencil-square-o"></i>{% trans "Recent comments" %}</h3>
                     {% for comment in comments %}
                         <!--Комментарий-->
                         <div class="s_comment">
