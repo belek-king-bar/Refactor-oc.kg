@@ -117,31 +117,20 @@
                                     class="fa fa-times"></i></button>
 
                             <!--Форма поиска-->
-                            <div id="search_form_wrapper">
-                                <input type="text" class="form-control" id="search_input" placeholder="Search">
-
-                                <!--Результаты поиска-->
-                                <div id="search_suggestion">
-                                    <a href="#" class="single_result">
-                                    <span class="row">
-                                        <span class="col-sm-2 pr0">
-                                             <img src="http://oc.kg/media/thumbnails/9/f/9f8ba315b069c670933ef96fdede668c_40x56.jpg"
-                                                  class="img-responsive">
-                                        </span>
-                                        <span class="col-sm-9">
-                                            <span class="title">Долгий поцелуй на ночь</span>
-                                            <span class="detail">The Long Kiss Goodnight (1996)</span>
-                                        </span>
-                                    </span>
-                                    </a>
-
-                                    <div><a href="#" class="all_res">{% trans "All results for" %} <i>бла-бла-бла</i> <i
-                                            class="fa fa-long-arrow-right"></i></a></div>
+                            <form action="{% url 'webapp:search_list' %}" method="get">
+                                <div id="search_form_wrapper">
+                                    {% csrf_token %}
+                                    <input type="text" name="q" class="form-control" id="search_input" placeholder="Search" autocomplete="off">
+                                        <div id="search_suggestion">
+                                            <!--Результаты поиска-->
+                                            <div id="search-results"></div>
+                                            <!--Конец-->
+                                            <div><button type="submit" name="search_button" class="all_res">{% trans "All results for" %} <i id="text-input"></i> <i
+                                                class="fa fa-long-arrow-right"></i></button></div>
+                                        </div>
 
                                 </div>
-                                <!--Конец-->
-
-                            </div>
+                            </form>
                             <!--Конец-->
 
                         </li>
@@ -189,26 +178,18 @@
 
             <div id="mobile_menu_search" class="s_mobile_menu">
                 <!--Форма поиска-->
-
-                <input type="search" class="form-control" id="search_input_mobile" placeholder="Search">
-
-                <div id="search_suggestion_mobile">
-                    <a class="single_result" href="#">
-                    <span class="row">
-                        <span class="col-xs-2 pr0">
-                             <img class="img-responsive"
-                                  src="http://oc.kg/media/thumbnails/9/f/9f8ba315b069c670933ef96fdede668c_40x56.jpg">
-                        </span>
-                        <span class="col-xs-10">
-                            <span class="title">Долгий поцелуй на ночь</span>
-                            <span class="detail">The Long Kiss Goodnight (1996)</span>
-                        </span>
-                    </span>
-                    </a>
-
-                    <div><a class="all_res" href="#">{% trans "All results for" %} <i>бла-бла-бла</i> <i class="fa fa-long-arrow-right"></i></a></div>
-
-                </div>
+                <form action="{% url 'webapp:search_list' %}" method="get">
+                        {% csrf_token %}
+                        <input type="search" name="q" class="form-control" id="search_input_mobile" placeholder="Search" autocomplete="off">
+                            <div id="search_suggestion_mobile">
+                                <!--Результаты поиска-->
+                                <div id="search-results_mobile"></div>
+                                <!--Конец-->
+                                <div><button type="submit" class="all_res">{% trans "All results for" %} <i id="text-input_mobile"></i> <i
+                                    class="fa fa-long-arrow-right"></i></button></div>
+                            </div>
+                        </form>
+                    </div>
                 <!--Конец-->
             </div>
 
@@ -332,6 +313,66 @@
     </div>
     <!--Конец-->
 
+    <script src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
+    <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/lg.min.js' %}"></script>
+    <script src="{% static 'js/rater.min.js' %}"></script>
+    <script src="{% static 'js/frontend.js' %}"></script>
+<script>
+        $(function() {
+            {#   Выполняет запрос только в том случае, если пользователь ввёл в форму поиска три буквы   #}
+            $('button[type="submit"]').prop('disabled', true);
+            $('input[name="q"]').keyup(function(){
+                if($(this).val().length >= 3){
+                    $('button[type="submit"]').prop('disabled', false);
+                }
+            });
+
+            {#   Ajax запрос для живого поиска   #}
+
+            $('#search_input').keyup(function () {
+                $.ajax({
+                    type: "GET",
+                    url: '{% url 'webapp:search_view' %}',
+                    data: {
+                        'q': $('#search_input').val(),
+                         csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()
+                    },
+                    success: searchSuccess,
+                    dataType: 'html'
+                });
+                var val = $('#search_input').val();
+                $('#text-input').html(val);
+            });
+            function searchSuccess(data){
+                $('#search-results').html(data);
+            }
+        });
+
+        {#   Ajax запрос для живого поиска мобильная версия   #}
+        $(function() {
+            $('#search_input_mobile').keyup(function () {
+
+                $.ajax({
+                    type: "GET",
+                    url: '{% url 'webapp:search_view' %}',
+                    data: {
+                        'q': $('#search_input_mobile').val(),
+                         csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()
+                    },
+                    success: searchSuccess,
+                    dataType: 'html'
+                });
+                var val = $('#search_input_mobile').val();
+                $('#text-input_mobile').html(val);
+            });
+            function searchSuccess(data){
+                $('#search-results_mobile').html(data);
+            }
+        });
+
+        </script>
 {% block script %}{% endblock %}
 
 </body>

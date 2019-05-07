@@ -388,6 +388,29 @@ class Migration(migrations.Migration):
                 'db_table': 'hits',
             },
         ),
+        migrations.CreateModel(
+            name='CommentsVote',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('votes', models.IntegerField(blank=True, null=True)),
+                ('comments', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comments_votes', to='webapp.Comment')),
+                ('users', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='comments_votes', to='webapp.OCUser')),
+            ],
+            options={
+                'db_table': 'comments_votes',
+            },
+        ),
+        migrations.CreateModel(
+            name='CommentsRating',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('vote', models.IntegerField(blank=True, null=True)),
+                ('comment', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='comments_ratings', to='webapp.Comment')),
+            ],
+            options={
+                'db_table': 'comments_rating',
+            },
+        ),
         migrations.AddField(
             model_name='comment',
             name='to_user',

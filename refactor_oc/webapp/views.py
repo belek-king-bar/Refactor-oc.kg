@@ -1,9 +1,58 @@
 from django.shortcuts import render
 from webapp.models import Rating, Participant
 from django.views.generic import DetailView, ListView
+from django.views.generic.base import TemplateView
 from webapp.models import Bestseller, Movie, Person, Bookmark, Comment, Genre
 import json
 from django.core.paginator import Paginator
+from django.db.models import Q
+
+
+# Вьюшка для живого поиска
+class AjaxSearchView(TemplateView):
+    template_name = 'ajax_search.html'
+
+    def get_context_data(self, **kwargs):
+        q = self.request.GET.get('q')
+        movie = Movie.objects.all()
+        person = Person.objects.all()
+
+        context = {
+            'movies': movie.filter(Q(name__icontains=q) | Q(international_name__icontains=q))[:3],
+            'persons': person.filter(Q(name__icontains=q) | Q(international_name__icontains=q))[:3]
+        }
+
+        return context
+# Конец
+
+
+# Результаты поиска
+class SearchListView(TemplateView):
+    template_name = 'search_list.html'
+
+    def get_context_data(self, **kwargs):
+        q = self.request.GET.get('q')
+        movie = Movie.objects.filter(Q(name__icontains=q) | Q(international_name__icontains=q))
+        person = Person.objects.filter(Q(name__icontains=q) | Q(international_name__icontains=q))
+
+# Пагинация для фильмов
+        paginator = Paginator(movie, 6)
+        page_number = self.request.GET.get('page', 1)
+        movie = paginator.get_page(page_number)
+
+# Пагинация для актёров
+        paginator = Paginator(person, 6)
+        page_number = self.request.GET.get('page', 1)
+        person = paginator.get_page(page_number)
+
+        context = {
+            'search_input': q,
+            'movies': movie,
+            'persons': person
+        }
+
+        return context
+# Конец
 
 
 class MovieDetailView(DetailView):

@@ -1,0 +1,238 @@
+{% extends 'base.html' %}
+
+{% block title %}Результаты поиска{% endblock %}
+{% block menu %}
+{% endblock %}
+{% block content %}
+    <div class="container" id="main_content">
+        {% if movies.paginator.conut > 0 or persons.paginator.count > 0 %}
+
+            <!--Breadcrumbs-->
+            <div class="row">
+                <div class="col-sm-12">
+                    <ul class="breadcrumb">
+                        <li><a href="?q={{ search_input }}&page=1" class="hover_line">Результаты поиска</a></li>
+                        <li>{{ search_input }}</li>
+                    </ul>
+                </div>
+            </div>
+            <!--Конец-->
+
+            <!--Пагинация-->
+            <nav aria-label="Page navigation example" class="text-center">
+                <ul class="pagination">
+                    <li class="page-item {% if not movies.has_previous or not persons.has_previous %}disabled{% endif %}">
+                        <a class="page-link"
+                           href="{% if movies.has_previous %}?q={{ search_input }}&page={{ movies.previous_page_number }}{% else %}#{% endif %}"
+                           aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+
+            <!--Если страниц с фильмами больше то выводим количество страниц фильмов-->
+                {% if movies.paginator.page_range > persons.paginator.page_range %}
+                    {% if movies.number|add:'-4' > 1 %}
+                        <li><a href="?q={{ search_input }}&page=1">1 &hellip;</a></li>
+                    {% endif %}
+                    {% for page_number in movies.paginator.page_range %}
+                        {% if movies.number == page_number %}
+                            <li class="active"><span>{{ page_number }} <span class="sr-only">(current)</span></span></li>
+                        {% elif page_number > movies.number|add:'-5' and page_number < movies.number|add:'5' %}
+                            <li><a class="page-item" href="?q={{ search_input }}&page={{ page_number }}">{{ page_number }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if movies.paginator.num_pages > movies.number|add:'4' %}
+                        <li><a href="?q={{ search_input }}&page=-1">&hellip; {{  movies.paginator.num_pages }}</a></li>
+                    {% endif %}
+            <!--Конец-->
+
+            <!-- Если страниц с персонами больше то выводим количество страниц персон -->
+                {% else %}
+                    {% if persons.number|add:'-4' > 1 %}
+                        <li><a href="?q={{ search_input }}&page=1">1 &hellip;</a></li>
+                    {% endif %}
+                    {% for page_number in persons.paginator.page_range %}
+                        {% if persons.number == page_number %}
+                            <li class="active"><span>{{ page_number }} <span class="sr-only">(current)</span></span></li>
+                        {% elif page_number > persons.number|add:'-5' and page_number < persons.number|add:'5' %}
+                            <li><a class="page-item" href="?q={{ search_input }}&page={{ page_number }}">{{ page_number }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if persons.paginator.num_pages > persons.number|add:'4' %}
+                        <li><a href="?q={{ search_input }}&page=-1">&hellip; {{  persons.paginator.num_pages }}</a></li>
+                    {% endif %}
+                {% endif %}
+             <!-- Конец -->
+
+                    <li class="page-item {% if not movies.has_next or not persons.has_next  %}disabled{% endif %}">
+                        <a class="page-link"
+                           href="{% if movies.has_next %}?q={{ search_input }}&page={{ movies.next_page_number }}{% else %}#{% endif %}"
+                           aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- Конец -->
+
+            <!--Фильмы-->
+            {% if movies.paginator.num_pages >= persons.number %}
+                {% for movie in movies %}
+                    <div class="result_s_film">
+                        <div class="row">
+
+                            <div class="col-sm-2">
+                                <a href="{% url 'webapp:movie_detail' movie.pk %}"><img src="{{ movie.covers }}" alt="poster" class="img-responsive"></a>
+                            </div>
+
+                            <div class="col-sm-10">
+
+                                <h2>{{ movie.name }}</h2>
+
+                                <div class="metadata">
+                                    <p>
+                                        <strong><span>{{ movie.year }}</span>
+                                        <span>
+                                            {% for country in movie.countries.all %}
+                                                {{ country.name}}
+                                            {% endfor %}
+                                        </span>
+                                        </strong>
+                                    </p>
+                                    <p>
+                                        {% for genre in movie.genres.all %}
+                                            <span>{{ genre.name }}</span>
+                                        {% endfor %}
+                                    </p>
+                                    <p>
+                                    {% for ratings in movie.ratings.all %}
+                                        {% if ratings.system == 'local' %}
+                                            <span data-toggle="tooltip" data-placement="top" title="" data-original-title="Рейтинг oc.kg">oc.kg:  {{ ratings.value|floatformat }} </span>
+                                        {% elif ratings.system == 'kinopoisk' %}
+                                            <span data-toggle="tooltip" data-placement="top" title="" data-original-title="Рейтинг КиноПоиск">КиноПоиск:  {{ ratings.value|floatformat }}</span>
+                                        {% elif ratings.system == 'imdb' %}
+                                            <span data-toggle="tooltip" data-placement="top" title="" data-original-title="Рейтинг IMDb">IMDb:  {{ ratings.value|floatformat }}</span>
+                                        {% endif %}
+                                    {% endfor %}
+                                    </p>
+                                </div>
+
+                                <div class="button_block">
+                                    <div class="wrapper"><a href="#" class="custom_btn_border big">Смотреть</a></div>
+                                    <div class="wrapper"><a href="#" class="custom_btn_border small_padding">В избранное <i class="fa fa-star-o"></i></a></div>
+                                    <!--<div class="wrapper"><a href="#" class="custom_btn_border">Добавлено <i class="fa fa-star"></i></a></div>-->
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <!--Конец-->
+
+            <!--Горизонтальный баннер-->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="banner_hor">
+                        <a href="https://www.megacom.kg/"><img src="../static/img/banner_910x90.png" alt="banner" class="img-responsive"></a>
+                    </div>
+                </div>
+            </div>
+            <!--Конец-->
+
+            <!--Персоны-->
+            {% if persons.paginator.num_pages >= movies.number %}
+                {% for person in persons %}
+                    <div class="result_s_person">
+                        <a href="{% url 'webapp:actor_detail' person.pk %}">
+                            <span class="row">
+                                <span class="col-sm-2">
+                                {% if person.photos %}
+                                    <img src="{{ person.photos }}" alt="person" class="img-responsive">
+                                {% else %}
+                                    <img src="../static/img/nophoto.png" class="img-responsive">
+                                {% endif %}
+                                </span>
+
+                                <span class="col-sm-10">
+                                    <span class="h2"><span>{{ person.name }}</span></span>
+                                    <span class="h3">{{ person.international_name }}</span>
+                                </span>
+
+                            </span>
+                        </a>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <!--Конец-->
+
+            </div>
+        {% else %}
+            <div class="not_found text-center table-bordered rounded-sm">
+                <p>Ничего не найдено.</p>
+                <p>Попробуйте изменить запрос.</p>
+            </div>
+        {% endif %}
+{% endblock %}
+{% block script %}
+<script src="../static/js/resCarousel.min.js"></script>
+<!--Конец-->
+
+<!--Скрипт для popover-->
+<script src="../static/js/tippy.all.min.js"></script>
+<script>
+
+    function initialize_popper(obj) {
+        var element = '#' + $(obj).attr('id');
+        var template = document.getElementById('popover_' + $(obj).attr('id'));
+
+        try {
+            tippy(
+                element,
+                {
+                    content: template.innerHTML,
+                    placement: "right-end",
+                    flipBehavior: ["right", "left"],
+                    interactive: true,
+                    animateFill: false,
+
+                    // boundary: $('#catalog_film_3'),
+                    theme: 'praktikanto',
+                    onMount({reference}) {
+                        reference.setAttribute('aria-expanded', 'true');
+                        $(element).find('.helper').toggle('fade', {direction: "right"}, 100);
+                    },
+                    onHide({reference}) {
+                        reference.setAttribute('aria-expanded', 'false');
+                        $(element).find('.helper').toggle('fade', {direction: "right"}, 100);
+                    },
+                },
+            )
+
+        } catch (err) {
+
+            console.log(err)
+
+        }
+    }
+
+    $(document).ready(function () {
+        $('a[id^=bestseller_slider]').each(function () {
+
+            initialize_popper($(this));
+
+        });
+
+        $('a[id^=catalog_film_]').each(function () {
+
+            initialize_popper($(this));
+
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% if movies.count > 0 or persons.count > 0 %}
+
+{#    Результаты поиска фильмов   #}
+    {% for movie in movies %}
+        <a href="{% url 'webapp:movie_detail' movie.pk %}" class="single_result">
+            <span class="row">
+                <span class="col-sm-2 pr0 col-xs-1 pr0">
+                    <img src="{{ movie.covers }}" class="img-responsive">
+                </span>
+                <span class="col-sm-9 col-xs-10">
+                    <span class="title">{{ movie.name }}</span>
+                    <span class="detail">{{ movie.international_name }}({{ movie.year }})</span>
+                </span>
+            </span>
+            </a>
+    {% endfor %}
+
+{#    Результаты поиска актёров   #}
+    {% for person in persons %}
+        <a href="{% url 'webapp:actor_detail' person.pk %}" class="single_result">
+            <span class="row">
+                <span class="col-sm-2 col-xs-1 pr0">
+                     {% if person.photos %}
+                         <img src="{{ person.photos }}" class="img-responsive">
+                         {% else %}
+                         <img src="https://oc.kg/templates/mobile/img/nophoto40.png"
+                              class="img-responsive">
+                    {% endif %}
+                </span>
+                <span class="col-sm-9 col-xs-10">
+                    <span class="title">{{ person.name }}</span>
+                    <span class="detail">{{ person.international_name }}</span>
+                </span>
+            </span>
+        </a>
+    {% endfor %}
+    {% else %}
+    <p>По Вашему запросу ничего не найдено</p>
+{% endif %}
