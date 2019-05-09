@@ -313,66 +313,60 @@
     </div>
     <!--Конец-->
 
-    <script src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
-    <script src="{% static 'js/jquery-ui.min.js' %}"></script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'js/lg.min.js' %}"></script>
-    <script src="{% static 'js/rater.min.js' %}"></script>
-    <script src="{% static 'js/frontend.js' %}"></script>
 <script>
-        $(function() {
-            {#   Выполняет запрос только в том случае, если пользователь ввёл в форму поиска три буквы   #}
-            $('button[type="submit"]').prop('disabled', true);
-            $('input[name="q"]').keyup(function(){
-                if($(this).val().length >= 3){
-                    $('button[type="submit"]').prop('disabled', false);
-                }
-            });
-
-            {#   Ajax запрос для живого поиска   #}
-
-            $('#search_input').keyup(function () {
-                $.ajax({
-                    type: "GET",
-                    url: '{% url 'webapp:search_view' %}',
-                    data: {
-                        'q': $('#search_input').val(),
-                         csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()
-                    },
-                    success: searchSuccess,
-                    dataType: 'html'
-                });
-                var val = $('#search_input').val();
-                $('#text-input').html(val);
-            });
-            function searchSuccess(data){
-                $('#search-results').html(data);
+    $(function() {
+        {#   Выполняет запрос только в том случае, если пользователь ввёл в форму поиска три буквы   #}
+        $('button[type="submit"]').prop('disabled', true);
+        $('input[name="q"]').keyup(function(){
+            if($(this).val().length >= 3){
+                $('button[type="submit"]').prop('disabled', false);
             }
         });
 
-        {#   Ajax запрос для живого поиска мобильная версия   #}
-        $(function() {
-            $('#search_input_mobile').keyup(function () {
+        {#   Ajax запрос для живого поиска   #}
 
-                $.ajax({
-                    type: "GET",
-                    url: '{% url 'webapp:search_view' %}',
-                    data: {
-                        'q': $('#search_input_mobile').val(),
-                         csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()
-                    },
-                    success: searchSuccess,
-                    dataType: 'html'
-                });
-                var val = $('#search_input_mobile').val();
-                $('#text-input_mobile').html(val);
+        $('#search_input').keyup(function () {
+            $.ajax({
+                type: "GET",
+                url: '{% url 'webapp:search_view' %}',
+                data: {
+                    'q': $('#search_input').val(),
+                     csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()
+                },
+                success: searchSuccess,
+                dataType: 'html'
             });
-            function searchSuccess(data){
-                $('#search-results_mobile').html(data);
-            }
+            var val = $('#search_input').val();
+            $('#text-input').html(val);
         });
+        function searchSuccess(data){
+            $('#search-results').html(data);
+        }
+    });
 
-        </script>
+    {#   Ajax запрос для живого поиска мобильная версия   #}
+    $(function() {
+        $('#search_input_mobile').keyup(function () {
+
+            $.ajax({
+                type: "GET",
+                url: '{% url 'webapp:search_view' %}',
+                data: {
+                    'q': $('#search_input_mobile').val(),
+                     csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()
+                },
+                success: searchSuccess,
+                dataType: 'html'
+            });
+            var val = $('#search_input_mobile').val();
+            $('#text-input_mobile').html(val);
+        });
+        function searchSuccess(data){
+            $('#search-results_mobile').html(data);
+        }
+    });
+
+</script>
 {% block script %}{% endblock %}
 
 </body>

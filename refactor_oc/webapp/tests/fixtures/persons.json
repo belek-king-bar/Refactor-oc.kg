@@ -43,5 +43,20 @@
       "updated_at": "2012-07-12 09:29:41",
       "tries": 9
     }
+  },
+  {
+    "model": "webapp.person",
+    "pk": 4,
+    "fields": {
+      "person_id": 4,
+      "name": "Оуен",
+      "international_name": "Owen",
+      "info": "известный актер",
+      "photos": "",
+      "url": "www.cinematica.kg",
+      "rank": 9,
+      "updated_at": "2012-07-12 09:29:41",
+      "tries": 9
+    }
   }
 ]
