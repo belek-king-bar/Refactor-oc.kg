@@ -182,7 +182,7 @@ msgstr "В центре внимания"
 
 #: webapp/templates/catalogue.html:301
 msgid "Kinopoisk"
-msgstr "Кинопоиск"
+msgstr "КиноПоиск"
 
 #: webapp/templates/catalogue.html:357
 msgid "New movies"
