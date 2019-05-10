@@ -123,7 +123,6 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-
 # PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
 
 try:

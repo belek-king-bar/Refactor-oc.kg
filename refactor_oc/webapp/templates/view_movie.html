@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% load i18n %}
+{% load crispy_forms_tags %}
 {% block title %}{{ movie.name }}{% endblock %}
 <!--Основной контейнер-->
 {% block content %}
@@ -95,14 +96,18 @@
         <div class="row">
             <div class="col-sm-10 col-sm-offset-1">
                 <h3 class="h3_with_fa"><i class="fa fa-comments-o"></i>{% trans "Movie Reviews" %}</h3>
-
-            {% for comment in movie.comments.all %}
+                    <div class="s_comment">
+                        <div class="new_comment_user"></div>
+                        <div class="new_comment"></div>
+                        <div class="text new_comment_text"></div>
+                    </div>
+            {% for comment in comments %}
                 {% if forloop.counter < 5 %}
                     <!--Комментарий-->
                     <div class="s_comment">
-                        <div class="user_letter">{{ comment.user.username.0 }}</div>
+                        <div class="user_letter">{{ comment.user.user.username.0 }}</div>
                         <div class="top">
-                            <span><strong>{{ comment.user.name }}</strong></span>
+                            <span><strong>{{ comment.user.user.username }}</strong></span>
                             <span class="date">{{ comment.created_at }}</span>
                             <span class="comment_rate">
                                 <a href="#" class="comment_up"><i class="fa fa-caret-up"></i></a>
@@ -121,7 +126,7 @@
                         <div class="s_comment">
                             <div class="user_letter">{{ comment.user.username.0 }}</div>
                             <div class="top">
-                                <span><strong>{{ comment.user.name }}</strong></span>
+                                <span><strong>{{ comment.user.username }}</strong></span>
                                 <span class="date">{{ comment.created_at }}</span>
                                 <span class="comment_rate">
                                 <a href="#" class="comment_up"><i class="fa fa-caret-up"></i></a>
@@ -156,10 +161,12 @@
                 <h3 class="h3_with_fa"><i class="fa fa-edit"></i>{% trans "Add a review" %} </h3>
 
                 <div class="row">
-                    <div class="col-sm-8">
-                        <form action="#">
-                            <textarea name="text" id="add_comment_id" rows="7"></textarea>
-                            <button class="custom_btn_border red">{% trans "Add" %}</button>
+                    <div class="col-sm-6">
+                        <form action="#" method="post">
+                            <input type="hidden" id="movie" data-id="{{ movie.movie_id }}">
+                            {% csrf_token %}
+                            <textarea class="form-control" id="id_text" rows="6"></textarea>
+                            <button type="submit" class="custom_btn_border red" id="comment_add">{% trans "Add" %}</button>
                         </form>
                     </div>
                 </div>
@@ -354,6 +361,63 @@
             initialize_popper($(this));
 
         });
+    });
+
+</script>
+
+<script>
+    $(document).ready(function () {
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        var csrftoken = getCookie('csrftoken');
+
+        $('#comment_add').click(function (e) {
+            e.preventDefault();
+            let movie_id = $('#movie').attr('data-id');
+            let text = $('#id_text').val();
+            if(text !== '') {
+                data = {
+                    movie_id: movie_id,
+                    text: text,
+                    csrfmiddlewaretoken: csrftoken
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'webapp:add_comment' %}",
+                    dataType: 'json',
+                    data: data,
+                    success: function (data) {
+                        $.each(data, function (field) {
+                            $('.new_comment_user').prepend('<div class="user_letter">'+data[field]['user'][0]+'</div>');
+                        });
+                        $.each(data, function (field) {
+                           $('.new_comment').prepend('<div class="top"><span><strong>'+data[field]['user']+'</strong></span>' +
+                                '<span class="date">'+data[field]['created_at']+'</span>' +
+                                '<span class="comment_rate"><a href="#" class="comment_up"><i class="fa fa-caret-up"></i></a>' +
+                                ' <strong>1</strong> <a href="#" class="comment_down"><i class="fa fa-caret-down"></i></a></span></div>')
+                        });
+                        $.each(data, function (field) {
+                            $('.new_comment_text').prepend('<p>'+data[field]['text']+'</p>');
+                            $('#id_text').val('')
+                        })
+                    }
+                })
+            }
+        })
     });
 </script>
 <!--Конец-->

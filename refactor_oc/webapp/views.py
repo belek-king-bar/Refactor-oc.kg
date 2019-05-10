@@ -1,10 +1,12 @@
-from django.shortcuts import render
 from webapp.models import Rating, Participant
+from django.views.generic import DetailView, ListView, View
+from webapp.models import Bestseller, Movie, Person, Bookmark, Comment, Genre, OCUser
 from django.views.generic import DetailView, ListView
 from django.views.generic.base import TemplateView
 from webapp.models import Bestseller, Movie, Person, Bookmark, Comment, Genre
 import json
 from django.core.paginator import Paginator
+from django.http import JsonResponse
 from django.db.models import Q
 
 
@@ -156,14 +158,13 @@ class MovieView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(MovieView, self).get_context_data(**kwargs)
-        comments = Comment.objects.filter(movies=self.object)
-        if len(comments) > 4:
-            context['comments_len'] = len(comments) - 4
+        context['comments'] = Comment.objects.filter(movies=self.object).order_by('-created_at')
+        if len(context['comments']) > 4:
+            context['comments_len'] = len(context['comments']) - 4
         if self.object.group:
             context['compilation'] = Movie.objects.filter(group=self.object.group)
         else:
             context['compilation'] = self.get_compilation_by_genres(Genre.objects.filter(movies__in=[self.object.movie_id]))
-        print(context)
         return context
 
     @staticmethod
@@ -175,3 +176,19 @@ class MovieView(DetailView):
             return Movie.objects.filter(genres__in=res[:3]).order_by("?")[:5]
         else:
             return Movie.objects.filter(genres__in=res).order_by("?")[:5]
+
+class CommentCreateView(View):
+    model = Comment
+    template_name = 'view_movie.html'
+
+    def post(self, request, *args, **kwargs):
+        movie_id = self.request.POST.get('movie_id')
+        text = self.request.POST.get('text')
+        user = OCUser.objects.get(pk=1)
+        username = user.user.username
+        movie = Movie.objects.get(movie_id=movie_id)
+        new_comment = movie.comments.create(user=user, text=text)
+        comment = [{'user': username, 'text': new_comment.text, 'created_at': new_comment.created_at.
+             strftime('%-d %B %Y %H:%M')}]
+        return JsonResponse(comment, safe=False)
+

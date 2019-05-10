@@ -4,8 +4,6 @@ from django.contrib.auth.models import User
 
 class OCUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='OC', verbose_name='User')
-    login = models.CharField(max_length=32)
-    password = models.CharField(max_length=32)
     email = models.CharField(max_length=255)
     ip = models.TextField()
     balans = models.DecimalField(max_digits=9, decimal_places=2, default=1.00)
@@ -33,7 +31,7 @@ class Check(models.Model):
 
 
 class Comment(models.Model):
-    comment_id = models.IntegerField(primary_key=True)
+    comment_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(OCUser, on_delete=models.PROTECT, related_name='comments')
     to_user = models.OneToOneField(OCUser, on_delete=models.PROTECT, related_name='comment', null=True, blank=True)
     text = models.TextField()
