@@ -1,3 +1,4 @@
+{% load i18n %}
 {% if movies.count > 0 or persons.count > 0 %}
 
 {#    Результаты поиска фильмов   #}
@@ -35,5 +36,5 @@
         </a>
     {% endfor %}
     {% else %}
-    <p>По Вашему запросу ничего не найдено</p>
+    <p>{% trans 'Nothing was found by your request' %}</p>
 {% endif %}

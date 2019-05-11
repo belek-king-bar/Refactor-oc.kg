@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-09 18:28+0000\n"
+"POT-Creation-Date: 2019-05-11 00:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,18 +38,18 @@ msgid "Description"
 msgstr "Описание"
 
 #: webapp/templates/actor.html:113 webapp/templates/catalogue.html:298
-#: webapp/templates/catalogue.html:406 webapp/templates/view_movie.html:242
+#: webapp/templates/catalogue.html:408 webapp/templates/view_movie.html:242
 msgid "Ratings"
 msgstr "Рейтинги"
 
 #: webapp/templates/actor.html:119 webapp/templates/catalogue.html:311
-#: webapp/templates/catalogue.html:417 webapp/templates/movie_detail.html:82
+#: webapp/templates/catalogue.html:419 webapp/templates/movie_detail.html:82
 #: webapp/templates/view_movie.html:248
 msgid "Director"
 msgstr "Режиссер"
 
 #: webapp/templates/actor.html:127 webapp/templates/catalogue.html:319
-#: webapp/templates/catalogue.html:425 webapp/templates/movie_detail.html:92
+#: webapp/templates/catalogue.html:427 webapp/templates/movie_detail.html:92
 #: webapp/templates/movie_detail.html:328 webapp/templates/view_movie.html:256
 msgid "Cast"
 msgstr "В ролях"
@@ -57,6 +57,10 @@ msgstr "В ролях"
 #: webapp/templates/actor.html:184
 msgid "Whole filmography"
 msgstr "Вся фильмография"
+
+#: webapp/templates/ajax_search.html:39
+msgid "Nothing was found by your request"
+msgstr "По Вашему запросу ничего не найдено"
 
 #: webapp/templates/base.html:45 webapp/templates/base.html:171
 #: webapp/templates/movie_detail.html:14
@@ -187,11 +191,11 @@ msgstr "Форум"
 msgid "Most viewed movies"
 msgstr "В центре внимания"
 
-#: webapp/templates/catalogue.html:277
+#: webapp/templates/catalogue.html:277 webapp/templates/catalogue.html:387
 msgid "h."
 msgstr "ч."
 
-#: webapp/templates/catalogue.html:278
+#: webapp/templates/catalogue.html:278 webapp/templates/catalogue.html:388
 msgid "min."
 msgstr "мин."
 
@@ -203,7 +207,7 @@ msgstr "КиноПоиск"
 msgid "New movies"
 msgstr "Последние фильмы"
 
-#: webapp/templates/catalogue.html:482
+#: webapp/templates/catalogue.html:484
 msgid "Recent comments"
 msgstr "Последние комментарии"
 
@@ -212,6 +216,7 @@ msgid "Favorites"
 msgstr "Избранное"
 
 #: webapp/templates/favorite_view.html:46 webapp/templates/movie_detail.html:75
+#: webapp/templates/search_list.html:124
 msgid "Watch"
 msgstr "Смотреть"
 
@@ -231,15 +236,15 @@ msgstr "Длительность"
 msgid "Number of views"
 msgstr "Количество посмотревших"
 
-#: webapp/templates/movie_detail.html:50
+#: webapp/templates/movie_detail.html:50 webapp/templates/search_list.html:115
 msgid "Rating KinoPoisk"
 msgstr "Рейтинг КиноПоиск"
 
-#: webapp/templates/movie_detail.html:51
+#: webapp/templates/movie_detail.html:51 webapp/templates/search_list.html:113
 msgid "Rating OC.KG"
 msgstr "Рейтинг OC.KG"
 
-#: webapp/templates/movie_detail.html:52
+#: webapp/templates/movie_detail.html:52 webapp/templates/search_list.html:117
 msgid "Rating IMDB"
 msgstr "Рейтинг IMDB"
 
@@ -252,7 +257,7 @@ msgid "Download"
 msgstr "Скачать"
 
 #: webapp/templates/movie_detail.html:77 webapp/templates/movie_detail.html:292
-#: webapp/templates/view_movie.html:67
+#: webapp/templates/search_list.html:125 webapp/templates/view_movie.html:67
 msgid "To favorites"
 msgstr "В избранное"
 
@@ -275,6 +280,18 @@ msgstr "Похожие фильмы"
 #: webapp/templates/movie_detail.html:320
 msgid "Producer"
 msgstr ""
+
+#: webapp/templates/search_list.html:15
+msgid "Searching results"
+msgstr "Результаты поиска"
+
+#: webapp/templates/search_list.html:178
+msgid "Nothing found"
+msgstr "Ничего не найдено"
+
+#: webapp/templates/search_list.html:179
+msgid "Try changing the query"
+msgstr "Попробуйте изменить запрос"
 
 #: webapp/templates/view_movie.html:75
 msgid "My mark"
