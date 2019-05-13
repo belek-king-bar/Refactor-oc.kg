@@ -1,21 +1,29 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
+from webauth.managers import UserManager
 
 
-class OCUser(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='OC', verbose_name='User')
-    email = models.CharField(max_length=255)
+class OCUser(AbstractUser):
+    login = models.CharField(max_length=32, unique=True)
+    password = models.CharField(max_length=255)
+    email = models.CharField(max_length=255, unique=True)
     ip = models.TextField()
     balans = models.DecimalField(max_digits=9, decimal_places=2, default=1.00)
     user_group = models.SmallIntegerField(default=0)
-    view_activity = models.IntegerField()
-    play_activity = models.IntegerField()
-    register_date = models.DateTimeField(default=None)
-    mode = models.IntegerField(default=1)
-    ipfw_rule = models.IntegerField(default=0)
-    enabled = models.SmallIntegerField(default=1)
-    preferences = models.TextField(default=None)
-    status = models.CharField(max_length=2048, default=None)
+    view_activity = models.IntegerField(null=True)
+    play_activity = models.IntegerField(null=True)
+    register_date = models.DateTimeField(auto_now_add=True)
+    mode = models.IntegerField(default=1, null=True)
+    ipfw_rule = models.IntegerField(default=0, null=True)
+    enabled = models.SmallIntegerField(default=1, null=True)
+    preferences = models.TextField(default=None, null=True)
+    status = models.CharField(max_length=2048, default=None, null=True)
+    username = models.CharField(max_length=200, null=True, blank=True)
+
+    USERNAME_FIELD = 'login'
+
+    objects = UserManager()
 
     class Meta:
         db_table = 'users'
