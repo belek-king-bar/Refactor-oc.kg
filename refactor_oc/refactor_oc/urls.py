@@ -23,7 +23,9 @@ i18n_urls = (
 )
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('webapp.urls', namespace='webapp')),
+    path('webauth/', include('webauth.urls')),
+    path('webauth/', include('django.contrib.auth.urls')),
+    path('', include('webapp.urls', namespace='webapp'))
 ]
 
 urlpatterns.extend(i18n_patterns(*i18n_urls, prefix_default_language=False))
