@@ -1,9 +1,7 @@
 from webapp.models import Rating, Participant
 from django.views.generic import DetailView, ListView, View
 from webapp.models import Bestseller, Movie, Person, Bookmark, Comment, Genre, OCUser
-from django.views.generic import DetailView, ListView
 from django.views.generic.base import TemplateView
-from webapp.models import Bestseller, Movie, Person, Bookmark, Comment, Genre
 import json
 from django.core.paginator import Paginator
 from django.http import JsonResponse
@@ -184,11 +182,9 @@ class CommentCreateView(View):
     def post(self, request, *args, **kwargs):
         movie_id = self.request.POST.get('movie_id')
         text = self.request.POST.get('text')
-        user = OCUser.objects.get(pk=1)
-        username = user.user.username
         movie = Movie.objects.get(movie_id=movie_id)
-        new_comment = movie.comments.create(user=user, text=text)
-        comment = [{'user': username, 'text': new_comment.text, 'created_at': new_comment.created_at.
+        new_comment = movie.comments.create(user=request.user, text=text)
+        comment = [{'user': new_comment.user.user.username, 'text': new_comment.text, 'created_at': new_comment.created_at.
              strftime('%-d %B %Y %H:%M')}]
         return JsonResponse(comment, safe=False)
 

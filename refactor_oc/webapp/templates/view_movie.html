@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% load i18n %}
-{% load crispy_forms_tags %}
+{% load oc_custom_tags %}
 {% block title %}{{ movie.name }}{% endblock %}
 <!--Основной контейнер-->
 {% block content %}
@@ -166,7 +166,7 @@
                             <input type="hidden" id="movie" data-id="{{ movie.movie_id }}">
                             {% csrf_token %}
                             <textarea class="form-control" id="id_text" rows="6"></textarea>
-                            <button type="submit" class="custom_btn_border red" id="comment_add">{% trans "Add" %}</button>
+                            <button class="custom_btn_border red" id="comment_add">{% trans "Add" %}</button>
                         </form>
                     </div>
                 </div>
@@ -225,7 +225,12 @@
                                                 </button>
                                                 <!--<button class="btn_blank in_fav" title="Удалить из избранного"><i class="fa fa-star"></i></button>-->
                                                 <a href="#" class="hover_line info_link">{% trans "Description" %}</a>
-                                                <span class="time"><i class="fa fa-clock-o"></i>{{ movie.files.seconds }}</span>
+                                                {% for file in movie.files.all %}
+                                                    <span class="time"><i
+                                                            class="fa fa-clock-o"></i>
+                                                        {{ file.seconds|get_hours }} {% trans "h." %}
+                                                        {{ file.seconds|get_minutes }} {% trans "min." %}</span>
+                                                {% endfor %}
                                                 <span class="view"><i class="fa fa-eye"></i> {{ movie.hit }}</span>
                                             </div>
 

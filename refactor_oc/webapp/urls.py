@@ -1,8 +1,8 @@
 from django.urls import path
 
-from webapp.views import MovieDetailView, BestsellerListView, FavoritesListView, ActorDetailView, MovieView, CatalogueListView, SearchListView, AjaxSearchView
 from webapp.views import MovieDetailView, BestsellerListView, FavoritesListView, ActorDetailView, MovieView, \
-    CatalogueListView, CommentCreateView
+    CatalogueListView, SearchListView, AjaxSearchView, CommentCreateView
+
 
 app_name = 'webapp'
 
