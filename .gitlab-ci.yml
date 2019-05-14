@@ -6,8 +6,8 @@ stages:
 
 test:
   stage: test
+  image: python:3.6
   services:
-    - python:3.6
     - postgres:alpine
   variables:
     POSTGRES_DB: custom_db
@@ -16,7 +16,7 @@ test:
   script:
     - export DATABASE_URL=postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@postgres:5432/$POSTGRES_DB
     - apt-get update -qy
-    - apt-get install -y python-dev python-pip
+    - apt-get install -y python3-dev python3-pip
     - pip install -r requirements.txt
     - python manage.py test
 
