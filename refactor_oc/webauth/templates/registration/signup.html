@@ -1,8 +1,7 @@
-{% extends 'base.html' %}
+{% extends 'base_auth.html' %}
 
 {% block content %}
-    <div class="container" id="main_content">
-        <h2>Регистрация</h2>
+        <h2 style="text-align: center;">Регистрация</h2>
         <form method="post">
             {% csrf_token %}
             {% for field in form %}
@@ -14,7 +13,6 @@
                     {% endfor %}
                 </p>
             {% endfor %}
-            <p><button type="submit" class="custom_btn_border">Зарегистрироваться</button></p>
+            <p><button type="submit" class="custom_btn">Зарегистрироваться</button></p>
         </form>
-    </div>
 {% endblock %}

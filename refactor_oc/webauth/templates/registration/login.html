@@ -1,14 +1,13 @@
-{% extends 'base.html' %}
+{% extends 'base_auth.html' %}
 
-{% block title %}Login{% endblock %}
+{% block title %}Вход{% endblock %}
 
 {% block content %}
-    <div class="container" id="main_content">
-        <h2>Login</h2>
+        <h2 style="text-align: center;">Вход</h2>
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Login</button>
+            <button type="submit" class="custom_btn">Войти</button>
+            <a href="{% url 'webauth:signup' %}" style="float: right; padding: 5px">Зарегистрироваться</a>
         </form>
-    </div>
 {% endblock %}
