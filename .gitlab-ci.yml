@@ -1,0 +1,18 @@
+stages:
+  - test
+  - build
+  - deploy
+
+
+test:
+  stage: test
+  script: echo "Testing the app"
+
+
+build:
+  stage: build
+  script: echo "Test build"
+
+deploy:
+  stage: deploy
+  script: echo "Test deploy"
