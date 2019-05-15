@@ -6,9 +6,10 @@ import json
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.db.models import Q
-
-
+import locale
+locale.setlocale(locale.LC_TIME, 'ru_RU.UTF-8')
 # Вьюшка для живого поиска
+
 class AjaxSearchView(TemplateView):
     template_name = 'ajax_search.html'
 
@@ -182,9 +183,12 @@ class CommentCreateView(View):
     def post(self, request, *args, **kwargs):
         movie_id = self.request.POST.get('movie_id')
         text = self.request.POST.get('text')
+        user_pk = self.request.POST.get('user_pk')
+        user = OCUser.objects.get(pk=user_pk)
         movie = Movie.objects.get(movie_id=movie_id)
-        new_comment = movie.comments.create(user=request.user, text=text)
+        new_comment = movie.comments.create(user=user, text=text)
         comment = [{'user': new_comment.user.user.username, 'text': new_comment.text, 'created_at': new_comment.created_at.
              strftime('%-d %B %Y %H:%M')}]
         return JsonResponse(comment, safe=False)
+
 

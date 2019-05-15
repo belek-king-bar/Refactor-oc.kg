@@ -15,12 +15,11 @@ class CommentAddTests(TestCase):
         self.client = Client()
 
     def test_details(self):
-        response = self.client.post(reverse('webapp:add_comment'), {'movie_id': 4, 'text': 'Плохой фильм'})
+        response = self.client.post(reverse('webapp:add_comment'),
+                                    {'movie_id': 4, 'text': 'Плохой фильм', 'user_pk': 1})
         self.assertEqual(response.status_code, 200)
         response = json.loads(response.content)
         self.assertEqual(type(response), list)
         self.assertTrue('user' in response[0])
         self.assertTrue('text' in response[0])
         self.assertTrue('created_at' in response[0])
-
-

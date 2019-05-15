@@ -1,6 +1,6 @@
 [
   {
-    "model": "webapp.OCuser",
+    "model": "webapp.OCUser",
     "pk": 1,
     "fields": {
       "user_id": 1,
