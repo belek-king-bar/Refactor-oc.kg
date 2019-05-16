@@ -131,7 +131,7 @@ class BestsellerListView(ListView):
             for i in movie_list:
                 q['movies'].append(Movie.objects.get(movie_id=i))
             context['movie_all'].append(q)
-            return context
+        return context
 
 
 class CatalogueListView(ListView):
@@ -173,6 +173,7 @@ class MovieView(DetailView):
         else:
             return Movie.objects.filter(genres__in=res).order_by("?")[:5]
 
+
 class CommentCreateView(View):
     model = Comment
     template_name = 'view_movie.html'
@@ -184,6 +185,6 @@ class CommentCreateView(View):
         user = OCUser.objects.get(pk=user_pk)
         movie = Movie.objects.get(movie_id=movie_id)
         new_comment = movie.comments.create(user=user, text=text)
-        comment = [{'user': new_comment.user.user.username, 'text': new_comment.text, 'created_at': new_comment.created_at.
+        comment = [{'user': new_comment.user.login, 'text': new_comment.text, 'created_at': new_comment.created_at.
              strftime('%-d %B %Y %H:%M')}]
         return JsonResponse(comment, safe=False)
