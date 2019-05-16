@@ -1,1 +1,62 @@
-[{"model": "webapp.ocuser", "pk": 1, "fields": {"last_login": null, "is_superuser": false, "first_name": "", "last_name": "", "is_staff": false, "is_active": true, "date_joined": "2019-05-10T14:16:33.940", "login": "admin", "password": "pbkdf2_sha256$150000$1I8i9N1JEfzO$/aXRYrcuUvBnQezzFIR6P2HOtG8A/Y9xN8gv/QTRuTg=", "email": "sultanchoponov@gmail.com", "ip": "", "balans": "1.00", "user_group": 0, "view_activity": null, "play_activity": null, "register_date": "2019-05-10T14:16:34.079", "mode": 1, "ipfw_rule": 0, "enabled": 1, "preferences": null, "status": null, "username": null, "groups": [], "user_permissions": []}}, {"model": "webapp.ocuser", "pk": 2, "fields": {"last_login": "2019-05-10T14:20:21.204", "is_superuser": false, "first_name": "", "last_name": "", "is_staff": false, "is_active": true, "date_joined": "2019-05-10T14:19:41.118", "login": "sultanemiluulu", "password": "pbkdf2_sha256$150000$lj084Lz1D3fR$WA5oSL6qzhmbnTJ8AUUwUoCu8/Li6CgvgwSbSN6RBx8=", "email": "sultanchoponov00@gmail.com", "ip": "", "balans": "1.00", "user_group": 0, "view_activity": null, "play_activity": null, "register_date": "2019-05-10T14:19:41.237", "mode": 1, "ipfw_rule": 0, "enabled": 1, "preferences": null, "status": null, "username": null, "groups": [], "user_permissions": []}}]
+[
+  {
+    "model": "webapp.ocuser",
+    "pk": 1,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "first_name": "",
+      "last_name": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2019-05-10T14:16:33.940",
+      "login": "admin",
+      "password": "pbkdf2_sha256$150000$1I8i9N1JEfzO$/aXRYrcuUvBnQezzFIR6P2HOtG8A/Y9xN8gv/QTRuTg=",
+      "email": "sultanchoponov@gmail.com",
+      "ip": "",
+      "balans": "1.00",
+      "user_group": 0,
+      "view_activity": null,
+      "play_activity": null,
+      "register_date": "2019-05-10T14:16:34.079",
+      "mode": 1,
+      "ipfw_rule": 0,
+      "enabled": 1,
+      "preferences": null,
+      "status": null,
+      "username": null,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "webapp.ocuser",
+    "pk": 2,
+    "fields": {
+      "last_login": "2019-05-10T14:20:21.204",
+      "is_superuser": false,
+      "first_name": "",
+      "last_name": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2019-05-10T14:19:41.118",
+      "login": "sultanemiluulu",
+      "password": "pbkdf2_sha256$150000$lj084Lz1D3fR$WA5oSL6qzhmbnTJ8AUUwUoCu8/Li6CgvgwSbSN6RBx8=",
+      "email": "sultanchoponov00@gmail.com",
+      "ip": "",
+      "balans": "1.00",
+      "user_group": 0,
+      "view_activity": null,
+      "play_activity": null,
+      "register_date": "2019-05-10T14:19:41.237",
+      "mode": 1,
+      "ipfw_rule": 0,
+      "enabled": 1,
+      "preferences": null,
+      "status": null,
+      "username": null,
+      "groups": [],
+      "user_permissions": []
+    }
+  }
+]

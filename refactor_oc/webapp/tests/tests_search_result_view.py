@@ -7,8 +7,7 @@ from django.urls import reverse
 
 class SearchViewTests(TestCase):
     def setUp(self):
-        call_command('loaddata', settings.BASE_DIR + '/webapp/tests/fixtures/auth_user', verbosity=0)
-        call_command('loaddata', settings.BASE_DIR + '/webapp/tests/fixtures/user', verbosity=0)
+        call_command('loaddata', settings.BASE_DIR + '/webapp/tests/fixtures/users', verbosity=0)
         call_command('loaddata', settings.BASE_DIR + '/webapp/tests/fixtures/comments', verbosity=0)
         call_command('loaddata', settings.BASE_DIR + '/webapp/tests/fixtures/genres', verbosity=0)
         call_command('loaddata', settings.BASE_DIR + '/webapp/tests/fixtures/movies', verbosity=0)
