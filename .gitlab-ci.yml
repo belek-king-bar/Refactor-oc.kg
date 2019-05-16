@@ -19,7 +19,7 @@ test:
     - apt-get update -qy
     - apt-get install -y python3-dev python3-pip
     - pip install -r requirements.txt
-    - pip install -y sqlite3
+    - pip install sqlite3
     - cd refactor_oc/
     - python manage.py test
 
