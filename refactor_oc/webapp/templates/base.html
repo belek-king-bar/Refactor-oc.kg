@@ -27,56 +27,57 @@
 
 </head>
 <body style="background: url(../static/img/bg.jpg);">
-    <!--Десктопное меню-->
-    <div id="desktop_menu" class="hidden-xs">
-        <div class="container">
-            <div class="row">
+<!--Десктопное меню-->
+<div id="desktop_menu" class="hidden-xs">
+    <div class="container">
+        <div class="row">
 
-                <!--Логотип-->
-                <div class="col-sm-2">
-                    <a href="#">
-                        <img src="../static/img/logo.svg" alt="logo" class="img-responsive" id="top_logo">
-                    </a>
-                </div>
-                <!--Конец-->
+            <!--Логотип-->
+            <div class="col-sm-2">
+                <a href="#">
+                    <img src="../static/img/logo.svg" alt="logo" class="img-responsive" id="top_logo">
+                </a>
+            </div>
+            <!--Конец-->
 
-                <!--Основное меню-->
-                <div class="col-sm-7 col-md-8">
-                    <ul class="list-unstyled list-inline main_menu" id="main_menu">
-                        <li class="active"><a href="{% url 'webapp:bestseller_list' %}" class="hover_line">{% trans "Bestsellers" %}</a></li>
-                        <li><a href="{% url 'webapp:catalogue_list' %}" class="hover_line">{% trans "Catalogue" %}</a></li>
-                        <li><a href="#" class="hover_line">{% trans "Collections" %}</a></li>
-                        <li><a href="#" class="hover_line">{% trans "TV series" %}</a></li>
-                    </ul>
-                </div>
-                <!--Конец-->
+            <!--Основное меню-->
+            <div class="col-sm-7 col-md-8">
+                <ul class="list-unstyled list-inline main_menu" id="main_menu">
+                    <li class="active"><a href="{% url 'webapp:bestseller_list' %}"
+                                          class="hover_line">{% trans "Bestsellers" %}</a></li>
+                    <li><a href="{% url 'webapp:catalogue_list' %}" class="hover_line">{% trans "Catalogue" %}</a></li>
+                    <li><a href="#" class="hover_line">{% trans "Collections" %}</a></li>
+                    <li><a href="#" class="hover_line">{% trans "TV series" %}</a></li>
+                </ul>
+            </div>
+            <!--Конец-->
 
-                <!--Меню с поиском, юзером и доп меню-->
-                <div class="col-sm-3 col-md-2 pl0">
-                    <ul class="list-unstyled list-inline advanced_menu">
+            <!--Меню с поиском, юзером и доп меню-->
+            <div class="col-sm-3 col-md-2 pl0">
+                <ul class="list-unstyled list-inline advanced_menu">
 
-                        <li class="dropdown li_advanced_menu">
+                    <li class="dropdown li_advanced_menu">
 
-                            <a href="#" class="dropdown-toggle sandwich" data-toggle="dropdown">
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </a>
+                        <a href="#" class="dropdown-toggle sandwich" data-toggle="dropdown">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
 
-                            <ul class="dropdown-menu">
-                                <li><a href="#" class="hover_line_span"><span>{% trans "Action" %}</span></a></li>
-                                <li><a href="#" class="hover_line_span"><span>{% trans "Other Action" %}</span></a></li>
-                                <li><a href="#" class="hover_line_span"><span>{% trans "Something Else" %}</span></a></li>
-                                <li><a href="#" class="hover_line_span"><span>{% trans "Separate link" %}</span></a></li>
-                            </ul>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" class="hover_line_span"><span>{% trans "Action" %}</span></a></li>
+                            <li><a href="#" class="hover_line_span"><span>{% trans "Other Action" %}</span></a></li>
+                            <li><a href="#" class="hover_line_span"><span>{% trans "Something Else" %}</span></a></li>
+                            <li><a href="#" class="hover_line_span"><span>{% trans "Separate link" %}</span></a></li>
+                        </ul>
 
-                        </li>
+                    </li>
 
-                        <li class="dropdown li_user_menu">
-
+                    <li class="dropdown li_user_menu">
+                        {% if request.user.is_authenticated %}
                             <!--Если юзер залогинен показываем эту кнопку-->
                             <a href="#" class="dropdown-toggle user_pic_link" data-toggle="dropdown">
-                                <span class="letter">{{ request.user.name.0 }}</span>
+                                <span class="letter">{{ request.user.login.0 }}</span>
                             </a>
 
                             <ul class="dropdown-menu">
@@ -84,242 +85,260 @@
                                 <li class="first_li">
 
                                     <span class="user_pic_link">
-                                        <span class="letter">{{ request.user.name.0 }}</span>
+                                        <span class="letter">{{ request.user.login.0 }}</span>
                                     </span>
 
                                     <div class="user_info">
-                                        <h3>{{ request.user.name }}</h3>
+                                        <h3>{{ request.user.login }}</h3>
                                         <h4>{{ request.user.email }}</h4>
                                     </div>
 
                                 </li>
 
                                 <li>
-                                    <a href="#" class="hover_line_span"><i class="fa fa-eye"></i><span>{% trans "Recent views" %}</span></a>
+                                    <a href="#" class="hover_line_span"><i
+                                            class="fa fa-eye"></i><span>{% trans "Recent views" %}</span></a>
                                 </li>
                                 <li>
-                                    <a href="#" class="hover_line_span"><i class="fa fa-star-o"></i><span>{% trans "My favorites" %}</span></a>
+                                    <a href="#" class="hover_line_span"><i
+                                            class="fa fa-star-o"></i><span>{% trans "My favorites" %}</span></a>
                                 </li>
                                 <li>
-                                    <a href="#" class="hover_line_span"><i class="fa fa-sign-out"></i><span>{% trans "Logout" %}</span></a>
+                                    <a href="{% url 'logout' %}" class="hover_line_span"><i
+                                            class="fa fa-sign-out"></i><span>{% trans "Logout" %}</span></a>
                                 </li>
                             </ul>
-                            <!--Конец-->
-
-                            <!--Если юзер НЕ залогине, то показываем кнопку входа-->
-                            <!--<a href="#" class="sign_in"><i class="fa fa-sign-in"></i></a>-->
-                            <!--Конец-->
-
-
-                        </li>
-
-                        <li class="li_search_btn">
-                            <button class="btn_blank" id="show_search" name="show_search"><i class="fa fa-search"></i><i
-                                    class="fa fa-times"></i></button>
-
-                            <!--Форма поиска-->
-                            <form action="{% url 'webapp:search_list' %}" method="get">
-                                <div id="search_form_wrapper">
-                                    {% csrf_token %}
-                                    <input type="text" name="q" class="form-control" id="search_input" placeholder="Search" autocomplete="off">
-                                        <div id="search_suggestion">
-                                            <!--Результаты поиска-->
-                                            <div id="search-results"></div>
-                                            <!--Конец-->
-                                            <div><button type="submit" name="search_button" class="all_res">{% trans "All results for" %} <i id="text-input"></i> <i
-                                                class="fa fa-long-arrow-right"></i></button></div>
-                                        </div>
-
-                                </div>
-                            </form>
-                            <!--Конец-->
-
-                        </li>
+                        {% else %}
+                            <a href="{% url 'login' %}" class="sign_in"><i class="fa fa-sign-in"></i></a>
+                        {% endif %}
                         <!--Конец-->
 
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--Конец-->
+                        <!--Если юзер НЕ залогине, то показываем кнопку входа-->
 
-    <!--Мобильное меню-->
-    <div id="mobile_menu_wrapper">
-        <div class="visible-xs" id="mobile_menu">
+                        <!--Конец-->
 
-            <ul class="list-unstyled">
-                <li>
-                    <button class="btn_blank show_mobile_menu" data-menu="mobile_menu_main"><i class="fa fa-video-camera"></i></button>
-                </li>
-                <li>
-                    <button class="btn_blank show_mobile_menu" data-menu="mobile_menu_search"><i class="fa fa-search"></i></button>
-                </li>
-                <li>
-                    <button class="btn_blank show_mobile_menu" data-menu="mobile_menu_user"><i class="fa fa-user"></i></button>
-                </li>
-                <li>
-                    <button class="btn_blank show_mobile_menu" data-menu="mobile_menu_info"><i class="fa fa-info"></i></button>
-                </li>
-            </ul>
 
-        </div>
+                    </li>
 
-        <div class="visible-xs">
+                    <li class="li_search_btn">
+                        <button class="btn_blank" id="show_search" name="show_search"><i class="fa fa-search"></i><i
+                                class="fa fa-times"></i></button>
 
-            <div id="mobile_menu_main" class="s_mobile_menu">
-                <ul class="list-unstyled">
-                    <li class="active"><a href="#">{% trans "Bestsellers" %}</a></li>
-                    <li><a href="#">{% trans "Catalog" %}</a></li>
-                    <li><a href="#">{% trans "Collections" %}</a></li>
-                    <li><a href="#">{% trans "Collections" %}</a></li>
-                    <li><a href="#">{% trans "TV serials" %}</a></li>
-                </ul>
-            </div>
+                        <!--Форма поиска-->
+                        <form action="{% url 'webapp:search_list' %}" method="get">
+                            <div id="search_form_wrapper">
+                                {% csrf_token %}
+                                <input type="text" name="q" class="form-control" id="search_input" placeholder="Search"
+                                       autocomplete="off">
+                                <div id="search_suggestion">
+                                    <!--Результаты поиска-->
+                                    <div id="search-results"></div>
+                                    <!--Конец-->
+                                    <div>
+                                        <button type="submit" name="search_button"
+                                                class="all_res">{% trans "All results for" %} <i id="text-input"></i> <i
+                                                class="fa fa-long-arrow-right"></i></button>
+                                    </div>
+                                </div>
 
-            <div id="mobile_menu_search" class="s_mobile_menu">
-                <!--Форма поиска-->
-                <form action="{% url 'webapp:search_list' %}" method="get">
-                        {% csrf_token %}
-                        <input type="search" name="q" class="form-control" id="search_input_mobile" placeholder="Search" autocomplete="off">
-                            <div id="search_suggestion_mobile">
-                                <!--Результаты поиска-->
-                                <div id="search-results_mobile"></div>
-                                <!--Конец-->
-                                <div><button type="submit" class="all_res">{% trans "All results for" %} <i id="text-input_mobile"></i> <i
-                                    class="fa fa-long-arrow-right"></i></button></div>
                             </div>
                         </form>
-                    </div>
-                <!--Конец-->
-            </div>
+                        <!--Конец-->
 
-            <div id="mobile_menu_user" class="s_mobile_menu">
-                <ul class="list-unstyled">
-                    <li class="first_li">
-                        <div class="user_info">
-                            <h3>{{ request.user.name }}</h3>
-                            <h4>{{ request.user.email }}</h4>
-                        </div>
                     </li>
-                    <li>
-                        <a href="#"><i class="fa fa-eye"></i><span>{% trans "Recent views" %}</span></a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-star-o"></i><span>{% trans "My favorites" %}</span></a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-sign-out"></i><span>{% trans "Logout" %}</span></a>
-                    </li>
+                    <!--Конец-->
+
                 </ul>
             </div>
-
-            <div id="mobile_menu_info" class="s_mobile_menu">
-                <ul class="list-unstyled">
-                    <li><a href="#">{% trans "Action" %}</a></li>
-                    <li><a href="#">{% trans "Other Action" %}</a></li>
-                    <li><a href="#">{% trans "Something Else" %}</a></li>
-                    <li><a href="#">{% trans "Separate link" %}</a></li>
-                </ul>
-            </div>
-
         </div>
     </div>
+</div>
+<!--Конец-->
 
-    <!--Конец-->
+<!--Мобильное меню-->
+<div id="mobile_menu_wrapper">
+    <div class="visible-xs" id="mobile_menu">
 
-    <!--Если нужно показываем блок ссылку на рекламный продукт-->
-    <div class="hidden-xs">
-        <a href="https://vmeste.o.kg/?utm_source=cinemaonlinekg&amp;utm_medium=branding&amp;utm_campaign=vmeste_deshevle"
-           target="_blank" onclick="javascript: setrate(854);">
-            <div id="online_banner"></div>
-        </a>
+        <ul class="list-unstyled">
+            <li>
+                <button class="btn_blank show_mobile_menu" data-menu="mobile_menu_main"><i
+                        class="fa fa-video-camera"></i></button>
+            </li>
+            <li>
+                <button class="btn_blank show_mobile_menu" data-menu="mobile_menu_search"><i class="fa fa-search"></i>
+                </button>
+            </li>
+            <li>
+                <button class="btn_blank show_mobile_menu" data-menu="mobile_menu_user"><i class="fa fa-user"></i>
+                </button>
+            </li>
+            <li>
+                <button class="btn_blank show_mobile_menu" data-menu="mobile_menu_info"><i class="fa fa-info"></i>
+                </button>
+            </li>
+        </ul>
+
     </div>
-    <!--Конец-->
 
-    <!--Мобильное брендирование-->
-    <div class="visible-xs" id="mobile_brand">
-        <a href="#"><img src="../static/img/mobile_bg.png" alt="ads" class="img-responsive"></a>
-    </div>
-    <!--Конец-->
+    <div class="visible-xs">
 
-    {% block content %}{% endblock %}
+        <div id="mobile_menu_main" class="s_mobile_menu">
+            <ul class="list-unstyled">
+                <li class="active"><a href="#">{% trans "Bestsellers" %}</a></li>
+                <li><a href="#">{% trans "Catalog" %}</a></li>
+                <li><a href="#">{% trans "Collections" %}</a></li>
+                <li><a href="#">{% trans "Collections" %}</a></li>
+                <li><a href="#">{% trans "TV serials" %}</a></li>
+            </ul>
+        </div>
 
-    <!--Футер-->
-    <div class="container" id="footer">
-        <div class="row hidden-xs">
-            <div class="col-sm-6 col-sm-offset-1">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <h3><a href="#" class="hover_line">{% trans "Sections" %}</a></h3>
+        <div id="mobile_menu_search" class="s_mobile_menu">
+            <!--Форма поиска-->
+            <form action="{% url 'webapp:search_list' %}" method="get">
+                {% csrf_token %}
+                <input type="search" name="q" class="form-control" id="search_input_mobile" placeholder="Search"
+                       autocomplete="off">
+                <div id="search_suggestion_mobile">
+                    <!--Результаты поиска-->
+                    <div id="search-results_mobile"></div>
+                    <!--Конец-->
+                    <div>
+                        <button type="submit" class="all_res">{% trans "All results for" %} <i
+                                id="text-input_mobile"></i> <i
+                                class="fa fa-long-arrow-right"></i></button>
                     </div>
                 </div>
+            </form>
+        </div>
+        <!--Конец-->
+    </div>
 
-                <div class="row">
+    <div id="mobile_menu_user" class="s_mobile_menu">
+        <ul class="list-unstyled">
+            <li class="first_li">
+                <div class="user_info">
+                    <h3>{{ request.user.name }}</h3>
+                    <h4>{{ request.user.email }}</h4>
+                </div>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-eye"></i><span>{% trans "Recent views" %}</span></a>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-star-o"></i><span>{% trans "My favorites" %}</span></a>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-sign-out"></i><span>{% trans "Logout" %}</span></a>
+            </li>
+        </ul>
+    </div>
 
-                    <div class="col-sm-6">
-                        <ul class="list-unstyled">
-                            <li><a href="#" class="hover_line">{% trans "Collections" %}</a></li>
-                            <li><a href="#" class="hover_line">{% trans "Fantasy" %}</a></li>
-                            <li><a href="#" class="hover_line">{% trans "Comedy" %}</a></li>
-                            <li><a href="#" class="hover_line">{% trans "Drama / Romance" %}</a></li>
-                            <li><a href="#" class="hover_line">{% trans "Cartoons" %}</a></li>
-                            <li><a href="#" class="hover_line">{% trans "Action movies" %}</a></li>
-                        </ul>
-                    </div>
+    <div id="mobile_menu_info" class="s_mobile_menu">
+        <ul class="list-unstyled">
+            <li><a href="#">{% trans "Action" %}</a></li>
+            <li><a href="#">{% trans "Other Action" %}</a></li>
+            <li><a href="#">{% trans "Something Else" %}</a></li>
+            <li><a href="#">{% trans "Separate link" %}</a></li>
+        </ul>
+    </div>
 
-                    <div class="col-sm-6">
-                        <ul class="list-unstyled">
-                            <li><a href="#" class="hover_line">{% trans "Horrors" %}</a></li>
-                            <li><a href="#" class="hover_line">{% trans "Detectives / Thrillers" %}</a></li>
-                            <li><a href="#" class="hover_line">{% trans "TV serials" %}</a></li>
-                            <li><a href="#" class="hover_line">{% trans "Anime" %}</a></li>
-                            <li><a href="#" class="hover_line">{% trans "Cartoons" %}</a></li>
-                            <li><a href="#" class="hover_line">{% trans "Documentary" %}</a></li>
-                        </ul>
-                    </div>
+</div>
+</div>
 
+<!--Конец-->
+
+<!--Если нужно показываем блок ссылку на рекламный продукт-->
+<div class="hidden-xs">
+    <a href="https://vmeste.o.kg/?utm_source=cinemaonlinekg&amp;utm_medium=branding&amp;utm_campaign=vmeste_deshevle"
+       target="_blank" onclick="javascript: setrate(854);">
+        <div id="online_banner"></div>
+    </a>
+</div>
+<!--Конец-->
+
+<!--Мобильное брендирование-->
+<div class="visible-xs" id="mobile_brand">
+    <a href="#"><img src="../static/img/mobile_bg.png" alt="ads" class="img-responsive"></a>
+</div>
+<!--Конец-->
+
+{% block content %}{% endblock %}
+
+<!--Футер-->
+<div class="container" id="footer">
+    <div class="row hidden-xs">
+        <div class="col-sm-6 col-sm-offset-1">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3><a href="#" class="hover_line">{% trans "Sections" %}</a></h3>
                 </div>
             </div>
 
-            <div class="col-sm-3 col-sm-offset-1">
-                <ul class="list-unstyled menu_other">
-                    <li><a href="#" class="hover_line">{% trans "Copyright Holders" %}</a></li>
-                    <li><a href="#" class="hover_line">{% trans "Advertising on the website" %}</a></li>
-                    <li><a href="#" class="hover_line">{% trans "Settings" %}</a></li>
-                    <li><a href="#" class="hover_line">{% trans "Statistics" %}</a></li>
-                    <li><a href="#" class="hover_line">{% trans "Order table" %}</a></li>
-                    <li><a href="#" class="hover_line">{% trans "Forum" %}</a></li>
-                </ul>
-            </div>
+            <div class="row">
 
+                <div class="col-sm-6">
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="hover_line">{% trans "Collections" %}</a></li>
+                        <li><a href="#" class="hover_line">{% trans "Fantasy" %}</a></li>
+                        <li><a href="#" class="hover_line">{% trans "Comedy" %}</a></li>
+                        <li><a href="#" class="hover_line">{% trans "Drama / Romance" %}</a></li>
+                        <li><a href="#" class="hover_line">{% trans "Cartoons" %}</a></li>
+                        <li><a href="#" class="hover_line">{% trans "Action movies" %}</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-sm-6">
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="hover_line">{% trans "Horrors" %}</a></li>
+                        <li><a href="#" class="hover_line">{% trans "Detectives / Thrillers" %}</a></li>
+                        <li><a href="#" class="hover_line">{% trans "TV serials" %}</a></li>
+                        <li><a href="#" class="hover_line">{% trans "Anime" %}</a></li>
+                        <li><a href="#" class="hover_line">{% trans "Cartoons" %}</a></li>
+                        <li><a href="#" class="hover_line">{% trans "Documentary" %}</a></li>
+                    </ul>
+                </div>
+
+            </div>
         </div>
 
-        <div class="row copyright">
-
-            <div class="col-sm-3 col-sm-offset-1 hidden-xs">
-                <a href="#"><img src="../static/img/logo.svg" alt="logo" class="img-responsive" id="bottom_logo"></a>
-            </div>
-
-            <div class="col-sm-4 text-center hidden-xs">
-                <p><a href="mailto:cinema@ktnet.kg" class="hover_line">cinema@ktnet.kg</a></p>
-            </div>
-
-            <div class="col-sm-3 text-right copy_row">
-                <p>© oc.kg, 2006 — 2019</p>
-            </div>
-
+        <div class="col-sm-3 col-sm-offset-1">
+            <ul class="list-unstyled menu_other">
+                <li><a href="#" class="hover_line">{% trans "Copyright Holders" %}</a></li>
+                <li><a href="#" class="hover_line">{% trans "Advertising on the website" %}</a></li>
+                <li><a href="#" class="hover_line">{% trans "Settings" %}</a></li>
+                <li><a href="#" class="hover_line">{% trans "Statistics" %}</a></li>
+                <li><a href="#" class="hover_line">{% trans "Order table" %}</a></li>
+                <li><a href="#" class="hover_line">{% trans "Forum" %}</a></li>
+            </ul>
         </div>
 
     </div>
-    <!--Конец-->
+
+    <div class="row copyright">
+
+        <div class="col-sm-3 col-sm-offset-1 hidden-xs">
+            <a href="#"><img src="../static/img/logo.svg" alt="logo" class="img-responsive" id="bottom_logo"></a>
+        </div>
+
+        <div class="col-sm-4 text-center hidden-xs">
+            <p><a href="mailto:cinema@ktnet.kg" class="hover_line">cinema@ktnet.kg</a></p>
+        </div>
+
+        <div class="col-sm-3 text-right copy_row">
+            <p>© oc.kg, 2006 — 2019</p>
+        </div>
+
+    </div>
+
+</div>
+<!--Конец-->
 
 <script>
-    $(function() {
+    $(function () {
         {#   Выполняет запрос только в том случае, если пользователь ввёл в форму поиска три буквы   #}
         $('button[type="submit"]').prop('disabled', true);
-        $('input[name="q"]').keyup(function(){
-            if($(this).val().length >= 3){
+        $('input[name="q"]').keyup(function () {
+            if ($(this).val().length >= 3) {
                 $('button[type="submit"]').prop('disabled', false);
             }
         });
@@ -332,7 +351,7 @@
                 url: '{% url 'webapp:search_view' %}',
                 data: {
                     'q': $('#search_input').val(),
-                     csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()
+                    csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()
                 },
                 success: searchSuccess,
                 dataType: 'html'
@@ -340,13 +359,14 @@
             var val = $('#search_input').val();
             $('#text-input').html(val);
         });
-        function searchSuccess(data){
+
+        function searchSuccess(data) {
             $('#search-results').html(data);
         }
     });
 
     {#   Ajax запрос для живого поиска мобильная версия   #}
-    $(function() {
+    $(function () {
         $('#search_input_mobile').keyup(function () {
 
             $.ajax({
@@ -354,7 +374,7 @@
                 url: '{% url 'webapp:search_view' %}',
                 data: {
                     'q': $('#search_input_mobile').val(),
-                     csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()
+                    csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()
                 },
                 success: searchSuccess,
                 dataType: 'html'
@@ -362,7 +382,8 @@
             var val = $('#search_input_mobile').val();
             $('#text-input_mobile').html(val);
         });
-        function searchSuccess(data){
+
+        function searchSuccess(data) {
             $('#search-results_mobile').html(data);
         }
     });
