@@ -1,6 +1,6 @@
 from webapp.models import Rating, Participant
 from django.views.generic import DetailView, ListView, View
-from webapp.models import Bestseller, Movie, Person, Bookmark, Comment, Genre, OCUser
+from webapp.models import Bestseller, Movie, Person, Bookmark, Comment, Genre, Selection, OCUser
 from django.views.generic.base import TemplateView
 import json
 from django.core.paginator import Paginator
@@ -105,8 +105,8 @@ class BestsellerListView(ListView):
     model = Bestseller
     template_name = 'index.html'
 
-    def get_context_data(self, **kwards):
-        context = super().get_context_data(**kwards)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         context['movie_all'] = []
         classes = {
             1: 'fa-angellist',
@@ -188,3 +188,10 @@ class CommentCreateView(View):
         comment = [{'user': new_comment.user.login, 'text': new_comment.text, 'created_at': new_comment.created_at.
              strftime('%-d %B %Y %H:%M')}]
         return JsonResponse(comment, safe=False)
+
+
+
+
+class SelectionListView(ListView):
+    model = Selection
+    template_name = 'selections.html'

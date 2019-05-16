@@ -1,0 +1,46 @@
+[
+  {
+    "model": "webapp.selection",
+    "pk": 1,
+    "fields": {
+      "selection_id": 1,
+      "name": "ТОП20 фильмов в жанре Ужас"
+    }
+  },
+
+  {
+    "model": "webapp.selection",
+    "pk": 2,
+    "fields": {
+      "selection_id": 2,
+      "name": "ТОП20 фильмов в жанре Комедии"
+    }
+  },
+
+  {
+    "model": "webapp.selection",
+    "pk": 3,
+    "fields": {
+      "selection_id": 3,
+      "name": "DC"
+    }
+  },
+
+  {
+    "model": "webapp.selection",
+    "pk": 4,
+    "fields": {
+      "selection_id": 4,
+      "name": "Marvel"
+    }
+  },
+
+  {
+    "model": "webapp.selection",
+    "pk": 5,
+    "fields": {
+      "selection_id": 5,
+      "name": "ТОП20 фильмов в жанре Детектив"
+    }
+  }
+]

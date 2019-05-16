@@ -38,8 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'api_v1',
     'webapp',
-    'behave_django',
     'webauth',
+    'behave_django'
 ]
 
 MIDDLEWARE = [

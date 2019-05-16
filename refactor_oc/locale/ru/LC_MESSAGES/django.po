@@ -8,6 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-14 13:49+0000\n"
 "POT-Creation-Date: 2019-05-02 13:52+0000\n"
 "POT-Creation-Date: 2019-05-09 18:28+0000\n"
 "POT-Creation-Date: 2019-05-11 00:09+0000\n"
@@ -76,6 +77,7 @@ msgstr "Каталог"
 
 #: webapp/templates/base.html:47 webapp/templates/base.html:173
 #: webapp/templates/base.html:174 webapp/templates/base.html:261
+#: webapp/templates/selections.html:10
 msgid "Collections"
 msgstr "Подборки"
 
