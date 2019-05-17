@@ -15,7 +15,8 @@ test:
     MYSQL_ROOT_PASSWORD: password
 
   script:
-    - export DATABASE_URL=mysql://root:$MYSQL_ROOT_PASSWORD@3306:3306/$MYSQL_DATABASE
+#    - export DATABASE_URL=mysql://root:$MYSQL_ROOT_PASSWORD@3306:3306/$MYSQL_DATABASE
+    - mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE"
     - apt-get update -qy
     - apt-get install -y python3-dev python3-pip
     - apt-get install -y locales locales-all
