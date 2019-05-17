@@ -47,9 +47,12 @@
                     {% endfor %}
                 </p>
                 <p>
-                    <span data-toggle="tooltip" data-placement="top" title="{% trans 'Rating KinoPoisk' %}">Кинопоиск: {{kinopoisk.value|floatformat}}</span>
-                    <span data-toggle="tooltip" data-placement="top" title="{% trans 'Rating OC.KG' %}">OC.KG: {{oc_kg.value|floatformat}}</span>
-                    <span data-toggle="tooltip" data-placement="top" title="{% trans 'Rating IMDB' %}">IMDB: {{imdb.value|floatformat}}</span>
+                    {% for rating in movie.ratings.all %}
+                        {% if rating.value %}
+                            <span data-toggle="tooltip" data-placement="top" title="{% trans 'Rating' %}
+                                {{ rating.system }}">{{ rating.system }}: {{rating.value|floatformat}}</span>
+                        {% endif %}
+                    {% endfor %}
                 </p>
             </div>
 
@@ -72,7 +75,7 @@
             <!--Конец-->
 
             <div class="button_block">
-                <div class="wrapper"><a href="#" class="custom_btn_border big">{% trans 'Watch' %}</a></div>
+                <div class="wrapper"><a href="{% url 'webapp:view_movie' movie.movie_id %}" class="custom_btn_border big">{% trans 'Watch' %}</a></div>
                 <div class="wrapper"><a href="#" class="custom_btn_border">{% trans 'Download' %}</a></div>
                 <div class="wrapper"><a href="#" class="custom_btn_border small_padding">{% trans 'To favorites' %} <i class="fa fa-star-o"></i></a></div>
                 <!--<div class="wrapper"><a href="#" class="custom_btn_border">Добавлено <i class="fa fa-star"></i></a></div>-->

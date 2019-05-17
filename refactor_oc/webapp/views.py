@@ -59,9 +59,6 @@ class MovieDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(MovieDetailView, self).get_context_data(**kwargs)
-        context['oc_kg'] = Rating.objects.get(movie=self.object, system='local')
-        context['imdb'] = Rating.objects.get(movie=self.object, system='imdb')
-        context['kinopoisk'] = Rating.objects.get(movie=self.object, system='kinopoisk')
         context['producers'] = Participant.objects.filter(movie=self.object, role_id=1)
         context['actors'] = Participant.objects.filter(movie=self.object, role_id=3)
         comments = Comment.objects.filter(movies=self.object)
