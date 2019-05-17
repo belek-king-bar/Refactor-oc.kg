@@ -79,6 +79,8 @@ WSGI_APPLICATION = 'refactor_oc.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
+        'HOST': 'localhost',
+        'PORT': '3306'
     }
 }
 
