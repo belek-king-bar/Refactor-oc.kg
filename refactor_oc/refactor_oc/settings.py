@@ -116,7 +116,7 @@ LOCALE_PATHS = (
 
 locale.setlocale(locale.LC_TIME, 'ru_RU.UTF-8')
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Bishkek'
 
 USE_I18N = True
 
