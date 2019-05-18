@@ -8,7 +8,7 @@ stages:
 test:
   stage: test
   services:
-    - name: mysql:latest
+    - name: mysql:5.7
       alias: mysql
       command:
         - -p 3306:3306
