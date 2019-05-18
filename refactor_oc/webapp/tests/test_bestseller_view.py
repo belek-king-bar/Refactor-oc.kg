@@ -7,6 +7,9 @@ from django.urls import reverse
 
 class BestsellerViewTests(TestCase):
     def setUp(self):
+        call_command('loaddata', settings.BASE_DIR + '/webapp/tests/fixtures/users', verbosity=0)
+        call_command('loaddata', settings.BASE_DIR + '/webapp/tests/fixtures/comments', verbosity=0)
+        call_command('loaddata', settings.BASE_DIR + '/webapp/tests/fixtures/genres', verbosity=0)
         call_command('loaddata', settings.BASE_DIR + '/webapp/tests/fixtures/movies', verbosity=0)
         call_command('loaddata', settings.BASE_DIR + '/webapp/tests/fixtures/bestsellers', verbosity=0)
         self.client = Client()
