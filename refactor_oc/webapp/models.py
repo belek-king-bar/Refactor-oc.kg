@@ -6,8 +6,8 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class OCUser(AbstractUser):
-    login = models.CharField(max_length=32, unique=True)
-    password = models.CharField(max_length=255)
+    login = models.CharField(max_length=32, unique=True, verbose_name=_('login'))
+    password = models.CharField(max_length=255, verbose_name=_('password'))
     email = models.CharField(max_length=255, unique=True)
     ip = models.TextField()
     balans = models.DecimalField(max_digits=9, decimal_places=2, default=1.00)
