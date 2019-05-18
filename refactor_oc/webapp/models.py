@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractUser
 from webauth.managers import UserManager
+from django.utils.translation import ugettext_lazy as _
 
 
 class OCUser(AbstractUser):
@@ -25,8 +26,12 @@ class OCUser(AbstractUser):
 
     objects = UserManager()
 
+    def __str__(self):
+        return "Пользователь"
+
     class Meta:
         db_table = 'users'
+        verbose_name = _('ocuser')
 
 
 class Check(models.Model):
