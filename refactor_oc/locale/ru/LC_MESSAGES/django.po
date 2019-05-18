@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-17 13:08+0000\n"
+"POT-Creation-Date: 2019-05-18 16:45+0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,6 +19,14 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: webapp/models.py:9
+msgid "login"
+msgstr "Логин"
+
+#: webapp/models.py:10
+msgid "password"
+msgstr ""
 
 #: webapp/models.py:34
 msgid "ocuser"
@@ -57,14 +65,14 @@ msgid "Ratings"
 msgstr "Рейтинги"
 
 #: webapp/templates/actor.html:125 webapp/templates/catalogue.html:311
-#: webapp/templates/catalogue.html:419 webapp/templates/movie_detail.html:82
+#: webapp/templates/catalogue.html:419 webapp/templates/movie_detail.html:85
 #: webapp/templates/view_movie.html:257
 msgid "Director"
 msgstr "Режиссер"
 
 #: webapp/templates/actor.html:133 webapp/templates/catalogue.html:319
-#: webapp/templates/catalogue.html:427 webapp/templates/movie_detail.html:92
-#: webapp/templates/movie_detail.html:328 webapp/templates/view_movie.html:265
+#: webapp/templates/catalogue.html:427 webapp/templates/movie_detail.html:95
+#: webapp/templates/movie_detail.html:331 webapp/templates/view_movie.html:265
 msgid "Cast"
 msgstr "В ролях"
 
@@ -88,6 +96,7 @@ msgstr "Каталог"
 
 #: webapp/templates/base.html:49 webapp/templates/base.html:189
 #: webapp/templates/base.html:190 webapp/templates/base.html:281
+#: webapp/templates/selections.html:10
 msgid "Collections"
 msgstr "Подборки"
 
@@ -221,7 +230,7 @@ msgstr "Последние комментарии"
 msgid "Favorites"
 msgstr "Избранное"
 
-#: webapp/templates/favorite_view.html:46 webapp/templates/movie_detail.html:75
+#: webapp/templates/favorite_view.html:46 webapp/templates/movie_detail.html:78
 #: webapp/templates/search_list.html:124
 msgid "Watch"
 msgstr "Смотреть"
@@ -242,54 +251,60 @@ msgstr "Длительность"
 msgid "Number of views"
 msgstr "Количество посмотревших"
 
-#: webapp/templates/movie_detail.html:50 webapp/templates/search_list.html:115
-msgid "Rating KinoPoisk"
-msgstr "Рейтинг КиноПоиск"
+#: webapp/templates/movie_detail.html:52
+#, fuzzy
+#| msgid "Ratings"
+msgid "Rating"
+msgstr "Рейтинги"
 
-#: webapp/templates/movie_detail.html:51 webapp/templates/search_list.html:113
-msgid "Rating OC.KG"
-msgstr "Рейтинг OC.KG"
-
-#: webapp/templates/movie_detail.html:52 webapp/templates/search_list.html:117
-msgid "Rating IMDB"
-msgstr "Рейтинг IMDB"
-
-#: webapp/templates/movie_detail.html:59
+#: webapp/templates/movie_detail.html:62
 msgid "My rating"
 msgstr "Моя оценка"
 
-#: webapp/templates/movie_detail.html:76 webapp/templates/view_movie.html:67
+#: webapp/templates/movie_detail.html:79 webapp/templates/view_movie.html:67
 msgid "Download"
 msgstr "Скачать"
 
-#: webapp/templates/movie_detail.html:77 webapp/templates/movie_detail.html:292
+#: webapp/templates/movie_detail.html:80 webapp/templates/movie_detail.html:295
 #: webapp/templates/search_list.html:125 webapp/templates/view_movie.html:68
 msgid "To favorites"
 msgstr "В избранное"
 
-#: webapp/templates/movie_detail.html:125
+#: webapp/templates/movie_detail.html:128
 msgid "Movie stills"
 msgstr "Кадры из фильма"
 
-#: webapp/templates/movie_detail.html:186
+#: webapp/templates/movie_detail.html:189
 msgid "Movie reviews"
 msgstr "Отзывы о фильме"
 
-#: webapp/templates/movie_detail.html:237
+#: webapp/templates/movie_detail.html:240
 msgid "Show all reviews"
 msgstr "Смотреть все отзывы"
 
-#: webapp/templates/movie_detail.html:251 webapp/templates/view_movie.html:182
+#: webapp/templates/movie_detail.html:254 webapp/templates/view_movie.html:182
 msgid "Similar movies"
 msgstr "Похожие фильмы"
 
-#: webapp/templates/movie_detail.html:320
+#: webapp/templates/movie_detail.html:323
 msgid "Producer"
 msgstr ""
 
 #: webapp/templates/search_list.html:15
 msgid "Searching results"
 msgstr "Результаты поиска"
+
+#: webapp/templates/search_list.html:113
+msgid "Rating OC.KG"
+msgstr "Рейтинг OC.KG"
+
+#: webapp/templates/search_list.html:115
+msgid "Rating KinoPoisk"
+msgstr "Рейтинг КиноПоиск"
+
+#: webapp/templates/search_list.html:117
+msgid "Rating IMDB"
+msgstr "Рейтинг IMDB"
 
 #: webapp/templates/search_list.html:178
 msgid "Nothing found"
@@ -323,13 +338,17 @@ msgstr "Добавить"
 msgid "The Email must be set"
 msgstr ""
 
-#: webauth/managers.py:27
-msgid "Superuser must have is_staff=True."
-msgstr ""
+#: webauth/templates/registration/login.html:7
+msgid "Authorization"
+msgstr "Авторизация"
 
-#: webauth/managers.py:29
-msgid "Superuser must have is_superuser=True."
-msgstr ""
+#: webauth/templates/registration/login.html:11
+msgid "Log in"
+msgstr "Войти"
+
+#: webauth/templates/registration/login.html:12
+msgid "Sign up"
+msgstr "Зарегистрироваться"
 
 #~ msgid "Orders"
 #~ msgstr "Заказы"

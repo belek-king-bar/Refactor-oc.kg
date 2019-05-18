@@ -1,13 +1,14 @@
 {% extends 'base_auth.html' %}
+{% load i18n %}
 
 {% block title %}Вход{% endblock %}
 
 {% block content %}
-        <h2 style="text-align: center;">Вход</h2>
+        <h2 style="text-align: center;">{% trans "Authorization" %}</h2>
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit" class="custom_btn">Войти</button>
-            <a href="{% url 'webauth:signup' %}" style="float: right; padding: 5px">Зарегистрироваться</a>
+            <button type="submit" class="custom_btn">{% trans "Log in" %}</button>
+            <a href="{% url 'webauth:signup' %}" style="float: right; padding: 5px">{% trans "Sign up" %}</a>
         </form>
 {% endblock %}
