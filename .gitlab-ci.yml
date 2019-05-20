@@ -17,14 +17,14 @@ test:
     - apt-get install sqlite3
     - pip install -r requirements.txt
     - touch refactor_oc/refactor_oc/local_settings.py
-    - cat local_settings.py <<EOL
+    - cat refactor_oc/refactor_oc/local_settings.py <<EOL
     - 'import sys'
     - 'if "test" in sys.argv:'
     - '  DATABASES = {'
     - '    "default": {"ENGINE": "django.db.backends.sqlite3"}'
     - '  }'
     - EOL
-    - cd ../
+    - cd refactor_oc/
     - python manage.py test
 
 build:
