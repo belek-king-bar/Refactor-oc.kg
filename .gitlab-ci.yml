@@ -10,7 +10,12 @@ test:
   when: manual
 
   variables:
-    TEST_SETTINGS: "import sys if 'test' in sys.argv: DATABASES = {'default': {'ENGINE': 'django.db.backends.sqlite3'}}"
+    TEST_SETTINGS: "import sys
+    if 'test' in sys.argv:
+        DATABASES = {'default':
+            {'ENGINE': 'django.db.backends.sqlite3'}
+            }"
+
 
 
   script:
