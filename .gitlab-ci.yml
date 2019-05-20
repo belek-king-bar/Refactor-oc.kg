@@ -7,6 +7,7 @@ stages:
 
 test:
   stage: test
+  when: manual
   services:
     - name: mysql:5.7
       alias: mysql
@@ -28,8 +29,10 @@ test:
 
 build:
   stage: build
+  when: manual
   script: echo "Test build"
 
 deploy:
   stage: deploy
+  when: manual
   script: echo "Test deploy"
