@@ -8,23 +8,19 @@ stages:
 test:
   stage: test
   when: manual
-  services:
-    - name: mysql:5.7
-      alias: mysql
-      command:
-        - -p 3306:3306
 
   variables:
-    MYSQL_DATABASE: cinema2
-    MYSQL_ROOT_PASSWORD: password
+    TEST_SETTINGS: "if 'test' in sys.argv: DATABASES = {'default': {'ENGINE': 'django.db.backends.sqlite3'}}"
+
 
   script:
-    - export DATABASE_URL=mysql://root:$MYSQL_ROOT_PASSWORD@mysql:3306/$MYSQL_DATABASE
     - apt-get update -qy
     - apt-get install -y python3-dev python3-pip
     - apt-get install -y locales locales-all
+    - apt-get install sqlite3
     - pip install -r requirements.txt
-    - cd refactor_oc/
+    - cd refactor_oc/refactor_oc/ && echo $TEST_SETTINGS > local_settings.py
+    - cd ../
     - python manage.py test
 
 build:
