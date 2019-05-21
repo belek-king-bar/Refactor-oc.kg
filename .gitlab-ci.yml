@@ -18,7 +18,7 @@ before_script:
   - if \'test\' in sys.argv:
   -   DATABASES = {
   -     \'default\': {\'ENGINE\': \'django.db.backends.sqlite3\'}
-  -   }" >> refactor_oc/refactor_oc/local_settings.py
+  -   }" > refactor_oc/refactor_oc/local_settings.py
 
 test:
   stage: test
