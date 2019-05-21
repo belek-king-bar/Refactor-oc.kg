@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-18 16:45+0600\n"
+"POT-Creation-Date: 2019-05-21 18:31+0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,11 +26,203 @@ msgstr "Логин"
 
 #: webapp/models.py:10
 msgid "password"
-msgstr ""
+msgstr "Пароль"
 
 #: webapp/models.py:34
 msgid "ocuser"
 msgstr "Пользователь"
+
+#: webapp/models.py:35
+msgid "ocusers"
+msgstr "Пользователи"
+
+#: webapp/models.py:48
+msgid "check"
+msgstr "Проверка"
+
+#: webapp/models.py:49
+msgid "checks"
+msgstr "Проверки"
+
+#: webapp/models.py:65
+msgid "comment"
+msgstr "Комментарий"
+
+#: webapp/models.py:66
+msgid "comments"
+msgstr "Комментарии"
+
+#: webapp/models.py:95
+msgid "country"
+msgstr "Страна"
+
+#: webapp/models.py:96
+msgid "countries"
+msgstr "Страны"
+
+#: webapp/models.py:120
+msgid "file"
+msgstr "Файл"
+
+#: webapp/models.py:121
+msgid "files"
+msgstr "Файлы"
+
+#: webapp/models.py:133
+msgid "filelost"
+msgstr "Потерянные файлы"
+
+#: webapp/models.py:134
+msgid "fileslost"
+msgstr "Потерянные файлы"
+
+#: webapp/models.py:149
+msgid "files_task"
+msgstr "Задача файлов"
+
+#: webapp/models.py:150
+msgid "files_tasks"
+msgstr "Задачи файлов"
+
+#: webapp/models.py:162
+msgid "files_stat"
+msgstr "Статистика файлов"
+
+#: webapp/models.py:163
+msgid "files_stats"
+msgstr "Статистики файлов"
+
+#: webapp/models.py:175
+msgid "genre"
+msgstr "Жанр"
+
+#: webapp/models.py:176
+msgid "genres"
+msgstr "Жанры"
+
+#: webapp/models.py:204
+msgid "incoming"
+msgstr "Входящий"
+
+#: webapp/models.py:205
+msgid "incomings"
+msgstr "Входящие"
+
+#: webapp/models.py:218
+msgid "languages_proto"
+msgstr "Прото языков"
+
+#: webapp/models.py:219
+msgid "languages_protos"
+msgstr "Прото языков"
+
+#: webapp/models.py:237
+msgid "log"
+msgstr "Лог"
+
+#: webapp/models.py:238
+msgid "logs"
+msgstr "Логи"
+
+#: webapp/models.py:252
+msgid "selection"
+msgstr "Подборка"
+
+#: webapp/models.py:253
+msgid "selections"
+msgstr "Подборки"
+
+#: webapp/models.py:288
+msgid "movie"
+msgstr "Фильм"
+
+#: webapp/models.py:289
+msgid "movies"
+msgstr "Фильмы"
+
+#: webapp/models.py:303
+msgid "bestseller"
+msgstr "Бестселлер"
+
+#: webapp/models.py:304
+msgid "bestsellers"
+msgstr "Бестселлеры"
+
+#: webapp/models.py:317
+msgid "bookmark"
+msgstr "Избранный фильм"
+
+#: webapp/models.py:318
+msgid "bookmarks"
+msgstr "Избранные фильмы"
+
+#: webapp/models.py:330
+msgid "hit"
+msgstr "Хит"
+
+#: webapp/models.py:331
+msgid "hits"
+msgstr "Хиты"
+
+#: webapp/models.py:361
+msgid "person"
+msgstr "Персона"
+
+#: webapp/models.py:362
+msgid "persons"
+msgstr "Персоны"
+
+#: webapp/models.py:380
+msgid "rating"
+msgstr "Рейтинг"
+
+#: webapp/models.py:381
+msgid "ratings"
+msgstr "Рейтинги"
+
+#: webapp/models.py:390
+msgid "registry"
+msgstr "Реестр"
+
+#: webapp/models.py:391
+msgid "registries"
+msgstr "Реестры"
+
+#: webapp/models.py:405
+msgid "role"
+msgstr "Роль"
+
+#: webapp/models.py:406
+msgid "roles"
+msgstr "Роли"
+
+#: webapp/models.py:421
+msgid "participant"
+msgstr "Участник"
+
+#: webapp/models.py:422
+msgid "participants"
+msgstr "Участники"
+
+#: webapp/models.py:432
+msgid "search_trigram"
+msgstr "Поисковая триграмма"
+
+#: webapp/models.py:433
+msgid "search_trigrams"
+msgstr "Поисковые триграммы"
+
+#: webapp/models.py:443
+msgid "suggestion"
+msgstr "Предложение"
+
+#: webapp/models.py:444
+msgid "suggestions"
+msgstr "Предложения"
+
+#: webapp/models.py:453 webapp/models.py:454
+msgid "suggestion_cache"
+msgstr "Кэш предложений"
 
 #: webapp/templates/actor.html:14 webapp/templates/view_movie.html:14
 msgid "Home"
