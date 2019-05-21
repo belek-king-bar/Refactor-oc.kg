@@ -32,6 +32,7 @@ class OCUser(AbstractUser):
     class Meta:
         db_table = 'users'
         verbose_name = _('ocuser')
+        verbose_name_plural = _('ocusers')
 
 
 class Check(models.Model):
@@ -39,8 +40,13 @@ class Check(models.Model):
     code = models.CharField(max_length=70)
     date = models.DateField()
 
+    def __str__(self):
+        return "Проверка"
+
     class Meta:
         db_table = 'check'
+        verbose_name = _('check')
+        verbose_name_plural = _('checks')
 
 
 class Comment(models.Model):
@@ -51,8 +57,13 @@ class Comment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     ip = models.CharField(max_length=15, blank=True, null=True)
 
+    def __str__(self):
+        return "Комментарий"
+
     class Meta:
         db_table = 'comments'
+        verbose_name = _('comment')
+        verbose_name_plural = _('comments')
 
 
 class CommentsRating(models.Model):
@@ -76,9 +87,13 @@ class Country(models.Model):
     country_id = models.AutoField(primary_key=True)
     name = models.CharField(unique=True, max_length=100)
 
+    def __str__(self):
+        return "Страна"
+
     class Meta:
         db_table = 'countries'
-        verbose_name_plural = 'countries'
+        verbose_name = _('country')
+        verbose_name_plural = _('countries')
 
 
 class File(models.Model):
@@ -97,16 +112,26 @@ class File(models.Model):
     active = models.IntegerField()
     seconds = models.IntegerField(blank=True, null=True)
 
+    def __str__(self):
+        return "Файл"
+
     class Meta:
         db_table = 'files'
+        verbose_name = _('file')
+        verbose_name_plural = _('files')
 
 
 class FilesLost(models.Model):
     file_id = models.IntegerField(primary_key=True)
     path = models.CharField(max_length=255)
 
+    def __str__(self):
+        return "Потерянные файлы"
+
     class Meta:
         db_table = 'files_lost'
+        verbose_name = _('filelost')
+        verbose_name_plural = _('fileslost')
 
 
 class FilesTask(models.Model):
@@ -116,24 +141,39 @@ class FilesTask(models.Model):
     created_at = models.DateTimeField()
     tries = models.IntegerField()
 
+    def __str__(self):
+        return "FilesTask"
+
     class Meta:
         db_table = 'files_tasks'
+        verbose_name = _('files_task')
+        verbose_name_plural = _('files_tasks')
 
 
 class Filesstat(models.Model):
     fileid = models.PositiveIntegerField()
     lastaccess = models.DateTimeField()
 
+    def __str__(self):
+        return "Filesstat"
+
     class Meta:
         db_table = 'files_stat'
+        verbose_name = _('files_stat')
+        verbose_name_plural = _('files_stats')
 
 
 class Genre(models.Model):
     genre_id = models.AutoField(primary_key=True)
     name = models.CharField(unique=True, max_length=100)
 
+    def __str__(self):
+        return "Жанр"
+
     class Meta:
         db_table = 'genres'
+        verbose_name = _('genre')
+        verbose_name_plural = _('genres')
 
 
 class Incoming(models.Model):
@@ -156,8 +196,13 @@ class Incoming(models.Model):
     hidden = models.IntegerField()
     sort = models.CharField(max_length=255, blank=True, null=True)
 
+    def __str__(self):
+        return "Incoming"
+
     class Meta:
         db_table = 'incoming'
+        verbose_name = _('incoming')
+        verbose_name_plural = _('incomings')
 
 
 class LanguagesProto(models.Model):
@@ -165,8 +210,13 @@ class LanguagesProto(models.Model):
     combination = models.CharField(max_length=4)
     freq = models.FloatField()
 
+    def __str__(self):
+        return "LanguagesProto"
+
     class Meta:
         db_table = 'languages_proto'
+        verbose_name = _('languages_proto')
+        verbose_name_plural = _('languages_protos')
 
 
 class Log(models.Model):
@@ -179,8 +229,13 @@ class Log(models.Model):
     message = models.TextField(blank=True, null=True)
     report = models.TextField(blank=True, null=True)
 
+    def __str__(self):
+        return "Log"
+
     class Meta:
         db_table = 'logs'
+        verbose_name = _('log')
+        verbose_name_plural = _('logs')
 
 
 class Selection(models.Model):
@@ -189,8 +244,13 @@ class Selection(models.Model):
     genres = models.ManyToManyField(Genre, related_name='selections')
     image = models.CharField(max_length=128, blank=True, null=True)
 
+    def __str__(self):
+        return "Подборка"
+
     class Meta:
         db_table = 'selections'
+        verbose_name = _('selection')
+        verbose_name_plural = _('selections')
 
 
 class Movie(models.Model):
@@ -221,10 +281,12 @@ class Movie(models.Model):
     countries = models.ManyToManyField(Country, related_name='movies')
 
     def __str__(self):
-        return "Movie"
+        return 'Фильм'
 
     class Meta:
         db_table = 'movies'
+        verbose_name = _('movie')
+        verbose_name_plural = _('movies')
 
 
 class Bestseller(models.Model):
@@ -233,8 +295,13 @@ class Bestseller(models.Model):
     movies = models.TextField()
     rank = models.IntegerField()
 
+    def __str__(self):
+        return 'Бестселлер'
+
     class Meta:
         db_table = 'bestsellers'
+        verbose_name = _('bestseller')
+        verbose_name_plural = _('bestsellers')
 
 
 class Bookmark(models.Model):
@@ -242,8 +309,13 @@ class Bookmark(models.Model):
     user = models.OneToOneField(OCUser, on_delete=models.PROTECT, related_name='bookmarks')
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='bookmarks')
 
+    def __str__(self):
+        return 'Закладка'
+
     class Meta:
         db_table = 'bookmarks'
+        verbose_name = _('bookmark')
+        verbose_name_plural = _('bookmarks')
 
 
 class Hit(models.Model):
@@ -255,6 +327,8 @@ class Hit(models.Model):
 
     class Meta:
         db_table = 'hits'
+        verbose_name = _('hit')
+        verbose_name_plural = _('hits')
 
 
 class MovieUserRating(models.Model):
@@ -279,8 +353,13 @@ class Person(models.Model):
     updated_at = models.DateTimeField()
     tries = models.IntegerField()
 
+    def __str__(self):
+        return 'Персона'
+
     class Meta:
         db_table = 'persones'
+        verbose_name = _('person')
+        verbose_name_plural = _('persons')
 
 
 class Rating(models.Model):
@@ -293,8 +372,13 @@ class Rating(models.Model):
     details = models.CharField(max_length=255, blank=True, null=True)
     updated_at = models.DateTimeField()
 
+    def __str__(self):
+        return 'Рейтинг'
+
     class Meta:
         db_table = 'ratings'
+        verbose_name = _('rating')
+        verbose_name_plural = _('ratings')
 
 
 class Registry(models.Model):
@@ -303,6 +387,8 @@ class Registry(models.Model):
 
     class Meta:
         db_table = 'registry'
+        verbose_name = _('registry')
+        verbose_name_plural = _('registries')
 
 
 class Role(models.Model):
@@ -311,8 +397,13 @@ class Role(models.Model):
     name_hyphenated = models.CharField(max_length=100, blank=True, null=True)
     sort = models.IntegerField()
 
+    def __str__(self):
+        return 'Роль'
+
     class Meta:
         db_table = 'roles'
+        verbose_name = _('role')
+        verbose_name_plural = _('roles')
 
 
 class Participant(models.Model):
@@ -322,8 +413,13 @@ class Participant(models.Model):
     character = models.CharField(max_length=100, blank=True, null=True)
     person = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='participants')
 
+    def __str__(self):
+        return 'Участник'
+
     class Meta:
         db_table = 'participants'
+        verbose_name = _('participant')
+        verbose_name_plural = _('participants')
 
 
 class SearchTrigram(models.Model):
@@ -333,6 +429,8 @@ class SearchTrigram(models.Model):
 
     class Meta:
         db_table = 'search_trigrams'
+        verbose_name = _('search_trigram')
+        verbose_name_plural = _('search_trigrams')
 
 
 class Suggestion(models.Model):
@@ -342,6 +440,8 @@ class Suggestion(models.Model):
 
     class Meta:
         db_table = 'suggestions'
+        verbose_name = _('suggestion')
+        verbose_name_plural = _('suggestions')
 
 
 class SuggestionCache(models.Model):
@@ -350,4 +450,5 @@ class SuggestionCache(models.Model):
 
     class Meta:
         db_table = 'suggestion_cache'
-
+        verbose_name = _('suggestion_cache')
+        verbose_name_plural = _('suggestion_cache')
