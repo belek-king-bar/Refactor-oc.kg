@@ -5,13 +5,20 @@ stages:
   - build
   - deploy
 
-
+variables:
+  MYVAR: "import sys\
+  if \'test\' in sys.argv:\
+    DATABASES = {\
+        \'default\': {\'ENGINE\': \'django.db.backends.sqlite3\'}\
+    }"
 
 before_script:
   - touch refactor_oc/refactor_oc/local_settings.py
-  - cat > refactor_oc/refactor_oc/local_settings.py <<EOF
-  - $MYVAR
-  - EOF
+  - echo "import sys\
+  - if \'test\' in sys.argv:
+  -   DATABASES = {
+  -     \'default\': {\'ENGINE\': \'django.db.backends.sqlite3\'}
+  -   }" >> refactor_oc/refactor_oc/local_settings.py
 
 test:
   stage: test
