@@ -13,7 +13,7 @@ test:
     - apt-get install -y locales locales-all
     - apt-get install sqlite3
     - pip install -r requirements.txt
-    - bash .create_setup_file.sh
+    - bash create_setup_file.sh
     - cat refactor_oc/refactor_oc/local_settings.py
     - cd refactor_oc/
     - python manage.py test
