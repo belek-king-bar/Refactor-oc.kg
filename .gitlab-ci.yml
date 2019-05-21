@@ -6,11 +6,11 @@ stages:
   - deploy
 
 variables:
-  MYVAR: "$'import sys\n
+  MYVAR: $'import sys\n
   if \'test\' in sys.argv:\n
     DATABASES = {\n
         \'default\': {\'ENGINE\': \'django.db.backends.sqlite3\'}\n
-    }'"
+    }'
 
 test:
   stage: test
