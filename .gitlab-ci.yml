@@ -13,7 +13,7 @@ test:
     - apt-get install -y locales locales-all
     - apt-get install sqlite3
     - pip install -r requirements.txt
-    - echo $'import sys\nif "test" in sys.argv:\n  DATABASES = {\n    "default": {"ENGINE": "django.db.backends.sqlite3"}\n  }' > refactor_oc/refactor_oc/local_settings.py
+    - echo $'import sys\nif \"test\" in sys.argv:\n  DATABASES = {\n    \"default\": {\"ENGINE\": \'django.db.backends.sqlite3\'}\n  }' > refactor_oc/refactor_oc/local_settings.py
     - cat refactor_oc/refactor_oc/local_settings.py
     - cd refactor_oc/
     - python manage.py test
