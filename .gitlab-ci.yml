@@ -5,13 +5,6 @@ stages:
   - build
   - deploy
 
-variables:
-  MYVAR: "import sys\n
-  if \'test\' in sys.argv:\n
-    DATABASES = {\n
-        \'default\': {\'ENGINE\': \'django.db.backends.sqlite3\'}\n
-    }"
-
 test:
   stage: test
   script:
@@ -20,7 +13,7 @@ test:
     - apt-get install -y locales locales-all
     - apt-get install sqlite3
     - pip install -r requirements.txt
-    - echo -e $'$MYVAR' > refactor_oc/refactor_oc/local_settings.py
+    - bash .create_setup_file.sh
     - cat refactor_oc/refactor_oc/local_settings.py
     - cd refactor_oc/
     - python manage.py test
