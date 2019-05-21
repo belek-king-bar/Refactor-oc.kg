@@ -16,9 +16,8 @@ before_script:
   - touch refactor_oc/refactor_oc/local_settings.py
   - echo -e "import sys\
   - if \'test\' in sys.argv:\
-  -   DATABASES = {\
-  -     \'default\': {\'ENGINE\': \'django.db.backends.sqlite3\'}\
-  -   }" > refactor_oc/refactor_oc/local_settings.py
+  -   DATABASES = \{\
+  -     \'default\': \{\'ENGINE\': \'django.db.backends.sqlite3\'\}\}" >> refactor_oc/refactor_oc/local_settings.py
 
 test:
   stage: test
