@@ -287,7 +287,7 @@ class Movie(models.Model):
     rank = models.FloatField()
     comments = models.ManyToManyField(Comment, related_name='movies')
     genres = models.ManyToManyField(Genre, related_name='movies')
-    selections = models.ManyToManyField(Selection, related_name='movies')
+    selections = models.ManyToManyField(Selection, related_name='movies', db_table='movies_selection')
     files = models.ManyToManyField(File, related_name='movies')
     countries = models.ManyToManyField(Country, related_name='movies')
 
@@ -463,3 +463,4 @@ class SuggestionCache(models.Model):
         db_table = 'suggestion_cache'
         verbose_name = _('suggestion_cache')
         verbose_name_plural = _('suggestion_cache')
+

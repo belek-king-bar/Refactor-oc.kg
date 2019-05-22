@@ -10,6 +10,7 @@ from django.http import JsonResponse, HttpResponseRedirect
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 
+
 class AjaxSearchView(TemplateView):
     template_name = 'ajax_search.html'
 
@@ -57,7 +58,6 @@ class SearchListView(TemplateView):
 # Конец
 
 
-
 class MovieDetailView(DetailView):
     model = Movie
     template_name = 'movie_detail.html'
@@ -88,11 +88,9 @@ class MovieDetailView(DetailView):
             return Movie.objects.filter(genres__in=res).order_by("?")[:5]
 
 
-
 class ActorDetailView(DetailView):
     model = Person
     template_name = 'actor.html'
-
 
 
 class FavoritesListView(ListView):
@@ -104,7 +102,6 @@ class FavoritesListView(ListView):
         success_url = reverse('webauth:signup')
         context['movies'] = self.model.objects.filter(user=self.request.user).order_by('-created_at')
         return context
-
 
 
 class BestsellerListView(ListView):
@@ -141,7 +138,6 @@ class BestsellerListView(ListView):
         return context
 
 
-
 class CatalogueListView(ListView):
     model = Movie
     template_name = 'catalogue.html'
@@ -154,7 +150,6 @@ class CatalogueListView(ListView):
         context['page'] = self.request.GET.get('page')
         context['movies'] = context['paginator'].get_page(context['page'])
         return context
-
 
 
 class MovieView(DetailView):
@@ -201,6 +196,7 @@ class CommentCreateView(View):
              strftime('%-d %B %Y %H:%M')}]
         return JsonResponse(comment, safe=False)
 
+
 class MovieCommentsView(DetailView):
     model = Movie
     template_name = 'comments.html'
@@ -227,6 +223,10 @@ class SelectionListView(ListView):
     model = Selection
     template_name = 'selections.html'
 
+
+class SelectionDetailView(DetailView):
+    model = Selection
+    template_name = 'selection_detail.html'
 
 
 class FavoritesCreateView(View):
