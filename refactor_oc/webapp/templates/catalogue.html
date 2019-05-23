@@ -485,9 +485,9 @@
                     {% for comment in comments %}
                         <!--Комментарий-->
                         <div class="s_comment">
-                            <div class="user_letter">R</div>
+                            <div class="user_letter">{{ comment.user.login.0 }}</div>
                             <div class="top">
-                                <span><strong>Николай{{ comment.user.name }}</strong></span>
+                                <span><strong>{{ comment.user.login }}</strong></span>
                                 <span class="date">{{ comment.created_at|date:"d F Y" }}</span>
                                 {% for movie in comment.movies.all %}
                                     <span><a href="{% url 'webapp:movie_detail' movie.movie_id %}"

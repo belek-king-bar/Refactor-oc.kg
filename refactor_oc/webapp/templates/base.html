@@ -32,13 +32,13 @@
     <div class="container">
         <div class="row">
 
-            <!--Логотип-->
-            <div class="col-sm-2">
-                <a href="#">
-                    <img src="../static/img/logo.svg" alt="logo" class="img-responsive" id="top_logo">
-                </a>
-            </div>
-            <!--Конец-->
+                <!--Логотип-->
+                <div class="col-sm-2">
+                    <a href="{% url 'webapp:bestseller_list' %}">
+                        <img src="../static/img/logo.svg" alt="logo" class="img-responsive" id="top_logo">
+                    </a>
+                </div>
+                <!--Конец-->
 
             <!--Основное меню-->
             <div class="col-sm-7 col-md-8">
@@ -232,6 +232,25 @@
             </li>
         </ul>
     </div>
+            <div id="mobile_menu_user" class="s_mobile_menu">
+                <ul class="list-unstyled">
+                    <li class="first_li">
+                        <div class="user_info">
+                            <h3>{{ request.user.username }}</h3>
+                            <h4>{{ request.user.email }}</h4>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-eye"></i><span>{% trans "Recent views" %}</span></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-star-o"></i><span>{% trans "My favorites" %}</span></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-sign-out"></i><span>{% trans "Logout" %}</span></a>
+                    </li>
+                </ul>
+            </div>
 
     <div id="mobile_menu_info" class="s_mobile_menu">
         <ul class="list-unstyled">

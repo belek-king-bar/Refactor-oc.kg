@@ -101,9 +101,9 @@
                 {% if forloop.counter < 5 %}
                     <!--Комментарий-->
                     <div class="s_comment">
-                        <div class="user_letter">{{ comment.user.user.username.0 }}</div>
+                        <div class="user_letter">{{ comment.user.login.0 }}</div>
                         <div class="top">
-                            <span><strong>{{ comment.user.user.username }}</strong></span>
+                            <span><strong>{{ comment.user.login }}</strong></span>
                             <span class="date">{{ comment.created_at }}</span>
                             <span class="comment_rate">
                                 <a href="#" class="comment_up"><i class="fa fa-caret-up"></i></a>
@@ -120,9 +120,9 @@
                     <div class="hidden_comments">
                         <!--Комментарий-->
                         <div class="s_comment">
-                            <div class="user_letter">{{ comment.user.username.0 }}</div>
+                            <div class="user_letter">{{ comment.user.login.0 }}</div>
                             <div class="top">
-                                <span><strong>{{ comment.user.username }}</strong></span>
+                                <span><strong>{{ comment.user.login }}</strong></span>
                                 <span class="date">{{ comment.created_at }}</span>
                                 <span class="comment_rate">
                                 <a href="#" class="comment_up"><i class="fa fa-caret-up"></i></a>
@@ -412,7 +412,7 @@
                                 '<span class="comment_rate"><a href="#" class="comment_up"><i class="fa fa-caret-up"></i></a>' +
                                 ' <strong>1</strong> <a href="#" class="comment_down"><i class="fa fa-caret-down"></i></a></span></div>' +
                                 '<div class="text"><p>'+data[field]['text']+'</p></div></div>');
-                            $('#id_text').val('')
+                            $('#id_text').val('');
                         });
                     }
                 })
