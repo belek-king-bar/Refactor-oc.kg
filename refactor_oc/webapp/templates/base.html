@@ -184,11 +184,10 @@
 
         <div id="mobile_menu_main" class="s_mobile_menu">
             <ul class="list-unstyled">
-                <li class="active"><a href="#">{% trans "Bestsellers" %}</a></li>
-                <li><a href="#">{% trans "Catalog" %}</a></li>
-                <li><a href="#">{% trans "Collections" %}</a></li>
-                <li><a href="#">{% trans "Collections" %}</a></li>
-                <li><a href="#">{% trans "TV serials" %}</a></li>
+                <li class="active"><a href="{% url 'webapp:bestseller_list' %}">{% trans "Bestsellers" %}</a></li>
+                <li><a href="{% url 'webapp:catalogue_list' %}">{% trans "Catalog" %}</a></li>
+                <li><a href="{% url 'webapp:selection_list' %}">{% trans "Collections" %}</a></li>
+                <li><a href="https://www.ts.kg/'">{% trans "TV serials" %}</a></li>
             </ul>
         </div>
 
@@ -217,7 +216,7 @@
         <ul class="list-unstyled">
             <li class="first_li">
                 <div class="user_info">
-                    <h3>{{ request.user.name }}</h3>
+                    <h3>{{ request.user.login }}</h3>
                     <h4>{{ request.user.email }}</h4>
                 </div>
             </li>
@@ -228,7 +227,7 @@
                 <a href="#"><i class="fa fa-star-o"></i><span>{% trans "My favorites" %}</span></a>
             </li>
             <li>
-                <a href="#"><i class="fa fa-sign-out"></i><span>{% trans "Logout" %}</span></a>
+                <a href="{% url 'logout' %}"><i class="fa fa-sign-out"></i><span>{% trans "Logout" %}</span></a>
             </li>
         </ul>
     </div>
@@ -236,7 +235,7 @@
                 <ul class="list-unstyled">
                     <li class="first_li">
                         <div class="user_info">
-                            <h3>{{ request.user.username }}</h3>
+                            <h3>{{ request.user.login }}</h3>
                             <h4>{{ request.user.email }}</h4>
                         </div>
                     </li>
@@ -247,7 +246,7 @@
                         <a href="#"><i class="fa fa-star-o"></i><span>{% trans "My favorites" %}</span></a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-sign-out"></i><span>{% trans "Logout" %}</span></a>
+                        <a href="{% url 'logout' %}"><i class="fa fa-sign-out"></i><span>{% trans "Logout" %}</span></a>
                     </li>
                 </ul>
             </div>
@@ -297,7 +296,7 @@
 
                 <div class="col-sm-6">
                     <ul class="list-unstyled">
-                        <li><a href="#" class="hover_line">{% trans "Collections" %}</a></li>
+                        <li><a href="{% url 'webapp:selection_list' %}" class="hover_line">{% trans "Collections" %}</a></li>
                         <li><a href="#" class="hover_line">{% trans "Fantasy" %}</a></li>
                         <li><a href="#" class="hover_line">{% trans "Comedy" %}</a></li>
                         <li><a href="#" class="hover_line">{% trans "Drama / Romance" %}</a></li>
