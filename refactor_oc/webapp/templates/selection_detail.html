@@ -1,83 +1,89 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% load i18n %}
-
+{% load oc_custom_tags %}
 {% block content %}
     <div class="container" id="main_content">
-    <div class="row" id="movie_list">
-        <div class="col-sm-10 col-sm-offset-1">
-            <h3 class="h3_with_fa"><i class="fa fa-star-o"></i>{{ selection.name }}</h3>
-            <div class="row" style="overflow-x: hidden;">
-                {% for movie in selection.movies.all %}
-                    <div class="col-md-3 col-sm-4 col-xs-6">
-                        <div class="s_film_in_catalog">
+        <div class="row" id="movie_list">
+            <div class="col-sm-10 col-sm-offset-1">
+                <h3 class="h3_with_fa"><i class="fa fa-star-o"></i>{{ selection.name }}</h3>
+                <div class="row" style="overflow-x: hidden;">
+                    {% for movie in selection.movies.all %}
+                        <div class="col-md-3 col-sm-4 col-xs-6">
+                            <div class="s_film_in_catalog" style="height: 307px">
 
-                            <a href="{% url 'webapp:movie_detail' movie.pk %}" id="catalog_film_{{ movie.movie_id }}">
+                                <a href="{% url 'webapp:movie_detail' movie.pk %}"
+                                   id="selection_film_{{ movie.movie_id }}">
                             <span class="poster" style="background-image: url({{ movie.covers }})">
                                 <span class="helper"><i class="fa fa-play-circle-o"></i></span>
                             </span>
-                                <span class="title">{{ movie.name }}</span>
-                            </a>
+                                    <span class="title">{{ movie.name }}</span>
+                                </a>
 
-                            <div id="popover_catalog_film_{{ movie.movie_id }}" class="popover_custom"
-                                 style="display: none">
+                                <div id="popover_selection_film_{{ movie.movie_id }}" class="popover_custom"
+                                     style="display: none">
 
-                                <div class="top">
-                                    <button class="btn_blank" title="В избранное"><i class="fa fa-star-o"></i>
-                                    </button>
-                                    <!--<button class="btn_blank in_fav" title="Удалить из избранного"><i class="fa fa-star"></i></button>-->
-                                    <a href="#" class="hover_line info_link">Описание</a>
-                                    <span class="time"><i class="fa fa-clock-o"></i>1 ч. 28 мин.</span>
-                                    <span class="view"><i class="fa fa-eye"></i>15 619</span>
-                                </div>
-
-                                <div class="genre">
-                                    {% for genre in movie.genres.all %}
-                                        <span>{{ genre.name }}</span>
-                                    {% endfor %}
-                                </div>
-
-                                <div class="year">
-                                    <span>{{ movie.year }}</span>
-                                    {% for countires in movie.countires.all %}
-                                        <span>{{ countires.name }}</span>
-                                    {% endfor %}
-                                </div>
-
-                                <div class="info">
-                                    <p>
-                                        <span>Рейтинги:</span>
-                                        {% for ratings in movie.ratings.all %}
-                                            <span>{{ ratings.system }} : {{ ratings.value }}</span>
+                                    <div class="top">
+                                        <button class="btn_blank" title="В избранное"><i class="fa fa-star-o"></i>
+                                        </button>
+                                        <!--<button class="btn_blank in_fav" title="Удалить из избранного"><i class="fa fa-star"></i></button>-->
+                                        <a href="#" class="hover_line info_link">{% trans "Description" %}</a>
+                                        {% for file in movie.files.all %}
+                                            <span class="time"><i
+                                                    class="fa fa-clock-o"></i>
+                                                        {{ file.seconds|get_hours }} {% trans "h." %}
+                                                        {{ file.seconds|get_minutes }} {% trans "min." %}</span>
                                         {% endfor %}
-                                    </p>
-                                    <p>
-                                        <span>Режиссер:</span>
-                                        {% for participant in movie.participants.all %}
-                                            {% if participant.role.role_id == 1 %}
-                                                <span>{{ participant.person.name }}</span>
-                                            {% endif %}
+                                        <span class="view"><i class="fa fa-eye"></i>{{ movie.hit }}</span>
+                                    </div>
+
+                                    <div class="genre">
+                                        {% for genre in movie.genres.all %}
+                                            <span>{{ genre.name }}</span>
                                         {% endfor %}
-                                    </p>
-                                    <p>
-                                        <span>В ролях:</span>
-                                        {% for participant in movie.participants.all %}
-                                            {% if participant.role.role_id == 3 %}
-                                                <span>{{ participant.person.name }}</span>
-                                            {% endif %}
+                                    </div>
+
+                                    <div class="year">
+                                        <span>{{ movie.year }}</span>
+                                        {% for countires in movie.countires.all %}
+                                            <span>{{ countires.name }}</span>
                                         {% endfor %}
-                                    </p>
-                                </div>
-                                <div class="excerpt">
-                                    <p>{{ movie.description }}</p>
+                                    </div>
+
+                                    <div class="info">
+                                        <p>
+                                            <span>Рейтинги:</span>
+                                            {% for ratings in movie.ratings.all %}
+                                                <span>{{ ratings.system }} : {{ ratings.value }}</span>
+                                            {% endfor %}
+                                        </p>
+                                        <p>
+                                            <span>Режиссер:</span>
+                                            {% for participant in movie.participants.all %}
+                                                {% if participant.role.role_id == 1 %}
+                                                    <span>{{ participant.person.name }}</span>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </p>
+                                        <p>
+                                            <span>В ролях:</span>
+                                            {% for participant in movie.participants.all %}
+                                                {% if participant.role.role_id == 3 %}
+                                                    <span>{{ participant.person.name }}</span>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </p>
+                                    </div>
+                                    <div class="excerpt">
+                                        <p>{{ movie.description }}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                </div>
             </div>
         </div>
-    </div>
     </div>
 {% endblock %}
 
@@ -86,10 +92,8 @@
     <script>
 
         function initialize_popper(obj) {
-            var element = '' + $(obj).attr('id');
+            var element = '#' + $(obj).attr('id');
             var template = document.getElementById('popover_' + $(obj).attr('id'));
-            console.log(element);
-            console.log(template);
             try {
                 tippy(
                     element,
@@ -116,7 +120,7 @@
         }
 
         $(document).ready(function () {
-            $('a[id^=catalog_film_]').each(function () {
+            $('a[id^=selection_film_]').each(function () {
                 initialize_popper($(this));
             });
         });
