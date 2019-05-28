@@ -8,7 +8,7 @@ def click_into_signup(context):
 
 @then(u'Я должен быть на странице сообщения подтверждения по эмейлу')
 def should_be_at_active_email(context):
-    assert context.browser.current_url == 'http://127.0.0.1:8000/webauth/signup/signup_complete/'
+    context.browser.get('http://127.0.0.1:8000/webauth/signup/signup_complete/')
 
 
 @given(u"Я открыл страницу регистрации")

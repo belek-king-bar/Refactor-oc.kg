@@ -40,11 +40,11 @@
                         {% if movies.number == page_number %}
                             <li class="active"><span>{{ page_number }} <span class="sr-only">(current)</span></span></li>
                         {% elif page_number > movies.number|add:'-5' and page_number < movies.number|add:'5' %}
-                            <li><a class="page-item" href="?q={{ search_input }}&page={{ page_number }}">{{ page_number }}</a></li>
+                            <li><a class="page-item" href="?q={{ search_input }}&page={{ page_number }}" id={{ page_number }}>{{ page_number }}</a></li>
                         {% endif %}
                     {% endfor %}
                     {% if movies.paginator.num_pages > movies.number|add:'4' %}
-                        <li><a href="?q={{ search_input }}&page=-1">&hellip; {{  movies.paginator.num_pages }}</a></li>
+                        <li><a href="?q={{ search_input }}&page=-1" id="last_page">&hellip; {{  movies.paginator.num_pages }}</a></li>
                     {% endif %}
             <!--Конец-->
 
@@ -57,11 +57,11 @@
                         {% if persons.number == page_number %}
                             <li class="active"><span>{{ page_number }} <span class="sr-only">(current)</span></span></li>
                         {% elif page_number > persons.number|add:'-5' and page_number < persons.number|add:'5' %}
-                            <li><a class="page-item" href="?q={{ search_input }}&page={{ page_number }}">{{ page_number }}</a></li>
+                            <li><a class="page-item" href="?q={{ search_input }}&page={{ page_number }}" id={{ page_number }}>{{ page_number }}</a></li>
                         {% endif %}
                     {% endfor %}
                     {% if persons.paginator.num_pages > persons.number|add:'4' %}
-                        <li><a href="?q={{ search_input }}&page=-1">&hellip; {{  persons.paginator.num_pages }}</a></li>
+                        <li><a href="?q={{ search_input }}&page=-1" id="last_page">&hellip; {{  persons.paginator.num_pages }}</a></li>
                     {% endif %}
                 {% endif %}
              <!-- Конец -->

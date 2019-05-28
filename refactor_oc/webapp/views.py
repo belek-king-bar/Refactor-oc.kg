@@ -7,6 +7,7 @@ from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.db.models import Q
 
+
 class AjaxSearchView(TemplateView):
     template_name = 'ajax_search.html'
 
@@ -30,8 +31,8 @@ class SearchListView(TemplateView):
 
     def get_context_data(self, **kwargs):
         q = self.request.GET.get('q')
-        movie = Movie.objects.filter(Q(name__icontains=q) | Q(international_name__icontains=q))
-        person = Person.objects.filter(Q(name__icontains=q) | Q(international_name__icontains=q))
+        movie = Movie.objects.filter(Q(name__icontains=q) | Q(international_name__icontains=q)).order_by('pk')
+        person = Person.objects.filter(Q(name__icontains=q) | Q(international_name__icontains=q)).order_by('pk')
 
 # Пагинация для фильмов
         paginator = Paginator(movie, 6)
@@ -50,6 +51,7 @@ class SearchListView(TemplateView):
         }
 
         return context
+
 # Конец
 
 
