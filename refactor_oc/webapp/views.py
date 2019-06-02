@@ -64,9 +64,8 @@ class MovieDetailView(DetailView):
         context = super(MovieDetailView, self).get_context_data(**kwargs)
         context['producers'] = Participant.objects.filter(movie=self.object, role_id=1)
         context['actors'] = Participant.objects.filter(movie=self.object, role_id=3)
-        context['comments'] = Comment.objects.filter(movies=self.object).order_by('-created_at')
-        comments = Comment.objects.filter(movies=self.object)
-        context['comments_len'] = len(comments) - 4
+        context['comments'] = Comment.objects.filter(movies=self.object).order_by('-created_at')[:10]
+        context['comments_len'] = len(Comment.objects.filter(movies=self.object))
         if self.object.group:
             context['compilation'] = Movie.objects.filter(group=self.object.group)
         else:
@@ -155,9 +154,8 @@ class MovieView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(MovieView, self).get_context_data(**kwargs)
-        context['comments'] = Comment.objects.filter(movies=self.object).order_by('-created_at')
-        if len(context['comments']) > 4:
-            context['comments_len'] = len(context['comments']) - 4
+        context['comments'] = Comment.objects.filter(movies=self.object).order_by('-created_at')[:10]
+        context['comments_len'] = len(Comment.objects.filter(movies=self.object))
         if self.object.group:
             context['compilation'] = Movie.objects.filter(group=self.object.group)
         else:
@@ -189,6 +187,8 @@ class CommentCreateView(View):
         comment = [{'user': new_comment.user.login, 'text': new_comment.text, 'created_at': new_comment.created_at.
              strftime('%-d %B %Y %H:%M')}]
         return JsonResponse(comment, safe=False)
+
+
 
 
 class SelectionListView(ListView):
