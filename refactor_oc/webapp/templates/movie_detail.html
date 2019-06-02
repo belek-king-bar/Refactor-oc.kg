@@ -23,7 +23,7 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <h1 class="movie_title">{{ movie.name }}</h1>
+            <h1 class="movie_title"> {{ movie.name }}</h1>
         </div>
     </div>
 
@@ -177,65 +177,95 @@
         <div class="row">
             <div class="col-sm-10 col-sm-offset-1">
                 <h3 class="h3_with_fa"><i class="fa fa-comments-o"></i>{% trans 'Movie reviews' %}</h3>
-
+                <div class="new_comment"></div>
                 <!--Комментарий-->
-                {% for comment in movie.comments.all %}
-                {% if forloop.counter < 5 %}
-                <div class="s_comment">
-                    <div class="user_letter">{{ comment.user.login.0 }}</div>
-                    <div class="top">
-                        <span><strong>{{ comment.user.login }}</strong></span>
-                        <span class="date">{{ comment.created_at }}</span>
-                        <span class="comment_rate">
-                            <a href="#" class="comment_up"><i class="fa fa-caret-up"></i></a>
-                            {% for rating in comment.comments_rating.all %}
-                                <strong>{{ rating.vote }}</strong>
-                            {% endfor %}
-                            <a href="#" class="comment_down"><i class="fa fa-caret-down"></i></a>
-                        </span>
-                    </div>
-                    <div class="text">
-                        <p>{{ comment.text }}</p>
-                    </div>
-                </div>
-                <!--Конец-->
-                 {% else %}
-                <div class="hidden_comments">
-
-                    <!--Комментарий-->
+                {% for comment in comments %}
+                    {% if forloop.counter < 5 %}
                     <div class="s_comment">
                         <div class="user_letter">{{ comment.user.login.0 }}</div>
                         <div class="top">
                             <span><strong>{{ comment.user.login }}</strong></span>
                             <span class="date">{{ comment.created_at }}</span>
                             <span class="comment_rate">
-                            <a href="#" class="comment_up"><i class="fa fa-caret-up"></i></a>
-                            <strong>1</strong>
-                            <a href="#" class="comment_down"><i class="fa fa-caret-down"></i></a>
-                        </span>
+                                <a href="#" class="comment_up"><i class="fa fa-caret-up"></i></a>
+                                {% for rating in comment.comments_rating.all %}
+                                    <strong>{{ rating.vote }}</strong>
+                                {% endfor %}
+                                <a href="#" class="comment_down"><i class="fa fa-caret-down"></i></a>
+                            </span>
                         </div>
                         <div class="text">
                             <p>{{ comment.text }}</p>
                         </div>
                     </div>
-
                     <!--Конец-->
-                </div>
-                {% endif %}
+                     {% else %}
+                        {% if forloop.counter < 11 %}
+                            <div class="hidden_comments">
 
-                    {% endfor %}
+                                <!--Комментарий-->
+                                <div class="s_comment">
+                                    <div class="user_letter">{{ comment.user.login.0 }}</div>
+                                    <div class="top">
+                                        <span><strong>{{ comment.user.login }}</strong></span>
+                                        <span class="date">{{ comment.created_at }}</span>
+                                        <span class="comment_rate">
+                                        <a href="#" class="comment_up"><i class="fa fa-caret-up"></i></a>
+                                        <strong>1</strong>
+                                        <a href="#" class="comment_down"><i class="fa fa-caret-down"></i></a>
+                                    </span>
+                                    </div>
+                                    <div class="text">
+                                        <p>{{ comment.text }}</p>
+                                    </div>
 
-                {% if comments_len > 0 %}
-                    <div class="show_all_comments">
-                        <button class="btn_blank hover_line" id="show_all_comments_btn">{% trans 'Show all reviews' %} ({{comments_len}})</button>
+                                </div>
+                                <!--Конец-->
+
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                {% if comments_len > 10 %}
+                    <div class="hidden_comments">
+                        <div class="s_comment">
+                        <p><a href="{% url 'webapp:movie_comments' movie.movie_id %}" class="custom_btn red">{% trans 'Show all reviews' %}
+                                    ({{comments_len}})</a></p>
+                        </div>
                     </div>
                 {% endif %}
-
+                {% if comments_len > 4 %}
+                    <div class="show_all_comments">
+                        <button class="btn_blank hover_line" id="show_all_comments_btn">Показать еще</button>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>
     <!--Конец-->
+    <!--Добавить отзыв-->
+    {% if request.user.is_authenticated %}
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+                <div id="add_comment">
 
+                    <h3 class="h3_with_fa"><i class="fa fa-edit"></i>{% trans "Add a review" %} </h3>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <form action="#" method="post">
+                                <input type="hidden" id="movie" data-id="{{ movie.movie_id }}">
+                                {% csrf_token %}
+                                <textarea class="form-control" id="id_text" rows="6"></textarea>
+                                <a href="#reviews"><button class="custom_btn_border red" id="comment_add">{% trans "Add" %}</button></a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    <!--Конец-->
     <!--Похожие фильмы-->
     <div class="s_bestseller_slider_row">
 
@@ -425,6 +455,102 @@
 
         });
     });
+</script>
+<script>
+    $(document).ready(function () {
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        var csrftoken = getCookie('csrftoken');
+
+        $('#comment_add').click(function (e) {
+            e.preventDefault();
+            let movie_id = $('#movie').attr('data-id');
+            let text = $('#id_text').val();
+            let user_pk = {{ request.user.pk }};
+            if(text !== '') {
+                data = {
+                    movie_id: movie_id,
+                    text: text,
+                    user_pk: user_pk,
+                    csrfmiddlewaretoken: csrftoken
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'webapp:add_comment' %}",
+                    dataType: 'json',
+                    data: data,
+                    success: function (data) {
+                        $.each(data, function (field) {
+                            $('.new_comment').prepend('<div class="s_comment"><div class="user_letter">'+data[field]['user'][0]+'</div>' +
+                                '<div class="top"><span><strong>'+data[field]['user']+'</strong></span>' +
+                                '<span class="date">'+data[field]['created_at']+'</span>' +
+                                '<span class="comment_rate"><a href="#" class="comment_up"><i class="fa fa-caret-up"></i></a>' +
+                                ' <strong>1</strong> <a href="#" class="comment_down"><i class="fa fa-caret-down"></i></a></span></div>' +
+                                '<div class="text"><p>'+data[field]['text']+'</p></div></div>');
+                            $('#id_text').val('');
+                        });
+                    }
+                })
+            }
+        })
+    });
+</script>
+<script>
+
+    // Select all links with hashes
+    $('a[href*="#"]')
+      // Remove links that don't actually link to anything
+      .not('[href="#"]')
+      .not('[href="#0"]')
+      .click(function(event) {
+        let text = $('#id_text').val();
+        if(text !== '') {
+            // On-page links
+            if (
+                location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '')
+                &&
+                location.hostname == this.hostname
+            ) {
+                // Figure out element to scroll to
+                var target = $(this.hash);
+                target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                // Does a scroll target exist?
+                if (target.length) {
+                    // Only prevent default if animation is actually gonna happen
+                    event.preventDefault();
+                    $('html, body').animate({
+                        scrollTop: target.offset().top
+                    }, 1000, function () {
+                        // Callback after animation
+                        // Must change focus!
+                        var $target = $(target);
+                        $target.focus();
+                        if ($target.is(":focus")) { // Checking if the target was focused
+                            return false;
+                        } else {
+                            $target.attr('tabindex', '-1'); // Adding tabindex for elements not focusable
+                            $target.focus(); // Set focus again
+                        }
+                        ;
+                    });
+                }
+            }
+        }
+      });
 </script>
 <!--Конец-->
 {% endblock %}

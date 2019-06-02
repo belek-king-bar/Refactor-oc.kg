@@ -95,11 +95,11 @@
     <div class="comments comments_movie_page">
         <div class="row">
             <div class="col-sm-10 col-sm-offset-1">
-                <h3 class="h3_with_fa"><i class="fa fa-comments-o"></i>{% trans "Movie Reviews" %}</h3>
-                    <div class="new_comment"></div>
-            {% for comment in comments %}
-                {% if forloop.counter < 5 %}
-                    <!--Комментарий-->
+                <h3 class="h3_with_fa"><i class="fa fa-comments-o"></i>{% trans 'Movie reviews' %}</h3>
+                <div class="new_comment"></div>
+                <!--Комментарий-->
+                {% for comment in comments %}
+                    {% if forloop.counter < 5 %}
                     <div class="s_comment">
                         <div class="user_letter">{{ comment.user.login.0 }}</div>
                         <div class="top">
@@ -107,7 +107,9 @@
                             <span class="date">{{ comment.created_at }}</span>
                             <span class="comment_rate">
                                 <a href="#" class="comment_up"><i class="fa fa-caret-up"></i></a>
-                                <strong>1</strong>
+                                {% for rating in comment.comments_rating.all %}
+                                    <strong>{{ rating.vote }}</strong>
+                                {% endfor %}
                                 <a href="#" class="comment_down"><i class="fa fa-caret-down"></i></a>
                             </span>
                         </div>
@@ -116,34 +118,46 @@
                         </div>
                     </div>
                     <!--Конец-->
-                {% else %}
-                    <div class="hidden_comments">
-                        <!--Комментарий-->
-                        <div class="s_comment">
-                            <div class="user_letter">{{ comment.user.login.0 }}</div>
-                            <div class="top">
-                                <span><strong>{{ comment.user.login }}</strong></span>
-                                <span class="date">{{ comment.created_at }}</span>
-                                <span class="comment_rate">
-                                <a href="#" class="comment_up"><i class="fa fa-caret-up"></i></a>
-                                <strong>1</strong>
-                                <a href="#" class="comment_down"><i class="fa fa-caret-down"></i></a>
-                            </span>
-                            </div>
-                            <div class="text">
-                                <p>{{ comment.text }}</p>
-                            </div>
-                        </div>
-                        <!--Конец-->
-                    </div>
-                {% endif %}
-            {% endfor %}
-                {% if comments_len > 0 %}
-                    <div class="show_all_comments">
-                        <button class="btn_blank hover_line" id="show_all_comments_btn">{% trans "See all reviews" %} ({{ comments_len }})</button>
-                    </div>
-                {% endif %}
+                     {% else %}
+                        {% if forloop.counter < 11 %}
+                            <div class="hidden_comments">
 
+                                <!--Комментарий-->
+                                <div class="s_comment">
+                                    <div class="user_letter">{{ comment.user.login.0 }}</div>
+                                    <div class="top">
+                                        <span><strong>{{ comment.user.login }}</strong></span>
+                                        <span class="date">{{ comment.created_at }}</span>
+                                        <span class="comment_rate">
+                                        <a href="#" class="comment_up"><i class="fa fa-caret-up"></i></a>
+                                        <strong>1</strong>
+                                        <a href="#" class="comment_down"><i class="fa fa-caret-down"></i></a>
+                                    </span>
+                                    </div>
+                                    <div class="text">
+                                        <p>{{ comment.text }}</p>
+                                    </div>
+
+                                </div>
+                                <!--Конец-->
+
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                {% if comments_len > 10 %}
+                    <div class="hidden_comments">
+                        <div class="s_comment">
+                        <p><a href="{% url 'webapp:movie_comments' movie.movie_id %}" class="custom_btn red">{% trans 'Show all reviews' %}
+                                    ({{comments_len}})</a></p>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if comments_len > 4 %}
+                    <div class="show_all_comments">
+                        <button class="btn_blank hover_line" id="show_all_comments_btn">Показать еще</button>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>

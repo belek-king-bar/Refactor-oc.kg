@@ -1,10 +1,11 @@
 from webapp.models import Rating, Participant
+from django.shortcuts import render, render_to_response
 from django.views.generic import DetailView, ListView, View
 from webapp.models import Bestseller, Movie, Person, Bookmark, Comment, Genre, Selection, OCUser
 from django.views.generic.base import TemplateView
 import json
-from django.core.paginator import Paginator
-from django.http import JsonResponse
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.db.models import Q
 
 
@@ -63,6 +64,7 @@ class MovieDetailView(DetailView):
         context = super(MovieDetailView, self).get_context_data(**kwargs)
         context['producers'] = Participant.objects.filter(movie=self.object, role_id=1)
         context['actors'] = Participant.objects.filter(movie=self.object, role_id=3)
+        context['comments'] = Comment.objects.filter(movies=self.object).order_by('-created_at')
         comments = Comment.objects.filter(movies=self.object)
         context['comments_len'] = len(comments) - 4
         if self.object.group:
@@ -187,8 +189,6 @@ class CommentCreateView(View):
         comment = [{'user': new_comment.user.login, 'text': new_comment.text, 'created_at': new_comment.created_at.
              strftime('%-d %B %Y %H:%M')}]
         return JsonResponse(comment, safe=False)
-
-
 
 
 class SelectionListView(ListView):
