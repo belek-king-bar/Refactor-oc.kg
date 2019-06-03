@@ -7,7 +7,7 @@ import json
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.db.models import Q
-
+from django.template import loader
 
 class AjaxSearchView(TemplateView):
     template_name = 'ajax_search.html'
@@ -188,7 +188,39 @@ class CommentCreateView(View):
              strftime('%-d %B %Y %H:%M')}]
         return JsonResponse(comment, safe=False)
 
+class MovieCommentsView(DetailView):
+    model = Movie
+    template_name = 'comments.html'
 
+    # def get_context_data(self, **kwargs):
+    #     context = super(MovieCommentsView, self).get_context_data(**kwargs)
+    #     paginator = Paginator(Comment.objects.filter(movies=self.object).order_by('created_at'), 10)
+    #     context['comments'] = paginator.page(1)
+    #     return context
+
+
+    def get(self, request, *args, **kwargs):
+        movie = Movie.objects.get(movie_id=kwargs['pk'])
+        # comments = Comment.objects.all().order_by('created_at')[:20]
+        paginator = Paginator(Comment.objects.filter(movies=movie).order_by('created_at'), 10)
+        comments = paginator.page(1)
+        template = loader.get_template('comments.html')
+        if request.is_ajax():
+            page = request.GET.get('page', 1)
+            print(page)
+            paginator = Paginator(comments, 10)
+            try:
+                comments = paginator.page(page)
+            except PageNotAnInteger:
+                comments = paginator.page(1)
+            except EmptyPage:
+                comments = paginator.page(paginator.num_pages)
+            comments_page = list(map(lambda comment: comment.as_dict(), list(comments)))
+            print(comments_page)
+            return JsonResponse(comments_page, safe=False)
+        # return render_to_response('comments.html', {'comments': comments})
+        # return HttpResponse(template.render({'comments': comments}))
+        return render(request, 'comments.html', context={'comments': comments, 'movie': movie})
 
 
 class SelectionListView(ListView):

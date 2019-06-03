@@ -1,7 +1,9 @@
 from django.urls import path
 
 
-from webapp.views import MovieDetailView, BestsellerListView, CommentCreateView, FavoritesListView, ActorDetailView, MovieView, CatalogueListView, SelectionListView, SearchListView, AjaxSearchView
+from webapp.views import MovieDetailView, BestsellerListView, CommentCreateView, FavoritesListView, \
+    ActorDetailView, MovieView, CatalogueListView, SelectionListView, SearchListView, AjaxSearchView, \
+    MovieCommentsView
 
 app_name = 'webapp'
 
@@ -15,5 +17,6 @@ urlpatterns = [
     path('actor/<int:pk>', ActorDetailView.as_view(), name='actor_detail'),
     path('search/list', SearchListView.as_view(), name='search_list'),
     path('search/', AjaxSearchView.as_view(), name='search_view'),
-    path('add_comment/', CommentCreateView.as_view(), name='add_comment')
+    path('add_comment/', CommentCreateView.as_view(), name='add_comment'),
+    path('movie/<int:pk>/comments', MovieCommentsView.as_view(), name='movie_comments')
 ]

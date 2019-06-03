@@ -60,6 +60,16 @@ class Comment(models.Model):
     def __str__(self):
         return "Комментарий"
 
+    def as_dict(self):
+        return {
+            'comment_id': '%s' % self.comment_id,
+            'user': '',
+            'to_user': '',
+            'created_at': self.created_at.strftime('%Y-%m-%d %H:%M'),
+            'text': self.text,
+            'ip': self.ip
+        }
+
     class Meta:
         db_table = 'comments'
         verbose_name = _('comment')
