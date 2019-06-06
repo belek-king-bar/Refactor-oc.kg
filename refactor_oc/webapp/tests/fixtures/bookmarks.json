@@ -1,0 +1,11 @@
+[
+  {
+    "model": "webapp.bookmark",
+    "pk": 1,
+    "fields": {
+      "bookmark_id": 1,
+      "user": 1,
+      "movie": 6
+    }
+  }
+]

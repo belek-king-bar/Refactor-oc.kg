@@ -65,8 +65,20 @@
         <div class="col-sm-6">
             <div class="button_block">
                 <div class="wrapper"><a href="#" class="custom_btn_border red">{% trans "Download" %}</a></div>
-                <div class="wrapper"><a href="#" class="custom_btn_border small_padding">{% trans "To favorites" %}<i class="fa fa-star-o"></i></a></div>
-                <!--<div class="wrapper"><a href="#" class="custom_btn_border">Добавлено <i class="fa fa-star"></i></a></div>-->
+                {% if user.is_authenticated %}
+                    <form action="#" method="post" class="wrapper">
+                        {% csrf_token %}
+                        {% if bookmark %}
+                            <div class="wrapper hidden_prew"><button id="from_favorites" class="custom_btn_border small_padding click_button_favorites">Добавлено <i class="fa fa-star"></i></button></div>
+                            <div class="wrapper hidden_prew_a hidden"><button id="to_favorites" class="custom_btn_border small_padding click_button_favorites">{% trans "To favorites" %}<i class="fa fa-star-o"></i></button></div>
+                        {% else %}
+                            <div class="wrapper hidden_prew_a"><button id="to_favorites" class="custom_btn_border small_padding click_button_favorites">{% trans "To favorites" %}<i class="fa fa-star-o"></i></button></div>
+                            <div class="wrapper hidden_prew hidden"><button id="from_favorites" class="custom_btn_border small_padding click_button_favorites">Добавлено <i class="fa fa-star"></i></button></div>
+                        {% endif %}
+                    </form>
+                {% else %}
+                    <div class="wrapper"><a href="{% url 'login' %}" class="custom_btn_border small_padding click_button_favorites">{% trans "To favorites" %}<i class="fa fa-star-o"></i></a></div>
+                {% endif %}
             </div>
         </div>
 
@@ -323,12 +335,14 @@
 <!--Конец-->
 {% endblock %}
 {% block script %}
+
 <!--Подключаем слайдер с фильмами-->
 <script src={% static 'js/resCarousel.min.js' %}></script>
 <!--Конец--
 
 <!--Скрипт для popover-->
 <script src={% static 'js/tippy.all.min.js' %}></script>
+
 <script>
 
     function initialize_popper(obj) {
@@ -383,28 +397,13 @@
 
 <script>
     $(document).ready(function () {
-        function getCookie(name) {
-            var cookieValue = null;
-            if (document.cookie && document.cookie !== '') {
-                var cookies = document.cookie.split(';');
-                for (var i = 0; i < cookies.length; i++) {
-                    var cookie = cookies[i].trim();
-                    // Does this cookie string begin with the name we want?
-                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                        break;
-                    }
-                }
-            }
-            return cookieValue;
-        }
-        var csrftoken = getCookie('csrftoken');
 
         $('#comment_add').click(function (e) {
             e.preventDefault();
             let movie_id = $('#movie').attr('data-id');
             let text = $('#id_text').val();
             let user_pk = {{ request.user.pk }};
+            let csrftoken = $('input[name=csrfmiddlewaretoken]').attr('value');
             if(text !== '') {
                 data = {
                     movie_id: movie_id,
@@ -434,6 +433,67 @@
         })
     });
 </script>
+
+<script>
+    $(document).ready(function () {
+
+        $('#to_favorites').click(function (e) {
+            e.preventDefault();
+            let movie_id = $('#movie').attr('data-id');
+            let user_pk = {{ request.user.pk }};
+            let csrftoken = $('input[name=csrfmiddlewaretoken]').attr('value');
+
+            data = {
+                movie_id: movie_id,
+                user_pk: user_pk,
+                csrfmiddlewaretoken: csrftoken
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "{% url 'webapp:to_favorites' %}",
+                dataType: 'json',
+                data: data,
+                success: function (data) {
+                    console.log(data[0]['csrf']);
+                    $('.hidden_prew_a').addClass("hidden");
+                    $('.hidden_prew').removeClass("hidden");
+                }
+            })
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#from_favorites').click(function (e) {
+            e.preventDefault();
+            let movie_id = $('#movie').attr('data-id');
+            let user_pk = {{ request.user.pk }};
+            let csrftoken = $('input[name=csrfmiddlewaretoken]').attr('value');
+
+            data = {
+                movie_id: movie_id,
+                user_pk: user_pk,
+                csrfmiddlewaretoken: csrftoken
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "{% url 'webapp:from_favorites' %}",
+                dataType: 'json',
+                data: data,
+                success: function (data) {
+                    console.log(data[0]['csrf']);
+                    $('.hidden_prew').addClass("hidden");
+                    $('.hidden_prew_a').removeClass("hidden");
+                }
+            })
+        });
+    });
+</script>
+
+
 <script>
 
     // Select all links with hashes
@@ -470,12 +530,12 @@
                             $target.attr('tabindex', '-1'); // Adding tabindex for elements not focusable
                             $target.focus(); // Set focus again
                         }
-                        ;
                     });
                 }
             }
         }
       });
 </script>
+
 <!--Конец-->
 {% endblock %}

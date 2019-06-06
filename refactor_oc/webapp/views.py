@@ -1,9 +1,13 @@
 from webapp.models import Rating, Participant
+from django.views.generic import DetailView, ListView, View, DeleteView
 from django.shortcuts import render, render_to_response
 from django.views.generic import DetailView, ListView, View
 from webapp.models import Bestseller, Movie, Person, Bookmark, Comment, Genre, Selection, OCUser
 from django.views.generic.base import TemplateView
 import json
+from django.urls import reverse
+from django.core.paginator import Paginator
+from django.http import JsonResponse, HttpResponseRedirect
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.db.models import Q
@@ -56,12 +60,15 @@ class SearchListView(TemplateView):
 # Конец
 
 
+
 class MovieDetailView(DetailView):
     model = Movie
     template_name = 'movie_detail.html'
 
     def get_context_data(self, **kwargs):
         context = super(MovieDetailView, self).get_context_data(**kwargs)
+        if self.request.user.is_authenticated:
+            context['bookmark'] = Bookmark.objects.filter(user=self.request.user, movie=self.object)
         context['producers'] = Participant.objects.filter(movie=self.object, role_id=1)
         context['actors'] = Participant.objects.filter(movie=self.object, role_id=3)
         context['comments'] = Comment.objects.filter(movies=self.object).order_by('-created_at')[:10]
@@ -84,21 +91,23 @@ class MovieDetailView(DetailView):
             return Movie.objects.filter(genres__in=res).order_by("?")[:5]
 
 
+
 class ActorDetailView(DetailView):
     model = Person
     template_name = 'actor.html'
+
 
 
 class FavoritesListView(ListView):
     model = Bookmark
     template_name = 'favorite_view.html'
 
-    def post(self, request):
-        if request.user.is_authenticated():
-            return self.model.objects.get().order_by('-created_at')
-        else:
-            return
-        pass #todo сделать редирект(?) на главную/логинку
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        success_url = reverse('webauth:signup')
+        context['movies'] = self.model.objects.filter(user=self.request.user).order_by('-created_at')
+        return context
+
 
 
 class BestsellerListView(ListView):
@@ -107,6 +116,7 @@ class BestsellerListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        print(self.request.user)
         context['movie_all'] = []
         classes = {
             1: 'fa-angellist',
@@ -134,6 +144,7 @@ class BestsellerListView(ListView):
         return context
 
 
+
 class CatalogueListView(ListView):
     model = Movie
     template_name = 'catalogue.html'
@@ -142,10 +153,11 @@ class CatalogueListView(ListView):
         context = super(CatalogueListView, self).get_context_data(**kwargs)
         context['comments'] = Comment.objects.all().order_by('-created_at')[:5]
         all_movies = Movie.objects.all().order_by('-created_at')
-        context['paginator'] = Paginator(all_movies, 4)
+        context['paginator'] = Paginator(all_movies, 20)
         context['page'] = self.request.GET.get('page')
         context['movies'] = context['paginator'].get_page(context['page'])
         return context
+
 
 
 class MovieView(DetailView):
@@ -154,6 +166,11 @@ class MovieView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(MovieView, self).get_context_data(**kwargs)
+        if self.request.user.is_authenticated:
+            context['bookmark'] = Bookmark.objects.filter(user=self.request.user, movie=self.object)
+        context['comments'] = Comment.objects.filter(movies=self.object).order_by('-created_at')
+        if len(context['comments']) > 4:
+            context['comments_len'] = len(context['comments']) - 4
         context['comments'] = Comment.objects.filter(movies=self.object).order_by('-created_at')[:10]
         context['comments_len'] = len(Comment.objects.filter(movies=self.object))
         if self.object.group:
@@ -173,6 +190,7 @@ class MovieView(DetailView):
             return Movie.objects.filter(genres__in=res).order_by("?")[:5]
 
 
+
 class CommentCreateView(View):
     model = Comment
     template_name = 'view_movie.html'
@@ -181,6 +199,8 @@ class CommentCreateView(View):
         movie_id = self.request.POST.get('movie_id')
         text = self.request.POST.get('text')
         user_pk = self.request.POST.get('user_pk')
+        csrft = self.request.POST.get('csrfmiddlewaretoken')
+        print(csrft)
         user = OCUser.objects.get(pk=user_pk)
         movie = Movie.objects.get(movie_id=movie_id)
         new_comment = movie.comments.create(user=user, text=text)
@@ -226,3 +246,31 @@ class MovieCommentsView(DetailView):
 class SelectionListView(ListView):
     model = Selection
     template_name = 'selections.html'
+
+
+
+class FavoritesCreateView(View):
+    model = Bookmark
+
+    def post(self, *args, **kwargs):
+        movie_id = self.request.POST.get('movie_id')
+        user_pk = self.request.POST.get('user_pk')
+        user = OCUser.objects.get(pk=user_pk)
+        movie = Movie.objects.get(movie_id=movie_id)
+        bookmark = Bookmark.objects.create(user=user, movie=movie)
+        response_bookmark = [{'user': bookmark.user.login, 'movie': bookmark.movie.name}]
+        return JsonResponse(response_bookmark, safe=False)
+
+
+class FavoritesDeleteView(DeleteView):
+    model = Bookmark
+
+    def delete(self, *args, **kwargs):
+        movie_id = self.request.POST.get('movie_id')
+        user_pk = self.request.POST.get('user_pk')
+        user = OCUser.objects.get(pk=user_pk)
+        movie = Movie.objects.get(movie_id=movie_id)
+        bookmark = Bookmark.objects.filter(user=user, movie=movie)
+        bookmark[0].delete()
+        old_bookmark = [{'movie': movie.name}]
+        return JsonResponse(old_bookmark, safe=False)

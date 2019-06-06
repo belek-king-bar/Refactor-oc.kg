@@ -15,6 +15,7 @@ class MovieDetailTests(TestCase):
         call_command('loaddata', settings.BASE_DIR + '/webapp/tests/fixtures/persons', verbosity=0)
         call_command('loaddata', settings.BASE_DIR + '/webapp/tests/fixtures/participants', verbosity=0)
         self.client = Client()
+        self.client.login(login='admin', password="admin")
 
     def test_details(self):
         response = self.client.get(reverse('webapp:movie_detail', kwargs={'pk': 2}))
