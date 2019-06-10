@@ -63,9 +63,9 @@ class Comment(models.Model):
     def as_dict(self):
         return {
             'comment_id': '%s' % self.comment_id,
-            'user': '',
-            'to_user': '',
-            'created_at': self.created_at.strftime('%Y-%m-%d %H:%M'),
+            'user': self.user.login,
+            'to_user': self.user.login,
+            'created_at': self.created_at.strftime('%-d %B %Y %H:%M'),
             'text': self.text,
             'ip': self.ip
         }
