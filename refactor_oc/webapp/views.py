@@ -1,7 +1,6 @@
 from webapp.models import Rating, Participant
 from django.views.generic import DetailView, ListView, View, DeleteView
 from django.shortcuts import render, render_to_response
-from django.views.generic import DetailView, ListView, View
 from webapp.models import Bestseller, Movie, Person, Bookmark, Comment, Genre, Selection, OCUser
 from django.views.generic.base import TemplateView
 import json
@@ -9,9 +8,7 @@ from django.urls import reverse
 from django.core.paginator import Paginator
 from django.http import JsonResponse, HttpResponseRedirect
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.db.models import Q
-from django.template import loader
 
 class AjaxSearchView(TemplateView):
     template_name = 'ajax_search.html'
@@ -168,9 +165,6 @@ class MovieView(DetailView):
         context = super(MovieView, self).get_context_data(**kwargs)
         if self.request.user.is_authenticated:
             context['bookmark'] = Bookmark.objects.filter(user=self.request.user, movie=self.object)
-        context['comments'] = Comment.objects.filter(movies=self.object).order_by('-created_at')
-        if len(context['comments']) > 4:
-            context['comments_len'] = len(context['comments']) - 4
         context['comments'] = Comment.objects.filter(movies=self.object).order_by('-created_at')[:10]
         context['comments_len'] = len(Comment.objects.filter(movies=self.object))
         if self.object.group:
@@ -188,7 +182,6 @@ class MovieView(DetailView):
             return Movie.objects.filter(genres__in=res[:3]).order_by("?")[:5]
         else:
             return Movie.objects.filter(genres__in=res).order_by("?")[:5]
-
 
 
 class CommentCreateView(View):
@@ -212,34 +205,21 @@ class MovieCommentsView(DetailView):
     model = Movie
     template_name = 'comments.html'
 
-    # def get_context_data(self, **kwargs):
-    #     context = super(MovieCommentsView, self).get_context_data(**kwargs)
-    #     paginator = Paginator(Comment.objects.filter(movies=self.object).order_by('created_at'), 10)
-    #     context['comments'] = paginator.page(1)
-    #     return context
-
-
     def get(self, request, *args, **kwargs):
         movie = Movie.objects.get(movie_id=kwargs['pk'])
-        # comments = Comment.objects.all().order_by('created_at')[:20]
         paginator = Paginator(Comment.objects.filter(movies=movie).order_by('created_at'), 10)
         comments = paginator.page(1)
-        template = loader.get_template('comments.html')
         if request.is_ajax():
-            page = request.GET.get('page', 1)
-            print(page)
-            paginator = Paginator(comments, 10)
-            try:
-                comments = paginator.page(page)
-            except PageNotAnInteger:
-                comments = paginator.page(1)
-            except EmptyPage:
-                comments = paginator.page(paginator.num_pages)
-            comments_page = list(map(lambda comment: comment.as_dict(), list(comments)))
-            print(comments_page)
-            return JsonResponse(comments_page, safe=False)
-        # return render_to_response('comments.html', {'comments': comments})
-        # return HttpResponse(template.render({'comments': comments}))
+            page = int(request.GET.get('next_page'))
+            if paginator.page(page).has_next:
+                try:
+                    comments = paginator.page(page)
+                except PageNotAnInteger:
+                    comments = paginator.page(1)
+                except EmptyPage:
+                    comments = paginator.page(paginator.num_pages)
+                comments_page = list(map(lambda comment: comment.as_dict(), list(comments)))
+                return JsonResponse({'comments_page': comments_page}, safe=False)
         return render(request, 'comments.html', context={'comments': comments, 'movie': movie})
 
 
