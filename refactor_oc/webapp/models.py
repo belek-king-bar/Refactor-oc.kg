@@ -63,8 +63,9 @@ class Comment(models.Model):
     def as_dict(self):
         return {
             'comment_id': '%s' % self.comment_id,
-            'user': self.user.login,
-            'to_user': self.user.login,
+            #поле 'user' закомментировано для корретной загрузки комментариев по скроллу,
+            #когда в базе будут пользователи, нужно раскомментировать
+            #'user': self.user.login,
             'created_at': self.created_at.strftime('%-d %B %Y %H:%M'),
             'text': self.text,
             'ip': self.ip

@@ -13,7 +13,8 @@
         <div class="col-sm-12">
             <ul class="breadcrumb">
                 <li><a href="{% url 'webapp:bestseller_list' %}" class="hover_line">{% trans 'Bestsellers' %}</a></li>
-                <li><a href="{% url 'webapp:movie_detail' movie.movie_id %}" class="hover_line">{{ movie.name }}</a></li>
+                <li><a href="{% url 'webapp:movie_detail' movie.movie_id %}" class="hover_line">{{ movie.name }}</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -27,64 +28,64 @@
         </div>
     </div>
     <div>
-        </div>
-                <!--Отзывы о фильме-->
-                <div class="comments comments_movie_page">
-                    <div class="row">
-                        <div class="col-sm-10 col-sm-offset-1">
-                            <h3 class="h3_with_fa"><i class="fa fa-comments-o"></i>{% trans 'Movie reviews' %}</h3>
-                            <!--Комментарий-->
-                            {% for comment in comments %}
-                            <div class="s_comment">
-                                <div class="user_letter">{{ comment.user.login.0 }}</div>
-                                <div class="top">
-                                    <span><strong>{{ comment.user.login }}</strong></span>
-                                    <span class="date">{{ comment.created_at }}</span>
-                                    <span class="comment_rate">
+    </div>
+    <!--Отзывы о фильме-->
+    <div class="comments comments_page" id="comments_page">
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+                <h3 class="h3_with_fa"><i class="fa fa-comments-o"></i>{% trans 'Movie reviews' %}</h3>
+                <!--Комментарий-->
+                {% for comment in comments %}
+                <div class="s_comment">
+                    <div class="user_letter">{{ comment.user.login.0 }}</div>
+                    <div class="top">
+                        <span><strong>{{ comment.user.login }}</strong></span>
+                        <span class="date">{{ comment.created_at }}</span>
+                        <span class="comment_rate">
                                 <a href="#" class="comment_up"><i class="fa fa-caret-up"></i></a>
                                 {% for rating in comment.comments_rating.all %}
                                     <strong>{{ rating.vote }}</strong>
                                 {% endfor %}
                                 <a href="#" class="comment_down"><i class="fa fa-caret-down"></i></a>
                             </span>
-                                </div>
-                                <div class="text">
-                                    <p>{{ comment.text }}</p>
-                                </div>
-                            </div>
-                            <!--Конец-->
-                            {% endfor %}
-                            <div class="new_comment"></div>
-                        </div>
+                    </div>
+                    <div class="text">
+                        <p>{{ comment.text }}</p>
                     </div>
                 </div>
                 <!--Конец-->
-                <!--Добавить отзыв-->
-                <!--{% if request.user.is_authenticated %}-->
-                <!--<div class="row">-->
-                    <!--<div class="col-sm-10 col-sm-offset-1">-->
-                        <!--<div id="add_comment">-->
+                {% endfor %}
+                <div class="new_comments"></div>
+                <div class="new_comment"></div>
+            </div>
+        </div>
+    </div>
+    <!--Конец-->
+    <!--Добавить отзыв-->
+    {% if request.user.is_authenticated %}
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-1">
+            <div id="add_comment">
 
-                            <!--<h3 class="h3_with_fa"><i class="fa fa-edit"></i>{% trans "Add a review" %} </h3>-->
+                <h3 class="h3_with_fa"><i class="fa fa-edit"></i>{% trans "Add a review" %} </h3>
 
-                            <!--<div class="row">-->
-                                <!--<div class="col-sm-6">-->
-                                    <!--<form action="#" method="post">-->
-                                        <!--<input type="hidden" id="movie" data-id="{{ movie.movie_id }}">-->
-                                        <!--{% csrf_token %}-->
-                                        <!--<textarea class="form-control" id="id_text" rows="6"></textarea>-->
-                                        <!--<a href="#reviews">-->
-                                            <!--<button class="custom_btn_border red" id="comment_add">{% trans "Add" %}-->
-                                            <!--</button>-->
-                                        <!--</a>-->
-                                    <!--</form>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--{% endif %}-->
-                <!--Конец-->
+                <div class="row">
+                    <div class="col-sm-6">
+                        <form action="#" method="post">
+                            <input type="hidden" id="movie" data-id="{{ movie.movie_id }}">
+                            {% csrf_token %}
+                            <textarea class="form-control" id="id_text" rows="6"></textarea>
+                            <a href="#reviews">
+                                <button class="custom_btn_border red" id="comment_add">{% trans "Add" %}</button>
+                            </a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    <!--Конец-->
 
     <!--Конец-->
 
@@ -165,29 +166,19 @@
 </script>
 <script>
     $(document).ready(function () {
-        function getCookie(name) {
-            var cookieValue = null;
-            if (document.cookie && document.cookie !== '') {
-                var cookies = document.cookie.split(';');
-                for (var i = 0; i < cookies.length; i++) {
-                    var cookie = cookies[i].trim();
-                    // Does this cookie string begin with the name we want?
-                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                        break;
-                    }
-                }
-            }
-            return cookieValue;
-        }
-        var csrftoken = getCookie('csrftoken');
 
         $('#comment_add').click(function (e) {
             e.preventDefault();
             let movie_id = $('#movie').attr('data-id');
             let text = $('#id_text').val();
-            let user_pk = {{ request.user.pk }};
-            if(text !== '') {
+            let user_pk = {
+            {
+                request.user.pk
+            }
+        }
+            ;
+            let csrftoken = $('input[name=csrfmiddlewaretoken]').attr('value');
+            if (text !== '') {
                 data = {
                     movie_id: movie_id,
                     text: text,
@@ -202,12 +193,12 @@
                     data: data,
                     success: function (data) {
                         $.each(data, function (field) {
-                            $('.new_comment').prepend('<div class="s_comment"><div class="user_letter">'+data[field]['user'][0]+'</div>' +
-                                '<div class="top"><span><strong>'+data[field]['user']+'</strong></span>' +
-                                '<span class="date">'+data[field]['created_at']+'</span>' +
+                            $('.new_comment').append('<div class="s_comment"><div class="user_letter">' + data[field]['user'][0] + '</div>' +
+                                '<div class="top"><span><strong>' + data[field]['user'] + '</strong></span>' +
+                                '<span class="date">' + data[field]['created_at'] + '</span>' +
                                 '<span class="comment_rate"><a href="#" class="comment_up"><i class="fa fa-caret-up"></i></a>' +
                                 ' <strong>1</strong> <a href="#" class="comment_down"><i class="fa fa-caret-down"></i></a></span></div>' +
-                                '<div class="text"><p>'+data[field]['text']+'</p></div></div>');
+                                '<div class="text"><p>' + data[field]['text'] + '</p></div></div>');
                             $('#id_text').val('');
                         });
                     }
@@ -216,106 +207,94 @@
         })
     });
 </script>
+
 <script>
 
     // Select all links with hashes
     $('a[href*="#"]')
-      // Remove links that don't actually link to anything
-      .not('[href="#"]')
-      .not('[href="#0"]')
-      .click(function(event) {
-        let text = $('#id_text').val();
-        if(text !== '') {
-            // On-page links
-            if (
-                location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '')
-                &&
-                location.hostname == this.hostname
-            ) {
-                // Figure out element to scroll to
-                var target = $(this.hash);
-                target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-                // Does a scroll target exist?
-                if (target.length) {
-                    // Only prevent default if animation is actually gonna happen
-                    event.preventDefault();
-                    $('html, body').animate({
-                        scrollTop: target.offset().top
-                    }, 1000, function () {
-                        // Callback after animation
-                        // Must change focus!
-                        var $target = $(target);
-                        $target.focus();
-                        if ($target.is(":focus")) { // Checking if the target was focused
-                            return false;
-                        } else {
-                            $target.attr('tabindex', '-1'); // Adding tabindex for elements not focusable
-                            $target.focus(); // Set focus again
-                        }
-                        ;
-                    });
+    // Remove links that don't actually link to anything
+        .not('[href="#"]')
+        .not('[href="#0"]')
+        .click(function (event) {
+            let text = $('#id_text').val();
+            if (text !== '') {
+                // On-page links
+                if (
+                    location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '')
+                    &&
+                    location.hostname == this.hostname
+                ) {
+                    // Figure out element to scroll to
+                    var target = $(this.hash);
+                    target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                    // Does a scroll target exist?
+                    if (target.length) {
+                        // Only prevent default if animation is actually gonna happen
+                        event.preventDefault();
+                        $('html, body').animate({
+                            scrollTop: target.offset().top
+                        }, 1000, function () {
+                            // Callback after animation
+                            // Must change focus!
+                            var $target = $(target);
+                            $target.focus();
+                            if ($target.is(":focus")) { // Checking if the target was focused
+                                return false;
+                            } else {
+                                $target.attr('tabindex', '-1'); // Adding tabindex for elements not focusable
+                                $target.focus(); // Set focus again
+                            }
+                        });
+                    }
                 }
             }
-        }
-      });
+        });
 </script>
 <script>
-    $(document).ready(function(){
-       $(window).bind('scroll', loadOnScroll);
+    $(document).ready(function () {
+        $(window).bind('scroll', loadOnScroll);
     });
 
-    // Scroll globals
-    var pageNum = 1; // The latest page loaded
-    var hasNextPage = true; // Indicates whether to expect another page after this one
+    var pageNum = 1;
+    var hasNextPage = true;
 
-
-    // loadOnScroll handler
-    var loadOnScroll = function() {
-       // If the current scroll position is past out cutoff point...
-        if ($(window).scrollTop() > $(document).height() - ($(window).height()*2)) {
-            // temporarily unhook the scroll event watcher so we don't call a bunch of times in a row
+    var loadOnScroll = function () {
+        if ($(window).scrollTop() > $(document).height() - ($(window).height() * 2)) {
             $(window).unbind();
-            // execute the load function below that will visit the JSON feed and stuff data into the HTML
             loadItems();
         }
     };
 
-    var loadItems = function() {
-        // If the next page doesn't exist, just quit now
+    var loadItems = function () {
         if (hasNextPage === false) {
             return false
         }
-        // Update the page number
         pageNum = pageNum + 1;
-        // Configure the url we're about to hit
         $.ajax({
-                method: "GET",
-                url: "{% url 'webapp:movie_comments' movie.movie_id %}",
-                dataType: "json",
-                data: {next_page: pageNum},
-            success: function(data) {
-                // Update global next page variable
-                hasNextPage = true;//.hasNext;
+            method: "GET",
+            url: "{% url 'webapp:movie_comments' movie.movie_id %}",
+            dataType: "json",
+            data: {next_page: pageNum},
+            success: function (data) {
+                hasNextPage = true;
                 $.each(data['comments_page'], function (field) {
-                                $('.new_comment').append('<div class="s_comment"><div class="user_letter">'+data['comments_page'][field]['user']+'</div>' +
-                                    '<div class="top"><span><strong>'+data['comments_page'][field]['user']+'</strong></span>' +
-                                    '<span class="date">'+data['comments_page'][field]['created_at']+'</span>' +
-                                    '<span class="comment_rate"><a href="#" class="comment_up"><i class="fa fa-caret-up"></i></a>' +
-                                    ' <strong>1</strong> <a href="#" class="comment_down"><i class="fa fa-caret-down"></i></a></span></div>' +
-                                    '<div class="text"><p>'+data['comments_page'][field]['text']+'</p></div></div>');
-                                $('#id_text').val('');
-                            });
+                    $('.new_comments').append('<div class="s_comment"><div class="user_letter">' + data['comments_page'][field]['user'] + '</div>' +
+                        '<div class="top"><span><strong>' + data['comments_page'][field]['user'] + '</strong></span>' +
+                        '<span class="date">' + data['comments_page'][field]['created_at'] + '</span>' +
+                        '<span class="comment_rate"><a href="#" class="comment_up"><i class="fa fa-caret-up"></i></a>' +
+                        ' <strong>1</strong> <a href="#" class="comment_down"><i class="fa fa-caret-down"></i></a></span></div>' +
+                        '<div class="text"><p>' + data['comments_page'][field]['text'] + '</p></div></div>');
+                    $('#id_text').val('');
+                });
 
-                    console.log(data)
+                console.log(data)
             },
-            error: function(response, status) {
-                // When I get a 400 back, fail safely
+            error: function (response, status) {
                 console.log(status);
                 hasNextPage = false
                 console.log(hasNextPage)
             },
-            complete: function(data, textStatus){
-                // Turn the scroll monitor back on
+            complete: function (data, textStatus) {
                 $(window).bind('scroll', loadOnScroll);
             }
         });

@@ -241,7 +241,7 @@
                 {% if comments_len > 10 %}
                     <div class="hidden_comments">
                         <div class="s_comment">
-                        <p><a href="{% url 'webapp:movie_comments' movie.movie_id %}" class="custom_btn red">{% trans 'Show all reviews' %}
+                        <p><a href="{% url 'webapp:movie_comments' movie.movie_id %}" id="comments_page_btn" class="custom_btn red">{% trans 'Show all reviews' %}
                                     ({{comments_len}})</a></p>
                         </div>
                     </div>
