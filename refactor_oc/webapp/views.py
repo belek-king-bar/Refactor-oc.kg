@@ -158,6 +158,13 @@ class MovieView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(MovieView, self).get_context_data(**kwargs)
+        request_comments = []
+        comments = Comment.objects.filter(movies=self.object, to_comment__comment_id__isnull=True).order_by('-created_at')
+        for comment in comments:
+            request_comments.append(comment)
+        context['comments'] = request_comments
+        if len(context['comments']) > 4:
+            context['comments_len'] = len(context['comments']) - 4
         if self.request.user.is_authenticated:
             context['bookmark'] = Bookmark.objects.filter(user=self.request.user, movie=self.object)
         context['comments'] = Comment.objects.filter(movies=self.object).order_by('-created_at')[:10]
@@ -193,13 +200,32 @@ class CommentCreateView(View):
         movie = Movie.objects.get(movie_id=movie_id)
         new_comment = movie.comments.create(user=user, text=text)
         comment = [{'user': new_comment.user.login, 'text': new_comment.text, 'created_at': new_comment.created_at.
-             strftime('%-d %B %Y %H:%M')}]
+             strftime('%-d %b %Y %H:%M'), 'comment_id': new_comment.comment_id}]
+        return JsonResponse(comment, safe=False)
+
+
+class CommentAnswerView(View):
+    model = Comment
+    template_name = 'view_movie.html'
+
+    def post(self, request, *args, **kwargs):
+        movie_id = self.request.POST.get('movie_id')
+        text = self.request.POST.get('text')
+        user_pk = self.request.POST.get('user_pk')
+        to_comment_id = self.request.POST.get('to_comment_id')
+        user = OCUser.objects.get(pk=user_pk)
+        movie = Movie.objects.get(movie_id=movie_id)
+        new_comment = movie.comments.create(user=user, text=text, to_comment_id=to_comment_id)
+        comment = [{'user': new_comment.user.login, 'text': new_comment.text, 'created_at': new_comment.created_at.
+             strftime('%-d %b %Y %H:%M'), 'to_comment_id': new_comment.to_comment_id,
+                    'comment_id': new_comment.comment_id}]
         return JsonResponse(comment, safe=False)
 
 
 class MovieCommentsView(DetailView):
     model = Movie
     template_name = 'comments.html'
+
 
     def get(self, request, *args, **kwargs):
         movie = Movie.objects.get(movie_id=kwargs['pk'])
