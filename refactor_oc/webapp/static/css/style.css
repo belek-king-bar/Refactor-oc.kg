@@ -1072,6 +1072,9 @@ input {
 .hidden_comments .s_comment {
   display: none; }
 
+.hidden_replies .s_comment {
+  display: none; }
+
 .button_block_and_my_rate .button_block {
   margin-top: 0; }
 .button_block_and_my_rate .my_rate {

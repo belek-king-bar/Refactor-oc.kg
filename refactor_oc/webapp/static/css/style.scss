@@ -1413,6 +1413,12 @@ input {
   }
 }
 
+.hidden_replies {
+  .s_comment {
+    display: none;
+  }
+}
+
 .button_block_and_my_rate {
   .button_block {
     margin-top: 0;
