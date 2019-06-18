@@ -120,9 +120,11 @@ TIME_ZONE = 'Asia/Bishkek'
 
 USE_I18N = True
 
-USE_L10N = True
+USE_L10N = False
 
-USE_TZ = False
+USE_TZ = True
+
+DATE_TIME_FORMAT = ['%Y-%m-%d %H:%M:%']
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/

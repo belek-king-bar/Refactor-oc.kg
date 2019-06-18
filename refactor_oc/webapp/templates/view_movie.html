@@ -5,234 +5,389 @@
 {% block title %}{{ movie.name }}{% endblock %}
 <!--Основной контейнер-->
 {% block content %}
-<div class="container" id="main_content">
+    <div class="container" id="main_content">
 
-    <!--Breadcrumbs-->
-    <div class="row">
-       <div class="col-sm-12">
-           <ul class="breadcrumb">
-               <li><a href="{% url 'webapp:bestseller_list' %}" class="hover_line">{% trans "Home" %}</a></li>
-               <li><a href="{% url 'webapp:catalogue_list' %}" class="hover_line">{% trans "Catalogue" %}</a></li>
-               <li>{{ movie.name }}</li>
-           </ul>
-       </div>
-   </div>
-    <!--Конец-->
-
-    <!--Заголовок-->
-    <div class="row">
-        <div class="col-sm-12">
-            <h1 class="movie_title">{{ movie.name }}</h1>
-            <h2 class="movie_title_h2">{{ movie.international_name }}</h2>
-        </div>
-    </div>
-    <!--Конец-->
-
-    <!--Просмотр-->
-    <div class="row player_block">
-        <div class="col-sm-9">
-
-            <video id='my-video' class='video-js vjs-default-skin' controls preload='none'
-                   data-setup='{ "aspectRatio":"675:400" }'>
-                <source src={{ movie.files.path }}>
-                <p class='vjs-no-js'>
-                    To view this video please enable JavaScript, and consider upgrading to a web browser that
-                    <a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
-                </p>
-            </video>
-
-            <script src='https://vjs.zencdn.net/7.5.4/video.js'></script>
-        </div>
-        <div class="col-sm-3">
-            <a href="#" class="banner"><img src="../static/img/banner_200х400.png" alt="banner" class="img-responsive"></a>
-        </div>
-    </div>
-    <!--Конец-->
-
-    <!--Горизонтальный баннер-->
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="banner_hor">
-                <a href="#"><img src="../static/img/banner_910x90.png" alt="banner" class="img-responsive"></a>
-            </div>
-        </div>
-    </div>
-    <!--Конец-->
-
-    <!--Голосовалка и скачать-->
-    <div class="row button_block_and_my_rate">
-
-        <div class="col-sm-6">
-            <div class="button_block">
-                <div class="wrapper"><a href="#" class="custom_btn_border red">{% trans "Download" %}</a></div>
-                {% if user.is_authenticated %}
-                    <form action="#" method="post" class="wrapper">
-                        {% csrf_token %}
-                        {% if bookmark %}
-                            <div class="wrapper hidden_prew"><button id="from_favorites" class="custom_btn_border small_padding click_button_favorites">Добавлено <i class="fa fa-star"></i></button></div>
-                            <div class="wrapper hidden_prew_a hidden"><button id="to_favorites" class="custom_btn_border small_padding click_button_favorites">{% trans "To favorites" %}<i class="fa fa-star-o"></i></button></div>
-                        {% else %}
-                            <div class="wrapper hidden_prew_a"><button id="to_favorites" class="custom_btn_border small_padding click_button_favorites">{% trans "To favorites" %}<i class="fa fa-star-o"></i></button></div>
-                            <div class="wrapper hidden_prew hidden"><button id="from_favorites" class="custom_btn_border small_padding click_button_favorites">Добавлено <i class="fa fa-star"></i></button></div>
-                        {% endif %}
-                    </form>
-                {% else %}
-                    <div class="wrapper"><a href="{% url 'login' %}" class="custom_btn_border small_padding click_button_favorites">{% trans "To favorites" %}<i class="fa fa-star-o"></i></a></div>
-                {% endif %}
-            </div>
-        </div>
-
-        <div class="col-sm-6" id="reviews">
-            <div class="my_rate">
-                <div class="pull-left">
-                    <span class="my_rate_span">{% trans "My mark" %}: </span>
-                </div>
-                <div class="pull-left">
-                    <div class="rate" data-rate-value=6></div>
-                </div>
-
-                <!--Если уже проголосовал, то показываем этот блок тоже-->
-                <!--<div class="pull-left remove_rating">-->
-                <!--<button class="btn_blank"  data-toggle="tooltip" data-placement="top" title="Убрать мой рейтинг"><i class="fa fa-times"></i></button>-->
-                <!--</div>-->
-                <!--Конец-->
-
-            </div>
-        </div>
-
-    </div>
-    <!--Конец-->
-
-    <!--Отзывы о фильме-->
-    <div class="comments comments_movie_page">
+        <!--Breadcrumbs-->
         <div class="row">
-            <div class="col-sm-10 col-sm-offset-1">
-                <h3 class="h3_with_fa"><i class="fa fa-comments-o"></i>{% trans 'Movie reviews' %}</h3>
-                <div class="new_comment"></div>
-                <!--Комментарий-->
-                {% for comment in comments %}
-                    {% if forloop.counter < 5 %}
-                    <div class="s_comment">
-                        <div class="user_letter">{{ comment.user.login.0 }}</div>
-                        <div class="top">
-                            <span><strong>{{ comment.user.login }}</strong></span>
-                            <span class="date">{{ comment.created_at }}</span>
-                            <span class="comment_rate">
+            <div class="col-sm-12">
+                <ul class="breadcrumb">
+                    <li><a href="{% url 'webapp:bestseller_list' %}" class="hover_line">{% trans "Home" %}</a></li>
+                    <li><a href="{% url 'webapp:catalogue_list' %}" class="hover_line">{% trans "Catalogue" %}</a></li>
+                    <li>{{ movie.name }}</li>
+                </ul>
+            </div>
+        </div>
+        <!--Конец-->
+
+        <!--Заголовок-->
+        <div class="row">
+            <div class="col-sm-12">
+                <h1 class="movie_title">{{ movie.name }}</h1>
+                <h2 class="movie_title_h2">{{ movie.international_name }}</h2>
+            </div>
+        </div>
+        <!--Конец-->
+
+        <!--Просмотр-->
+        <div class="row player_block">
+            <div class="col-sm-9">
+
+                <video id='my-video' class='video-js vjs-default-skin' controls preload='none'
+                       data-setup='{ "aspectRatio":"675:400" }'>
+                    <source src={{ movie.files.path }}>
+                    <p class='vjs-no-js'>
+                        To view this video please enable JavaScript, and consider upgrading to a web browser that
+                        <a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
+                    </p>
+                </video>
+
+                <script src='https://vjs.zencdn.net/7.5.4/video.js'></script>
+            </div>
+            <div class="col-sm-3">
+                <a href="#" class="banner"><img src="../static/img/banner_200х400.png" alt="banner"
+                                                class="img-responsive"></a>
+            </div>
+        </div>
+        <!--Конец-->
+
+        <!--Горизонтальный баннер-->
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="banner_hor">
+                    <a href="#"><img src="../static/img/banner_910x90.png" alt="banner" class="img-responsive"></a>
+                </div>
+            </div>
+        </div>
+        <!--Конец-->
+
+        <!--Голосовалка и скачать-->
+        <div class="row button_block_and_my_rate">
+
+            <div class="col-sm-6">
+                <div class="button_block">
+                    <div class="wrapper"><a href="#" class="custom_btn_border red">{% trans "Download" %}</a></div>
+                    {% if user.is_authenticated %}
+                        <form action="#" method="post" class="wrapper">
+                            {% csrf_token %}
+                            {% if bookmark %}
+                                <div class="wrapper hidden_prew">
+                                    <button id="from_favorites"
+                                            class="custom_btn_border small_padding click_button_favorites">Добавлено <i
+                                            class="fa fa-star"></i></button>
+                                </div>
+                                <div class="wrapper hidden_prew_a hidden">
+                                    <button id="to_favorites"
+                                            class="custom_btn_border small_padding click_button_favorites">{% trans "To favorites" %}<i
+                                            class="fa fa-star-o"></i></button>
+                                </div>
+                            {% else %}
+                                <div class="wrapper hidden_prew_a">
+                                    <button id="to_favorites"
+                                            class="custom_btn_border small_padding click_button_favorites">{% trans "To favorites" %}<i
+                                            class="fa fa-star-o"></i></button>
+                                </div>
+                                <div class="wrapper hidden_prew hidden">
+                                    <button id="from_favorites"
+                                            class="custom_btn_border small_padding click_button_favorites">Добавлено <i
+                                            class="fa fa-star"></i></button>
+                                </div>
+                            {% endif %}
+                        </form>
+                    {% else %}
+                        <div class="wrapper"><a href="{% url 'login' %}"
+                                                class="custom_btn_border small_padding click_button_favorites">{% trans "To favorites" %}<i
+                                class="fa fa-star-o"></i></a></div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="col-sm-6" id="reviews">
+                <div class="my_rate">
+                    <div class="pull-left">
+                        <span class="my_rate_span">{% trans "My mark" %}: </span>
+                    </div>
+                    <div class="pull-left">
+                        <div class="rate" data-rate-value=6></div>
+                    </div>
+
+                    <!--Если уже проголосовал, то показываем этот блок тоже-->
+                    <!--<div class="pull-left remove_rating">-->
+                    <!--<button class="btn_blank"  data-toggle="tooltip" data-placement="top" title="Убрать мой рейтинг"><i class="fa fa-times"></i></button>-->
+                    <!--</div>-->
+                    <!--Конец-->
+
+                </div>
+            </div>
+
+        </div>
+        <!--Конец-->
+
+        <!--Отзывы о фильме-->
+        <div class="comments comments_movie_page">
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-1">
+                    <h3 class="h3_with_fa"><i class="fa fa-comments-o"></i>{% trans "Movie Reviews" %}</h3>
+                    <div class="new_comment">
+                    </div>
+                    {% for comment in comments %}
+                        {% if forloop.counter < 5 %}
+                            <div class="s_comment {{ comment.comment_id }}">
+                                <div class="user_letter">{{ comment.user.login.0 }}</div>
+                                <div class="top">
+                                    <span><strong>{{ comment.user.login }}</strong></span>
+                                    <span class="date">{{ comment.created_at|localtime|date:'d b Y H:i' }}</span>
+                                    <span class="comment_rate">
                                 <a href="#" class="comment_up"><i class="fa fa-caret-up"></i></a>
-                                {% for rating in comment.comments_rating.all %}
-                                    <strong>{{ rating.vote }}</strong>
-                                {% endfor %}
+                                        {% for rating in comment.comments_rating.all %}
+                                            <strong>{{ rating.vote }}</strong>
+                                        {% endfor %}
+                                        <a href="#" class="comment_down"><i class="fa fa-caret-down"></i></a>
+                            </span>
+                                    {% if request.user.is_authenticated %}
+                                        <span id="{{ comment.comment_id }}" class="answer hover_line"
+                                              style="cursor: pointer" name="{{ comment.user.login }}">Ответить</span>
+                                    {% endif %}
+                                </div>
+                                <div class="text">
+                                    <p>{{ comment.text }}</p>
+                                </div>
+                                <div class="replies" id="{{ comment.comment_id }}">
+                                    {% for reply in comment.replies.all %}
+                                        {% if comment.comment_id == reply.to_comment_id %}
+                                            {% if forloop.counter < 3 %}
+                                                <div class="s_comment {{ comment.comment_id }}">
+                                                    <div class="user_letter">{{ reply.user.login.0 }}</div>
+                                                    <div class="top">
+                                                        <span><strong>{{ reply.user.login }}</strong></span>
+                                                        <span class="date">{{ reply.created_at|localtime|date:'d b Y H:i' }}</span>
+                                                        <span class="comment_rate">
+                                <a href="#" class="comment_up"><i class="fa fa-caret-up"></i></a>
+                                <strong>1</strong>
                                 <a href="#" class="comment_down"><i class="fa fa-caret-down"></i></a>
                             </span>
-                        </div>
-                        <div class="text">
-                            <p>{{ comment.text }}</p>
-                        </div>
-                    </div>
-                    <!--Конец-->
-                     {% else %}
-                        {% if forloop.counter < 11 %}
+                                                        <span id="{{ reply.comment_id }}" class="answer hover_line"
+                                                              style="cursor: pointer"
+                                                              name="{{ reply.user.login }}">Ответить</span>
+                                                    </div>
+                                                    <div class="text">
+                                                        <p>{{ reply.text }}</p>
+                                                    </div>
+                                                </div>
+                                            {% else %}
+                                                <div class="hidden_replies" id="{{ comment.comment_id }}"
+                                                     style="display: none;">
+                                                    <div class="s_comment {{ comment.comment_id }}">
+                                                        <div class="user_letter">{{ reply.user.login.0 }}</div>
+                                                        <div class="top">
+                                                            <span><strong>{{ reply.user.login }}</strong></span>
+                                                            <span class="date">{{ reply.created_at|localtime|date:'d b Y H:i' }}</span>
+                                                            <span class="comment_rate">
+                                <a href="#" class="comment_up"><i class="fa fa-caret-up"></i></a>
+                                <strong>1</strong>
+                                <a href="#" class="comment_down"><i class="fa fa-caret-down"></i></a>
+                            </span>
+                                                            <span id="{{ reply.comment_id }}"
+                                                                  class="answer hover_line"
+                                                                  style="cursor: pointer"
+                                                                  name="{{ reply.user.login }}">Ответить</span>
+                                                        </div>
+                                                        <div class="text">
+                                                            <p>{{ reply.text }}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% if comment.replies.all|length >= 3 %}
+                                        <div class="show_all_comments">
+                                            <button class="btn_blank hover_line show_all_replies_btn"
+                                                    id="{{ comment.comment_id }}">Смотреть
+                                                все ответы
+                                                ({{ comment.replies.all|length }})
+                                            </button>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <!--Конец-->
+                            </div>
+                        {% else %}
                             <div class="hidden_comments">
-
                                 <!--Комментарий-->
-                                <div class="s_comment">
+                                <div class="s_comment {{ comment.comment_id }}">
                                     <div class="user_letter">{{ comment.user.login.0 }}</div>
                                     <div class="top">
                                         <span><strong>{{ comment.user.login }}</strong></span>
-                                        <span class="date">{{ comment.created_at }}</span>
+                                        <span class="date">{{ comment.created_at|localtime|date:'d b Y H:i' }}</span>
                                         <span class="comment_rate">
-                                        <a href="#" class="comment_up"><i class="fa fa-caret-up"></i></a>
-                                        <strong>1</strong>
-                                        <a href="#" class="comment_down"><i class="fa fa-caret-down"></i></a>
-                                    </span>
+                                <a href="#" class="comment_up"><i class="fa fa-caret-up"></i></a>
+                                <strong>1</strong>
+                                <a href="#" class="comment_down"><i class="fa fa-caret-down"></i></a>
+                            </span>
+                                        {% if request.user.is_authenticated %}
+                                            <span id="{{ comment.comment_id }}" class="answer hover_line"
+                                                  style="cursor: pointer"
+                                                  name="{{ comment.user.login }}">Ответить</span>
+                                        {% endif %}
                                     </div>
                                     <div class="text">
                                         <p>{{ comment.text }}</p>
                                     </div>
-
+                                    <div class="replies" id="{{ comment.comment_id }}">
+                                        {% for reply in comment.replies.all %}
+                                            {% if comment.comment_id == reply.to_comment_id %}
+                                                {% if forloop.counter < 3 %}
+                                                    <div class="s_comment {{ comment.comment_id }}">
+                                                        <div class="user_letter">{{ reply.user.login.0 }}</div>
+                                                        <div class="top">
+                                                            <span><strong>{{ reply.user.login }}</strong></span>
+                                                            <span class="date">{{ reply.created_at|localtime|date:'d b Y H:i' }}</span>
+                                                            <span class="comment_rate">
+                                <a href="#" class="comment_up"><i class="fa fa-caret-up"></i></a>
+                                <strong>1</strong>
+                                <a href="#" class="comment_down"><i class="fa fa-caret-down"></i></a>
+                            </span>
+                                                            <span id="{{ reply.comment_id }}"
+                                                                  class="answer hover_line"
+                                                                  style="cursor: pointer"
+                                                                  name="{{ reply.user.login }}">Ответить</span>
+                                                        </div>
+                                                        <div class="text">
+                                                            <p>{{ reply.text }}</p>
+                                                        </div>
+                                                    </div>
+                                                {% else %}
+                                                    <div class="hidden_replies" id="{{ comment.comment_id }}"
+                                                         style="display: none;">
+                                                        <div class="s_comment {{ comment.comment_id }}">
+                                                            <div class="user_letter">{{ reply.user.login.0 }}</div>
+                                                            <div class="top">
+                                                                <span><strong>{{ reply.user.login }}</strong></span>
+                                                                <span class="date">{{ reply.created_at|localtime|date:'d b Y H:i' }}</span>
+                                                                <span class="comment_rate">
+                                <a href="#" class="comment_up"><i class="fa fa-caret-up"></i></a>
+                                <strong>1</strong>
+                                <a href="#" class="comment_down"><i class="fa fa-caret-down"></i></a>
+                            </span>
+                                                                <span id="{{ reply.comment_id }}"
+                                                                      class="answer hover_line"
+                                                                      style="cursor: pointer"
+                                                                      name="{{ reply.user.login }}">Ответить</span>
+                                                            </div>
+                                                            <div class="text">
+                                                                <p>{{ reply.text }}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
+                                        {% if comment.replies.all|length > 3 %}
+                                            <div class="show_all_comments">
+                                                <button class="btn_blank hover_line show_all_replies_btn"
+                                                        id="{{ comment.comment_id }}">Смотреть
+                                                    все ответы
+                                                    ({{ comment.replies.all|length }})
+                                                </button>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <!--Конец-->
                                 </div>
                                 <!--Конец-->
-
                             </div>
                         {% endif %}
-                    {% endif %}
-                {% endfor %}
-                {% if comments_len > 10 %}
-                    <div class="hidden_comments">
-                        <div class="s_comment">
-                        <p><a href="{% url 'webapp:movie_comments' movie.movie_id %}" class="custom_btn red">{% trans 'Show all reviews' %}
-                                    ({{comments_len}})</a></p>
+                    {% endfor %}
+                    {% if comments_len > 0 %}
+                        <div class="show_all_comments">
+                            <button class="btn_blank hover_line"
+                                    id="show_all_comments_btn">{% trans "See all reviews" %} ({{ comments_len }})
+                            </button>
                         </div>
-                    </div>
-                {% endif %}
-                {% if comments_len > 4 %}
-                    <div class="show_all_comments">
-                        <button class="btn_blank hover_line" id="show_all_comments_btn">Показать еще</button>
-                    </div>
-                {% endif %}
+                    {% endif %}
+                </div>
             </div>
         </div>
-    </div>
-    <!--Конец-->
+        {% if request.user.is_authenticated %}
+            <div class="answer_form">
+                <form action="#" method="post">
+                    <input type="hidden" id="answer_movie" data-id="{{ movie.movie_id }}">
+                    {% csrf_token %}
+                    <textarea class="answer-form-control" id="answer_id_text"
+                              rows="6"></textarea>
+                    <a href="#reviews">
+                        <button class="reply custom_btn_border red"
+                                id="reply">Ответить
+                        </button>
+                        <button class="x" id="{{ comment.comment_id }}">x</button>
+                    </a>
+                </form>
+            </div>
+        {% endif %}
+        <!--Конец-->
 
-    <!--Добавить отзыв-->
-    {% if request.user.is_authenticated %}
-        <div class="row">
-            <div class="col-sm-10 col-sm-offset-1">
-                <div id="add_comment">
+        <!--Добавить отзыв-->
+        {% if request.user.is_authenticated %}
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-1">
+                    <div id="add_comment">
 
-                    <h3 class="h3_with_fa"><i class="fa fa-edit"></i>{% trans "Add a review" %} </h3>
+                        <h3 class="h3_with_fa"><i class="fa fa-edit"></i>{% trans "Add a review" %} </h3>
 
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <form action="#" method="post">
-                                <input type="hidden" id="movie" data-id="{{ movie.movie_id }}">
-                                {% csrf_token %}
-                                <textarea class="form-control" id="id_text" rows="6"></textarea>
-                                <a href="#reviews"><button class="custom_btn_border red" id="comment_add">{% trans "Add" %}</button></a>
-                            </form>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <form action="#" method="post">
+                                    <input type="hidden" id="movie" data-id="{{ movie.movie_id }}">
+                                    {% csrf_token %}
+                                    <textarea class="form-control" id="id_text" rows="6"></textarea>
+                                    <a href="#reviews">
+                                        <button class="custom_btn_border red"
+                                                id="comment_add">{% trans "Add" %}</button>
+                                    </a>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    {% endif %}
-    <!--Конец-->
+        {% endif %}
+        <!--Конец-->
 
 
-    <!--Похожие фильмы-->
-    <div class="s_bestseller_slider_row">
-
-        <div class="row">
-            <div class="col-sm-10 col-sm-offset-1">
-                <h3><i class="fa fa-check"></i>{% trans "Similar movies" %}</h3>
-            </div>
-        </div>
-
-        <div class="s_bestseller_slider">
+        <!--Похожие фильмы-->
+        <div class="s_bestseller_slider_row">
 
             <div class="row">
-
-                <!--Стрелка влево-->
-                <div class="col-sm-1 hidden-xs">
-                    <button class='btn btn-default leftRs' data-slider="bestseller_slider_1"><i
-                            class="fa fa-angle-left"></i></button>
+                <div class="col-sm-10 col-sm-offset-1">
+                    <h3><i class="fa fa-check"></i>{% trans "Similar movies" %}</h3>
                 </div>
-                <!--Конец-->
+            </div>
 
-                <!--Слайдер-->
-                <div class="col-sm-10">
+            <div class="s_bestseller_slider">
+
+                <div class="row">
+
+                    <!--Стрелка влево-->
+                    <div class="col-sm-1 hidden-xs">
+                        <button class='btn btn-default leftRs' data-slider="bestseller_slider_1"><i
+                                class="fa fa-angle-left"></i></button>
+                    </div>
+                    <!--Конец-->
+
+                    <!--Слайдер-->
+                    <div class="col-sm-10">
 
 
-                    <div class="resCarousel" data-items="2,3,4,4" data-slide="1" id="bestseller_slider_1">
+                        <div class="resCarousel" data-items="2,3,4,4" data-slide="1" id="bestseller_slider_1">
 
-                        <div class="resCarousel-inner">
+                            <div class="resCarousel-inner">
 
-                            {% for movie in compilation.all %}
+                                {% for movie in compilation.all %}
                                     <div class="item">
 
                                         <!-- Для ссылки внутри каждого фильма в цикле прописываем айдишник вида bestseller_slider_[номер слайдера]_film_[номер фильма]-->
-                                        <a href="{% url 'webapp:movie_detail' movie.movie_id %}" id="bestseller_slider_1_film_{{ movie.movie_id }}">
+                                        <a href="{% url 'webapp:movie_detail' movie.movie_id %}"
+                                           id="bestseller_slider_1_film_{{ movie.movie_id }}">
                                             <span class="poster" style="background-image: url({{ movie.covers }})">
                                                 <span class="helper"><i class="fa fa-play-circle-o"></i></span>
                                             </span>
@@ -240,11 +395,13 @@
                                         </a>
 
                                         <!--Всплывающее описание. Айдишник вида popover_[айди ссылки на фильм]-->
-                                        <div id="popover_bestseller_slider_1_film_{{ movie.movie_id }}" class="popover_custom"
+                                        <div id="popover_bestseller_slider_1_film_{{ movie.movie_id }}"
+                                             class="popover_custom"
                                              style="display: none">
 
                                             <div class="top">
-                                                <button class="btn_blank" title="В избранное"><i class="fa fa-star-o"></i>
+                                                <button class="btn_blank" title="В избранное"><i
+                                                        class="fa fa-star-o"></i>
                                                 </button>
                                                 <!--<button class="btn_blank in_fav" title="Удалить из избранного"><i class="fa fa-star"></i></button>-->
                                                 <a href="#" class="hover_line info_link">{% trans "Description" %}</a>
@@ -282,17 +439,17 @@
                                                 <p>
                                                     <span>{% trans "Director" %}:</span>
                                                     {% for participants in movie.participants.all %}
-                                                    {% if participants.role.role_id == 1 %}
-                                                        <span>{{ participants.person.name }}</span>
-                                                    {% endif %}
+                                                        {% if participants.role.role_id == 1 %}
+                                                            <span>{{ participants.person.name }}</span>
+                                                        {% endif %}
                                                     {% endfor %}
                                                 </p>
                                                 <p>
                                                     <span>{% trans "Cast" %}:</span>
                                                     {% for participants in movie.participants.all %}
-                                                    {% if participants.role.role_id == 3 or participants.role.role_id == 4 %}
-                                                        <span>{{ participants.person.name }}</span>
-                                                    {% endif %}
+                                                        {% if participants.role.role_id == 3 or participants.role.role_id == 4 %}
+                                                            <span>{{ participants.person.name }}</span>
+                                                        {% endif %}
                                                     {% endfor %}
                                                 </p>
                                             </div>
@@ -306,236 +463,361 @@
                                         <!--Конец-->
 
                                     </div>
-                            {% endfor %}
-                                    <!--Конец-->
+                                {% endfor %}
+                                <!--Конец-->
+
+                            </div>
 
                         </div>
 
                     </div>
+                    <!--Конец-->
+
+                    <!--Стрелка вправо-->
+                    <div class="col-sm-1 hidden-xs">
+                        <button class='btn btn-default rightRs' data-slider="bestseller_slider_1"><i
+                                class="fa fa-angle-right"></i></button>
+                    </div>
+                    <!--Конец-->
 
                 </div>
-                <!--Конец-->
-
-                <!--Стрелка вправо-->
-                <div class="col-sm-1 hidden-xs">
-                    <button class='btn btn-default rightRs' data-slider="bestseller_slider_1"><i
-                            class="fa fa-angle-right"></i></button>
-                </div>
-                <!--Конец-->
 
             </div>
 
-        </div>
 
+        </div>
+        <!--Конец-->
 
     </div>
     <!--Конец-->
-
-</div>
-<!--Конец-->
 {% endblock %}
 {% block script %}
+    <!--Подключаем слайдер с фильмами-->
+    <script src={% static 'js/resCarousel.min.js' %}></script>
+    <!--Конец-->
 
-<!--Подключаем слайдер с фильмами-->
-<script src={% static 'js/resCarousel.min.js' %}></script>
-<!--Конец--
+    <script src={% static 'js/tippy.all.min.js' %}></script>
+    <script>
 
-<!--Скрипт для popover-->
-<script src={% static 'js/tippy.all.min.js' %}></script>
+        function initialize_popper(obj) {
+            var element = '#' + $(obj).attr('id');
+            var template = document.getElementById('popover_' + $(obj).attr('id'));
 
-<script>
+            try {
+                tippy(
+                    element,
+                    {
+                        content: template.innerHTML,
+                        placement: "right-end",
+                        flipBehavior: ["right", "left"],
+                        interactive: true,
+                        animateFill: false,
 
-    function initialize_popper(obj) {
-        var element = '#' + $(obj).attr('id');
-        var template = document.getElementById('popover_' + $(obj).attr('id'));
-
-        try {
-            tippy(
-                element,
-                {
-                    content: template.innerHTML,
-                    placement: "right-end",
-                    flipBehavior: ["right", "left"],
-                    interactive: true,
-                    animateFill: false,
-
-                    // boundary: $('#catalog_film_3'),
-                    theme: 'praktikanto',
-                    onMount({reference}) {
-                        reference.setAttribute('aria-expanded', 'true');
-                        $(element).find('.helper').toggle('fade', {direction: "right"}, 100);
+                        // boundary: $('#catalog_film_3'),
+                        theme: 'praktikanto',
+                        onMount({reference}) {
+                            reference.setAttribute('aria-expanded', 'true');
+                            $(element).find('.helper').toggle('fade', {direction: "right"}, 100);
+                        },
+                        onHide({reference}) {
+                            reference.setAttribute('aria-expanded', 'false');
+                            $(element).find('.helper').toggle('fade', {direction: "right"}, 100);
+                        },
                     },
-                    onHide({reference}) {
-                        reference.setAttribute('aria-expanded', 'false');
-                        $(element).find('.helper').toggle('fade', {direction: "right"}, 100);
-                    },
-                },
-            )
+                )
 
-        } catch (err) {
+            } catch (err) {
 
-            console.log(err)
+                console.log(err)
 
+            }
         }
-    }
 
-    $(document).ready(function () {
-        $('a[id^=bestseller_slider]').each(function () {
+        $(document).ready(function () {
+            $('a[id^=bestseller_slider]').each(function () {
 
-            initialize_popper($(this));
+                initialize_popper($(this));
 
+            });
+
+            $('a[id^=catalog_film_]').each(function () {
+
+                initialize_popper($(this));
+
+            });
         });
 
-        $('a[id^=catalog_film_]').each(function () {
+    </script>
 
-            initialize_popper($(this));
+    <script>
+        $(document).ready(function () {
+            function getCookie(name) {
+                var cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    var cookies = document.cookie.split(';');
+                    for (var i = 0; i < cookies.length; i++) {
+                        var cookie = cookies[i].trim();
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
 
+            var csrftoken = getCookie('csrftoken');
+            $('.answer_form').hide();
+
+            $('.show_all_replies_btn').click(function () {
+                let to_comment_id = $(this).attr('id');
+                $(this).toggle(500);
+                $('#' + to_comment_id + '.hidden_replies').each(function () {
+                    $(this).slideToggle(500);
+                })
+            });
+
+            $('#comment_add').click(function (e) {
+                e.preventDefault();
+                let movie_id = $('#movie').attr('data-id');
+                let text = $('#id_text').val();
+                let user_pk = {{ request.user.pk }};
+                let csrftoken = $('input[name=csrfmiddlewaretoken]').attr('value');
+                if (text !== '') {
+                    data = {
+                        movie_id: movie_id,
+                        text: text,
+                        user_pk: user_pk,
+                        csrfmiddlewaretoken: csrftoken
+                    };
+
+                    $.ajax({
+                        type: "POST",
+                        url: "{% url 'webapp:add_comment' %}",
+                        dataType: 'json',
+                        data: data,
+                        success: function (data) {
+                            $.each(data, function (field) {
+                                let comment_id = data[field]['comment_id'];
+                                let id = `id="${comment_id}"`;
+                                $('.new_comment').prepend('<div class="s_comment ' + comment_id + '"><div class="user_letter">' + data[field]['user'][0] + '</div>' +
+                                    '<div class="top"><span><strong>' + data[field]['user'] + '</strong></span>' +
+                                    '<span class="date">' + data[field]['created_at'] + '</span>' +
+                                    '<span class="comment_rate"><a href="#" class="comment_up"><i class="fa fa-caret-up"></i></a>' +
+                                    ' <strong>1</strong> <a href="#" class="comment_down"><i class="fa fa-caret-down"></i></a></span>' + '<span ' + id + ' class="answer hover_line" style="cursor: pointer" name="' + data[field]['user'] + '">Ответить</span></div>' +
+                                    '<div class="text"><p>' + data[field]['text'] + '</p></div>' + '<div class="replies"' + id + ' ></div></div>');
+                                $('#id_text').val('');
+                                $('.answer').click(function (e) {
+                                        e.preventDefault();
+                                        let s_comment_id = $(this).attr('id');
+                                        let to_user = $(this).attr('name');
+                                        $('.answer-form-control').val(to_user + ',');
+                                        let next = $(this).parent().next();
+                                        $('.answer_form').insertAfter(next);
+                                        $('.answer_form').show();
+                                        $('.answer-form-control').focus();
+                                        $('.reply').attr('id', s_comment_id);
+                                    }
+                                );
+                            });
+                        }
+                    })
+                }
+            })
         });
-    });
+    </script>
+    <script>
+        $(document).ready(function () {
+            function getCookie(name) {
+                var cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    var cookies = document.cookie.split(';');
+                    for (var i = 0; i < cookies.length; i++) {
+                        var cookie = cookies[i].trim();
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
 
-</script>
+            $('.x').click(function (e) {
+                e.preventDefault();
+                $('.answer_form').hide();
+                $('.answer-form-control').val('');
+            });
 
-<script>
-    $(document).ready(function () {
+            $('.answer').click(function (e) {
+                    e.preventDefault();
+                    let s_comment_id = $(this).attr('id');
+                    let to_user = $(this).attr('name');
+                    $('.answer-form-control').val(to_user + ',');
+                    let next = $(this).parent().next();
+                    $('.answer_form').insertAfter(next);
+                    $('.answer_form').show();
+                    $('.answer-form-control').focus();
+                    $('.reply').attr('id', s_comment_id);
+                }
+            );
 
-        $('#comment_add').click(function (e) {
-            e.preventDefault();
-            let movie_id = $('#movie').attr('data-id');
-            let text = $('#id_text').val();
-            let user_pk = {{ request.user.pk }};
-            let csrftoken = $('input[name=csrfmiddlewaretoken]').attr('value');
-            if(text !== '') {
+            $('#show_all_replies_btn').click(function () {
+                let to_comment_id = $(this).attr('name');
+                console.log(to_comment_id);
+                $(this).toggle(500);
+                $('#' + to_comment_id + '.hidden_replies').each(function () {
+                    $(this).slideToggle(500);
+                })
+            });
+
+            let string_to_array = function (str) {
+                return str.trim().split(" ");
+            };
+
+            var csrftoken = getCookie('csrftoken');
+
+            $('.reply').click(function (e) {
+                e.preventDefault();
+                let movie_id = $('#answer_movie').attr('data-id');
+                let text = $('#answer_id_text').val();
+                let user_pk = {{ request.user.pk }};
+                let to_comment_id = $(this).attr('id');
+                let parents = $(this).parents().map(
+                    function () {
+                        return this.className;
+                    }
+                ).get().join(' ');
+                let parents_array = string_to_array(parents);
+                if (parents_array.indexOf('replies')) {
+                    for (let i = 0; i < parents_array.length; i++) {
+                        if (parents_array[i] === 's_comment') {
+                            to_comment_id = parents_array[i + 1];
+                        }
+                    }
+                } else {
+                    to_comment_id = $(this).attr('id');
+                }
+                console.log(parents_array);
+                if (text !== '') {
+                    data = {
+                        movie_id: movie_id,
+                        text: text,
+                        user_pk: user_pk,
+                        to_comment_id: to_comment_id,
+                        csrfmiddlewaretoken: csrftoken,
+                    };
+                    console.log(data);
+                    $.ajax({
+                        type: "POST",
+                        url: "{% url 'webapp:answer_comment' %}",
+                        dataType: 'json',
+                        data: data,
+                        success: function (data) {
+                            $.each(data, function (field) {
+                                let comment_id = data[field]['comment_id'];
+                                let id = `id="${comment_id}"`;
+                                $('#' + to_comment_id + '.replies').append('<div class="s_comment"><div class="user_letter">' + data[field]['user'][0] + '</div>' +
+                                    '<div class="top"><span><strong>' + data[field]['user'] + '</strong></span>' +
+                                    '<span class="date">' + data[field]['created_at'] + '</span>' +
+                                    '<span class="comment_rate"><a href="#" class="comment_up"><i class="fa fa-caret-up"></i></a>' +
+                                    ' <strong>1</strong> <a href="#" class="comment_down"><i class="fa fa-caret-down"></i></a></span>' + '<span class="answer hover_line"' + id +
+                                    'style="cursor: pointer" name="' + data[field]['user'] + '">Ответить</span></div>' +
+                                    '<div class="text"><p>' + data[field]['text'] + '</p></div></div>');
+                                $('#answer_id_text').val('');
+                                $('.hidden_comments .s_comment').css('display', 'block');
+                                $('.answer').click(function (e) {
+                                        e.preventDefault();
+                                        let s_comment_id = $(this).attr('id');
+                                        let to_user = $(this).attr('name');
+                                        $('.answer-form-control').val(to_user + ',');
+                                        let next = $(this).parent().next();
+                                        $('.answer_form').insertAfter(next);
+                                        $('.answer_form').show();
+                                        $('.answer-form-control').focus();
+                                        $('.reply').attr('id', s_comment_id);
+                                    }
+                                );
+                                $('.answer_form').hide();
+                            });
+                        }
+                    });
+                }
+
+            });
+        })
+        ;
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#from_favorites').click(function (e) {
+                e.preventDefault();
+                let movie_id = $('#movie').attr('data-id');
+                let user_pk = {{ request.user.pk }};
+                let csrftoken = $('input[name=csrfmiddlewaretoken]').attr('value');
+
                 data = {
                     movie_id: movie_id,
-                    text: text,
                     user_pk: user_pk,
                     csrfmiddlewaretoken: csrftoken
                 };
 
                 $.ajax({
                     type: "POST",
-                    url: "{% url 'webapp:add_comment' %}",
+                    url: "{% url 'webapp:from_favorites' %}",
                     dataType: 'json',
                     data: data,
                     success: function (data) {
-                        $.each(data, function (field) {
-                            $('.new_comment').prepend('<div class="s_comment"><div class="user_letter">'+data[field]['user'][0]+'</div>' +
-                                '<div class="top"><span><strong>'+data[field]['user']+'</strong></span>' +
-                                '<span class="date">'+data[field]['created_at']+'</span>' +
-                                '<span class="comment_rate"><a href="#" class="comment_up"><i class="fa fa-caret-up"></i></a>' +
-                                ' <strong>1</strong> <a href="#" class="comment_down"><i class="fa fa-caret-down"></i></a></span></div>' +
-                                '<div class="text"><p>'+data[field]['text']+'</p></div></div>');
-                            $('#id_text').val('');
-                        });
+                        console.log(data[0]['csrf']);
+                        $('.hidden_prew').addClass("hidden");
+                        $('.hidden_prew_a').removeClass("hidden");
                     }
                 })
-            }
-        })
-    });
-</script>
-
-<script>
-    $(document).ready(function () {
-
-        $('#to_favorites').click(function (e) {
-            e.preventDefault();
-            let movie_id = $('#movie').attr('data-id');
-            let user_pk = {{ request.user.pk }};
-            let csrftoken = $('input[name=csrfmiddlewaretoken]').attr('value');
-
-            data = {
-                movie_id: movie_id,
-                user_pk: user_pk,
-                csrfmiddlewaretoken: csrftoken
-            };
-
-            $.ajax({
-                type: "POST",
-                url: "{% url 'webapp:to_favorites' %}",
-                dataType: 'json',
-                data: data,
-                success: function (data) {
-                    console.log(data[0]['csrf']);
-                    $('.hidden_prew_a').addClass("hidden");
-                    $('.hidden_prew').removeClass("hidden");
-                }
-            })
+            });
         });
-    });
-</script>
+    </script>
+    <script>
 
-<script>
-    $(document).ready(function () {
-        $('#from_favorites').click(function (e) {
-            e.preventDefault();
-            let movie_id = $('#movie').attr('data-id');
-            let user_pk = {{ request.user.pk }};
-            let csrftoken = $('input[name=csrfmiddlewaretoken]').attr('value');
-
-            data = {
-                movie_id: movie_id,
-                user_pk: user_pk,
-                csrfmiddlewaretoken: csrftoken
-            };
-
-            $.ajax({
-                type: "POST",
-                url: "{% url 'webapp:from_favorites' %}",
-                dataType: 'json',
-                data: data,
-                success: function (data) {
-                    console.log(data[0]['csrf']);
-                    $('.hidden_prew').addClass("hidden");
-                    $('.hidden_prew_a').removeClass("hidden");
-                }
-            })
-        });
-    });
-</script>
-
-
-<script>
-
-    // Select all links with hashes
-    $('a[href*="#"]')
-      // Remove links that don't actually link to anything
-      .not('[href="#"]')
-      .not('[href="#0"]')
-      .click(function(event) {
-        let text = $('#id_text').val();
-        if(text !== '') {
-            // On-page links
-            if (
-                location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '')
-                &&
-                location.hostname == this.hostname
-            ) {
-                // Figure out element to scroll to
-                var target = $(this.hash);
-                target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-                // Does a scroll target exist?
-                if (target.length) {
-                    // Only prevent default if animation is actually gonna happen
-                    event.preventDefault();
-                    $('html, body').animate({
-                        scrollTop: target.offset().top
-                    }, 1000, function () {
-                        // Callback after animation
-                        // Must change focus!
-                        var $target = $(target);
-                        $target.focus();
-                        if ($target.is(":focus")) { // Checking if the target was focused
-                            return false;
-                        } else {
-                            $target.attr('tabindex', '-1'); // Adding tabindex for elements not focusable
-                            $target.focus(); // Set focus again
+        // Select all links with hashes
+        $('a[href*="#"]')
+        // Remove links that don't actually link to anything
+            .not('[href="#"]')
+            .not('[href="#0"]')
+            .click(function (event) {
+                let text = $('#id_text').val();
+                if (text !== '') {
+                    // On-page links
+                    if (
+                        location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '')
+                        &&
+                        location.hostname == this.hostname
+                    ) {
+                        // Figure out element to scroll to
+                        var target = $(this.hash);
+                        target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                        // Does a scroll target exist?
+                        if (target.length) {
+                            // Only prevent default if animation is actually gonna happen
+                            event.preventDefault();
+                            $('html, body').animate({
+                                scrollTop: target.offset().top
+                            }, 1000, function () {
+                                // Callback after animation
+                                // Must change focus!
+                                var $target = $(target);
+                                $target.focus();
+                                if ($target.is(":focus")) { // Checking if the target was focused
+                                    return false;
+                                } else {
+                                    $target.attr('tabindex', '-1'); // Adding tabindex for elements not focusable
+                                    $target.focus(); // Set focus again
+                                }
+                                ;
+                            });
                         }
-                    });
+                    }
                 }
-            }
-        }
-      });
-</script>
-
-<!--Конец-->
+            });
+    </script>
+    <!--Конец-->
 {% endblock %}
