@@ -53,6 +53,7 @@ class Comment(models.Model):
     comment_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(OCUser, on_delete=models.PROTECT, related_name='comments')
     to_user = models.OneToOneField(OCUser, on_delete=models.PROTECT, related_name='comment', null=True, blank=True)
+    to_comment = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='replies')
     text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     ip = models.CharField(max_length=15, blank=True, null=True)
