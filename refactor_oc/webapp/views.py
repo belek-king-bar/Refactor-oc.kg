@@ -25,6 +25,8 @@ class AjaxSearchView(TemplateView):
         }
 
         return context
+
+
 # Конец
 
 
@@ -37,12 +39,12 @@ class SearchListView(TemplateView):
         movie = Movie.objects.filter(Q(name__icontains=q) | Q(international_name__icontains=q)).order_by('pk')
         person = Person.objects.filter(Q(name__icontains=q) | Q(international_name__icontains=q)).order_by('pk')
 
-# Пагинация для фильмов
+        # Пагинация для фильмов
         paginator = Paginator(movie, 6)
         page_number = self.request.GET.get('page', 1)
         movie = paginator.get_page(page_number)
 
-# Пагинация для актёров
+        # Пагинация для актёров
         paginator = Paginator(person, 6)
         page_number = self.request.GET.get('page', 1)
         person = paginator.get_page(page_number)
@@ -54,6 +56,7 @@ class SearchListView(TemplateView):
         }
 
         return context
+
 
 # Конец
 
@@ -159,7 +162,8 @@ class MovieView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(MovieView, self).get_context_data(**kwargs)
         request_comments = []
-        comments = Comment.objects.filter(movies=self.object, to_comment__comment_id__isnull=True).order_by('-created_at')
+        comments = Comment.objects.filter(movies=self.object, to_comment__comment_id__isnull=True).order_by(
+            '-created_at')
         for comment in comments:
             request_comments.append(comment)
         context['comments'] = request_comments
@@ -167,12 +171,13 @@ class MovieView(DetailView):
             context['comments_len'] = len(context['comments']) - 4
         if self.request.user.is_authenticated:
             context['bookmark'] = Bookmark.objects.filter(user=self.request.user, movie=self.object)
-        context['comments'] = Comment.objects.filter(movies=self.object).order_by('-created_at')[:10]
+        context['comments'] = Comment.objects.filter(movies=self.object, to_comment__comment_id__isnull=True).order_by('-created_at')[:10]
         context['comments_len'] = len(Comment.objects.filter(movies=self.object))
         if self.object.group:
             context['compilation'] = Movie.objects.filter(group=self.object.group)
         else:
-            context['compilation'] = self.get_compilation_by_genres(Genre.objects.filter(movies__in=[self.object.movie_id]))
+            context['compilation'] = self.get_compilation_by_genres(
+                Genre.objects.filter(movies__in=[self.object.movie_id]))
         return context
 
     @staticmethod
@@ -200,7 +205,7 @@ class CommentCreateView(View):
         movie = Movie.objects.get(movie_id=movie_id)
         new_comment = movie.comments.create(user=user, text=text)
         comment = [{'user': new_comment.user.login, 'text': new_comment.text, 'created_at': new_comment.created_at.
-             strftime('%-d %b %Y %H:%M'), 'comment_id': new_comment.comment_id}]
+            strftime('%-d %b %Y %H:%M'), 'comment_id': new_comment.comment_id}]
         return JsonResponse(comment, safe=False)
 
 
@@ -217,7 +222,7 @@ class CommentAnswerView(View):
         movie = Movie.objects.get(movie_id=movie_id)
         new_comment = movie.comments.create(user=user, text=text, to_comment_id=to_comment_id)
         comment = [{'user': new_comment.user.login, 'text': new_comment.text, 'created_at': new_comment.created_at.
-             strftime('%-d %b %Y %H:%M'), 'to_comment_id': new_comment.to_comment_id,
+            strftime('%-d %b %Y %H:%M'), 'to_comment_id': new_comment.to_comment_id,
                     'comment_id': new_comment.comment_id}]
         return JsonResponse(comment, safe=False)
 
@@ -225,7 +230,6 @@ class CommentAnswerView(View):
 class MovieCommentsView(DetailView):
     model = Movie
     template_name = 'comments.html'
-
 
     def get(self, request, *args, **kwargs):
         movie = Movie.objects.get(movie_id=kwargs['pk'])
@@ -280,3 +284,6 @@ class FavoritesDeleteView(DeleteView):
         bookmark[0].delete()
         old_bookmark = [{'movie': movie.name}]
         return JsonResponse(old_bookmark, safe=False)
+
+
+
