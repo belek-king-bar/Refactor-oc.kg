@@ -5,8 +5,6 @@ from webapp.views import MovieDetailView, BestsellerListView, CommentCreateView,
     ActorDetailView, MovieView, CatalogueListView, SelectionListView, SelectionDetailView, \
     SearchListView, AjaxSearchView, FavoritesCreateView, FavoritesDeleteView, MovieCommentsView, CommentAnswerView
 
-
-
 app_name = 'webapp'
 
 urlpatterns = [
