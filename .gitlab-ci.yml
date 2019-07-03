@@ -16,6 +16,7 @@ test:
     - bash create_setup_file.sh
     - cat refactor_oc/refactor_oc/local_settings.py
     - cd refactor_oc/
+    - python manage.py makemigrations --merge
     - python manage.py test
 
 build:
