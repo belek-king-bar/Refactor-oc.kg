@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-21 18:31+0600\n"
+"POT-Creation-Date: 2019-05-23 16:43+0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -237,17 +237,22 @@ msgid "The main films of the actor"
 msgstr "Главные фильмы актера"
 
 #: webapp/templates/actor.html:92 webapp/templates/catalogue.html:273
-#: webapp/templates/catalogue.html:384 webapp/templates/view_movie.html:224
+#: webapp/templates/catalogue.html:384 webapp/templates/movie_detail.html:288
+#: webapp/templates/view_movie.html:224
 msgid "Description"
 msgstr "Описание"
 
 #: webapp/templates/actor.html:96 webapp/templates/catalogue.html:277
-#: webapp/templates/catalogue.html:387 webapp/templates/view_movie.html:228
+#: webapp/templates/catalogue.html:387 webapp/templates/index.html:136
+#: webapp/templates/movie_detail.html:45 webapp/templates/movie_detail.html:291
+#: webapp/templates/view_movie.html:228
 msgid "h."
 msgstr "ч."
 
 #: webapp/templates/actor.html:97 webapp/templates/catalogue.html:278
-#: webapp/templates/catalogue.html:388 webapp/templates/view_movie.html:229
+#: webapp/templates/catalogue.html:388 webapp/templates/index.html:137
+#: webapp/templates/movie_detail.html:46 webapp/templates/movie_detail.html:292
+#: webapp/templates/view_movie.html:229
 msgid "min."
 msgstr "мин."
 
@@ -257,14 +262,14 @@ msgid "Ratings"
 msgstr "Рейтинги"
 
 #: webapp/templates/actor.html:125 webapp/templates/catalogue.html:311
-#: webapp/templates/catalogue.html:419 webapp/templates/movie_detail.html:85
+#: webapp/templates/catalogue.html:419 webapp/templates/movie_detail.html:92
 #: webapp/templates/view_movie.html:257
 msgid "Director"
 msgstr "Режиссер"
 
 #: webapp/templates/actor.html:133 webapp/templates/catalogue.html:319
-#: webapp/templates/catalogue.html:427 webapp/templates/movie_detail.html:95
-#: webapp/templates/movie_detail.html:331 webapp/templates/view_movie.html:265
+#: webapp/templates/catalogue.html:427 webapp/templates/movie_detail.html:102
+#: webapp/templates/movie_detail.html:325 webapp/templates/view_movie.html:265
 msgid "Cast"
 msgstr "В ролях"
 
@@ -277,7 +282,7 @@ msgid "Nothing was found by your request"
 msgstr "По Вашему запросу ничего не найдено"
 
 #: webapp/templates/base.html:47 webapp/templates/base.html:187
-#: webapp/templates/movie_detail.html:14
+#: webapp/templates/movie_detail.html:15
 msgid "Bestsellers"
 msgstr "Бестселлеры"
 
@@ -287,8 +292,7 @@ msgid "Catalogue"
 msgstr "Каталог"
 
 #: webapp/templates/base.html:49 webapp/templates/base.html:189
-#: webapp/templates/base.html:190 webapp/templates/base.html:281
-#: webapp/templates/selections.html:10
+#: webapp/templates/base.html:299 webapp/templates/selections.html:10
 msgid "Collections"
 msgstr "Подборки"
 
@@ -296,35 +300,38 @@ msgstr "Подборки"
 msgid "TV series"
 msgstr "Сериалы"
 
-#: webapp/templates/base.html:68 webapp/templates/base.html:238
+#: webapp/templates/base.html:68 webapp/templates/base.html:256
 msgid "Action"
 msgstr "Действие"
 
-#: webapp/templates/base.html:69 webapp/templates/base.html:239
+#: webapp/templates/base.html:69 webapp/templates/base.html:257
 msgid "Other Action"
 msgstr "Другое действие"
 
-#: webapp/templates/base.html:70 webapp/templates/base.html:240
+#: webapp/templates/base.html:70 webapp/templates/base.html:258
 msgid "Something Else"
 msgstr "Что-то еще"
 
-#: webapp/templates/base.html:71 webapp/templates/base.html:241
+#: webapp/templates/base.html:71 webapp/templates/base.html:259
 msgid "Separate link"
 msgstr "Отдельная ссылка"
 
-#: webapp/templates/base.html:100 webapp/templates/base.html:225
+#: webapp/templates/base.html:100 webapp/templates/base.html:224
+#: webapp/templates/base.html:243
 msgid "Recent views"
 msgstr "Недавние просмотры"
 
-#: webapp/templates/base.html:104 webapp/templates/base.html:228
+#: webapp/templates/base.html:104 webapp/templates/base.html:227
+#: webapp/templates/base.html:246
 msgid "My favorites"
 msgstr "Мое избранное"
 
-#: webapp/templates/base.html:108 webapp/templates/base.html:231
+#: webapp/templates/base.html:108 webapp/templates/base.html:230
+#: webapp/templates/base.html:249
 msgid "Logout"
 msgstr "Выход"
 
-#: webapp/templates/base.html:139 webapp/templates/base.html:206
+#: webapp/templates/base.html:139 webapp/templates/base.html:205
 msgid "All results for"
 msgstr "Все результаты для"
 
@@ -334,71 +341,71 @@ msgstr "Все результаты для"
 msgid "Catalog"
 msgstr "Каталог"
 
-#: webapp/templates/base.html:191 webapp/templates/base.html:294
+#: webapp/templates/base.html:190 webapp/templates/base.html:312
 msgid "TV serials"
 msgstr "Сериалы"
 
-#: webapp/templates/base.html:273
+#: webapp/templates/base.html:291
 msgid "Sections"
 msgstr "Разделы"
 
-#: webapp/templates/base.html:282
+#: webapp/templates/base.html:300
 msgid "Fantasy"
 msgstr "Фантастика"
 
-#: webapp/templates/base.html:283
+#: webapp/templates/base.html:301
 msgid "Comedy"
 msgstr "Комедия"
 
-#: webapp/templates/base.html:284
+#: webapp/templates/base.html:302
 msgid "Drama / Romance"
 msgstr "Драма / Мелодрама"
 
-#: webapp/templates/base.html:285 webapp/templates/base.html:296
+#: webapp/templates/base.html:303 webapp/templates/base.html:314
 msgid "Cartoons"
 msgstr "Мультфильмы"
 
-#: webapp/templates/base.html:286
+#: webapp/templates/base.html:304
 msgid "Action movies"
 msgstr "Боевики"
 
-#: webapp/templates/base.html:292
+#: webapp/templates/base.html:310
 msgid "Horrors"
 msgstr "Ужасы"
 
-#: webapp/templates/base.html:293
+#: webapp/templates/base.html:311
 msgid "Detectives / Thrillers"
 msgstr "Детективы / триллеры"
 
-#: webapp/templates/base.html:295
+#: webapp/templates/base.html:313
 msgid "Anime"
 msgstr "Аниме"
 
-#: webapp/templates/base.html:297
+#: webapp/templates/base.html:315
 msgid "Documentary"
 msgstr "Документальные"
 
-#: webapp/templates/base.html:306
+#: webapp/templates/base.html:324
 msgid "Copyright Holders"
 msgstr "Правообладателям"
 
-#: webapp/templates/base.html:307
+#: webapp/templates/base.html:325
 msgid "Advertising on the website"
 msgstr "Реклама на сайте"
 
-#: webapp/templates/base.html:308
+#: webapp/templates/base.html:326
 msgid "Settings"
 msgstr "Настройки"
 
-#: webapp/templates/base.html:309
+#: webapp/templates/base.html:327
 msgid "Statistics"
 msgstr "Статистика"
 
-#: webapp/templates/base.html:310
+#: webapp/templates/base.html:328
 msgid "Order table"
 msgstr "Стол заказов"
 
-#: webapp/templates/base.html:311
+#: webapp/templates/base.html:329
 msgid "Forum"
 msgstr "Форум"
 
@@ -422,7 +429,7 @@ msgstr "Последние комментарии"
 msgid "Favorites"
 msgstr "Избранное"
 
-#: webapp/templates/favorite_view.html:46 webapp/templates/movie_detail.html:78
+#: webapp/templates/favorite_view.html:46 webapp/templates/movie_detail.html:85
 #: webapp/templates/search_list.html:124
 msgid "Watch"
 msgstr "Смотреть"
@@ -435,52 +442,52 @@ msgstr "Добавить в избранное"
 msgid "No bookmarked movies"
 msgstr "Нет избранных фильмов"
 
-#: webapp/templates/movie_detail.html:41
+#: webapp/templates/movie_detail.html:43
 msgid "Duration"
 msgstr "Длительность"
 
-#: webapp/templates/movie_detail.html:42
+#: webapp/templates/movie_detail.html:49
 msgid "Number of views"
 msgstr "Количество посмотревших"
 
-#: webapp/templates/movie_detail.html:52
+#: webapp/templates/movie_detail.html:59
 #, fuzzy
 #| msgid "Ratings"
 msgid "Rating"
-msgstr "Рейтинги"
+msgstr "Рейтинг"
 
-#: webapp/templates/movie_detail.html:62
+#: webapp/templates/movie_detail.html:69
 msgid "My rating"
 msgstr "Моя оценка"
 
-#: webapp/templates/movie_detail.html:79 webapp/templates/view_movie.html:67
+#: webapp/templates/movie_detail.html:86 webapp/templates/view_movie.html:67
 msgid "Download"
 msgstr "Скачать"
 
-#: webapp/templates/movie_detail.html:80 webapp/templates/movie_detail.html:295
+#: webapp/templates/movie_detail.html:87 webapp/templates/movie_detail.html:285
 #: webapp/templates/search_list.html:125 webapp/templates/view_movie.html:68
 msgid "To favorites"
 msgstr "В избранное"
 
-#: webapp/templates/movie_detail.html:128
+#: webapp/templates/movie_detail.html:135
 msgid "Movie stills"
 msgstr "Кадры из фильма"
 
-#: webapp/templates/movie_detail.html:189
+#: webapp/templates/movie_detail.html:179
 msgid "Movie reviews"
 msgstr "Отзывы о фильме"
 
-#: webapp/templates/movie_detail.html:240
+#: webapp/templates/movie_detail.html:230
 msgid "Show all reviews"
 msgstr "Смотреть все отзывы"
 
-#: webapp/templates/movie_detail.html:254 webapp/templates/view_movie.html:182
+#: webapp/templates/movie_detail.html:244 webapp/templates/view_movie.html:182
 msgid "Similar movies"
 msgstr "Похожие фильмы"
 
-#: webapp/templates/movie_detail.html:323
+#: webapp/templates/movie_detail.html:317
 msgid "Producer"
-msgstr ""
+msgstr "Продюсер"
 
 #: webapp/templates/search_list.html:15
 msgid "Searching results"

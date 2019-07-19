@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
-
+{% load oc_custom_tags %}
+{% load i18n %}
 {% block content %}
     <div class="container" id="main_content">
         <!--Слайдер ТОП-->
@@ -7,7 +8,7 @@
             <div id="top_slider" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                     <!--В цикле выводим слайды, для первого задаем класс active-->
-                    <div class="item active" style="background-image: url(img/slide_1.png)">
+                    <div class="item active" style="background-image: url(../static/img/slide_1.png)">
                         <div class="carousel-caption">
                             <div class="col-sm-10 col-sm-offset-1">
                                 <button class="custom_btn">Смотреть</button>
@@ -110,11 +111,11 @@
                                         <!--Один фильм-->
                                         <div class="item">
                                             <!-- Для ссылки внутри каждого фильма в цикле прописываем айдишник вида bestseller_slider_[номер слайдера]_film_[номер фильма]-->
-                                            <a href="#"
+                                            <a href="{% url 'webapp:movie_detail' movie.movie_id %}"
                                                id="bestseller_slider_{{ movie.pk }}_film_{{ movie.movie_id }}">
-                                    <span class="poster" style="background-image: url({{ movie.covers }})">
-                                        <span class="helper"><i class="fa fa-play-circle-o"></i></span>
-                                    </span>
+                                                <span class="poster" style="background-image: url({{ movie.covers }})">
+                                                <span class="helper"><i class="fa fa-play-circle-o"></i></span>
+                                                </span>
                                                 <span class="title">{{ movie.name }}</span>
                                             </a>
 
@@ -129,9 +130,10 @@
                                                     </button>
                                                     <!--<button class="btn_blank in_fav" title="Удалить из избранного"><i class="fa fa-star"></i></button>-->
                                                     <a href="#" class="hover_line info_link">Описание</a>
-                                                    <span class="time"><i
-                                                            class="fa fa-clock-o"></i>1 ч. 28 мин.</span>
-                                                    <span class="view"><i class="fa fa-eye"></i>15 619</span>
+                                                    {% for file in movie.files.all %}
+                                                        <span class="time"><i class="fa fa-clock-o"></i></span>
+                                                    {% endfor %}
+                                                    <span class="view"><i class="fa fa-eye"></i> {{ movie.hit }}</span>
                                                 </div>
 
                                                 <div class="genre">

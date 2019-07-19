@@ -18,6 +18,7 @@ class CommentAddTests(TestCase):
                                     {'movie_id': 4, 'text': 'Плохой фильм', 'user_pk': 1})
         self.assertEqual(response.status_code, 200)
         response = json.loads(response.content)
+        print(response)
         self.assertEqual(type(response), list)
         self.assertTrue('user' in response[0])
         self.assertTrue('text' in response[0])
